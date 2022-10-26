@@ -22,6 +22,7 @@ class Bot(object):
         self.temperature = params.get("temperature", 0.72)
         self.top_p = params.get("top_p", 0.725)
         self.top_k = params.get("top_k", 0)
+        self.do_sample = params.get("do_sample", True)
         self.repetition_penalty = params.get("repetition_penalty", 1.13125)
 
         self.device = params.get("device", 0)
@@ -38,7 +39,7 @@ class Bot(object):
             "top_k": self.top_k,
             "repetition_penalty": self.repetition_penalty,
             "max_new_tokens": 64,
-            "do_sample": True,
+            "do_sample": self.do_sample,
             "eos_token_id": self.eos_token_id,
             "pad_token_id": self.eos_token_id,
         }
