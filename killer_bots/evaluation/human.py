@@ -15,8 +15,8 @@ import time
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # MODEL = 'facebook/opt-125m'
-MODEL = 'EleutherAI/gpt-j-6B'
-# MODEL = 'facebook/opt-30b'
+# MODEL = 'EleutherAI/gpt-j-6B'
+MODEL = 'facebook/opt-30b'
 
 REWARD_MODEL = "ChaiML/roberta-base-dalio-reg-v1"
 # REWARD_MODEL = '/models/dalio_reward_models/checkpoint-2700'
@@ -55,12 +55,13 @@ def load_huggingface_model(model_id):
 
 
 params = {
-    "top_p": 0.9,
-    "top_k": 10,
+    "top_p": 1,
+    "top_k": 20,
     "temperature": 1.0,
     "repetition_penalty": 1.0,
     "eos_token_id": 198,  # 50118
     "device": device,
+    "do_sample": False,
 }
 
 
