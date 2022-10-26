@@ -59,7 +59,7 @@ params = {
     "top_k": 20,
     "temperature": 1.0,
     "repetition_penalty": 1.0,
-    "eos_token_id": 12982,  # 50118
+    "eos_token_id": 198,  # 50118
     "device": device,
 }
 
