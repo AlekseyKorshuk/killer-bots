@@ -16,7 +16,7 @@ def get_document_store():
 
 
 def write_docs(document_store, doc_dir):
-    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=clean_wiki_text, split_paragraphs=True)
+    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
     # Now, let's write the dicts containing documents to our DB.
     print(f"Number of docs: {len(docs)}")
     import pdb; pdb.set_trace()
