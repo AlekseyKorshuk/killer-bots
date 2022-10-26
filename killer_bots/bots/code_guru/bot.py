@@ -28,7 +28,7 @@ class CodeGuruBotWithContext(Bot):
         self.pipeline = SearchSummarization("/app/killer-bots/killer_bots/bots/code_guru/database")
 
     def _format_model_inputs(self, text):
-        lines = [prompts.PROMPT] + self.chat_history
+        lines = [self.prompt] + self.chat_history
         context = self.pipeline(text)
         lines += ["Context: " + context]
         lines += [f"{self.bot_name}:"]

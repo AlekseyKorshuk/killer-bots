@@ -7,6 +7,7 @@ from transformers import (
     AutoModelForSequenceClassification,
 )
 
+from killer_bots.bots.code_guru import prompts
 from killer_bots.evaluation.utils import run_score
 from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext
 
@@ -79,8 +80,7 @@ if __name__ == "__main__":
                 model=model,
                 tokenizer=tokenizer,
                 description={'model': MODEL, 'reward_model': None},
-                prompt='\n'.join(
-                    ["This is prompt."]),
+                prompt=prompts.PROMPT,
                 **params,
             ),
         ],
