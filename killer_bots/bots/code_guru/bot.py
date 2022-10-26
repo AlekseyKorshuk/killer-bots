@@ -1,5 +1,6 @@
 from killer_bots.bots.base import Bot
 from killer_bots.bots.code_guru import prompts
+from killer_bots.search_engine.search_summarization import SearchSummarization
 
 
 class CodeGuruBot(Bot):
@@ -24,14 +25,15 @@ class CodeGuruBotWithContext(Bot):
             first_message="I am happy to help with any coding problem. What situation are you facing?",
             **params,
         )
+        self.pipeline = SearchSummarization("/app/killer-bots/killer_bots/bots/code_guru/database")
 
     def _format_model_inputs(self, text):
         lines = [prompts.PROMPT] + self.chat_history
-        lines += ["Context: " + prompts.SOLID_CONTEXT]
+        context = self.pipeline(text)
+        lines += ["Context: " + context]
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
         print("PROMPT:")
         print(lines)
         print("END PROMPT")
         return lines
-
