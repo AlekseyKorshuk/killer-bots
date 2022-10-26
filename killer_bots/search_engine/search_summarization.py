@@ -44,7 +44,7 @@ def test_retriever():
 
 
 def get_summarizer():
-    summarizer = TransformersSummarizer(model_name_or_path="facebook/bart-large-cnn")
+    summarizer = TransformersSummarizer(model_name_or_path="sshleifer/distilbart-cnn-12-6")
     return summarizer
 
 
