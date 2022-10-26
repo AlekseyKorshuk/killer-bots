@@ -30,5 +30,8 @@ class CodeGuruBotWithContext(Bot):
         lines += ["Context: " + prompts.SOLID_CONTEXT]
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
+        print("PROMPT:")
+        print(lines)
+        print("END PROMPT")
         return lines
 
