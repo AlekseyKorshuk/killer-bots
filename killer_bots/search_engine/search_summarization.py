@@ -45,6 +45,7 @@ def test_retriever():
 
 def get_summarizer():
     summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
+    import pdb; pdb.set_trace()
     return summarizer
 
 
