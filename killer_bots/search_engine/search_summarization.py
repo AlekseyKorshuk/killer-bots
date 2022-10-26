@@ -24,7 +24,7 @@ def write_docs(document_store, doc_dir):
 
 def get_retriever(doc_dir):
     document_store = get_document_store()
-    write_docs(document_store, doc_dir)
+    document_store = write_docs(document_store, doc_dir)
     retriever = DensePassageRetriever(
         document_store=document_store,
         query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
