@@ -49,15 +49,17 @@ def get_summarizer():
 def get_search_summarization_pipeline(doc_dir):
     summarizer = get_summarizer()
     retriever = get_retriever(doc_dir)
-    pipeline = SearchSummarizationPipeline(summarizer=summarizer, retriever=retriever, return_in_answer_format=False)
+    pipeline = SearchSummarizationPipeline(summarizer=summarizer, retriever=retriever, return_in_answer_format=True)
     return pipeline
 
 
 def test_search_summarization_pipeline():
     pipeline = get_search_summarization_pipeline("/app/killer-bots/killer_bots/bots/code_guru/database")
-    res = pipeline.run(query="What is SOLID?",
-                       params={"Retriever": {"top_k": 5}, "Summarizer": {"generate_single_summary": True}})
-    print_documents(res, max_text_len=512)
+    query = "What is SOLID?"
+    result = pipeline.run(query=query,
+                          params={"Retriever": {"top_k": 5}, "Summarizer": {"generate_single_summary": True}})
+    print("Query:", query)
+    print("Result", result["answers"][0]["answer"])
 
 
 if __name__ == "__main__":
