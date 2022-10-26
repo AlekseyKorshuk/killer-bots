@@ -1,8 +1,8 @@
 from haystack.document_stores import FAISSDocumentStore
-from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text
-from haystack.nodes import DensePassageRetriever
-from haystack.utils import print_documents
-from haystack.pipelines import DocumentSearchPipeline
+from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
+from haystack.nodes import DensePassageRetriever, TransformersSummarizer
+from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline
+
 import logging
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
@@ -41,5 +41,25 @@ def test_retriever():
     print_documents(res, max_text_len=512)
 
 
+def get_summarizer():
+    summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
+    return summarizer
+
+
+def get_search_summarization_pipeline(doc_dir):
+    summarizer = get_summarizer()
+    retriever = get_retriever(doc_dir)
+    pipeline = SearchSummarizationPipeline(summarizer=summarizer, retriever=retriever, return_in_answer_format=False)
+    return pipeline
+
+
+def test_search_summarization_pipeline():
+    pipeline = get_search_summarization_pipeline("/app/killer-bots/killer_bots/bots/code_guru/database")
+    res = pipeline.run(query="What is SOLID?",
+                       params={"Retriever": {"top_k": 1}, "Summarizer": {"generate_single_summary": True}})
+    print_documents(res, max_text_len=512)
+
+
 if __name__ == "__main__":
-    test_retriever()
+    # test_retriever()
+    test_search_summarization_pipeline()
