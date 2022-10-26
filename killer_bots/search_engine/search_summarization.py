@@ -55,14 +55,6 @@ def get_search_summarization_pipeline(doc_dir):
     return pipeline
 
 
-def test_search_summarization_pipeline():
-    pipeline = get_search_summarization_pipeline("/app/killer-bots/killer_bots/bots/code_guru/database")
-    res = pipeline.run(query="What is SOLID?",
-                       params={"Retriever": {"top_k": 5}, "Summarizer": {"generate_single_summary": True}})
-    print(res)
-    print_documents(res)
-
-
 class SearchSummarization:
     params = {"Retriever": {"top_k": 5}, "Summarizer": {"generate_single_summary": True}}
 
@@ -73,7 +65,15 @@ class SearchSummarization:
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
-        return res
+        return res["documents"][0]["content"]
+
+
+def test_search_summarization_pipeline():
+    pipeline = SearchSummarization("/app/killer-bots/killer_bots/bots/code_guru/database")
+    query = "What is SOLID?"
+    res = pipeline(query=query)
+    print("Query:", query)
+    print("Result:", res)
 
 
 if __name__ == "__main__":
