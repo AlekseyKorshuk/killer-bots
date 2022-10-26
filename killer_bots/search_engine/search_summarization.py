@@ -31,7 +31,7 @@ def get_retriever(doc_dir):
 
 
 def test_retriever():
-    retriever = get_retriever("../bots/code_guru/database")
+    retriever = get_retriever("/app/killer-bots/bots/code_guru/database")
     p_retrieval = DocumentSearchPipeline(retriever)
     res = p_retrieval.run(query="What is SOLID?", params={"Retriever": {"top_k": 3}})
     print_documents(res, max_text_len=512)
