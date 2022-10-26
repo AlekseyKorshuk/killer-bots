@@ -2,7 +2,7 @@ from haystack.document_stores import FAISSDocumentStore
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
 from haystack.nodes import DensePassageRetriever, TransformersSummarizer
 from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline
-
+import os
 import logging
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
@@ -10,7 +10,8 @@ logging.getLogger("haystack").setLevel(logging.INFO)
 
 
 def get_document_store():
-    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat", recreate_index=True)
+    os.remove("faiss_document_store.db")
+    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat")
     return document_store
 
 
