@@ -3,7 +3,10 @@ from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean
 from haystack.nodes import DensePassageRetriever
 from haystack.utils import print_documents
 from haystack.pipelines import DocumentSearchPipeline
+import logging
 
+logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
+logging.getLogger("haystack").setLevel(logging.INFO)
 
 def get_document_store():
     document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
