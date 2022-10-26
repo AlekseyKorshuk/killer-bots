@@ -28,7 +28,7 @@ class CodeGuruBotWithContext(Bot):
     def _format_model_inputs(self, text):
         lines = [prompts.START_PROMPT] + self.chat_history
         lines += ["Context: " + prompts.SOLID_CONTEXT]
-        lines += [f"{self.bot_name}[answers based on context]:"]
+        lines += [f"{self.bot_name} [answers directly based on context]:"]
         lines = "\n".join(lines)
         print("PROMPT:")
         print(lines)
