@@ -19,7 +19,7 @@ def write_docs(document_store, doc_dir):
     docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
     # Now, let's write the dicts containing documents to our DB.
     print(f"Number of docs: {len(docs)}")
-    import pdb; pdb.set_trace()
+    # import pdb; pdb.set_trace()
     document_store.write_documents(docs)
     return document_store
 
@@ -39,7 +39,7 @@ def get_retriever(doc_dir):
 def test_retriever():
     retriever = get_retriever("/app/killer-bots/killer_bots/bots/code_guru/database")
     p_retrieval = DocumentSearchPipeline(retriever)
-    res = p_retrieval.run(query="What is SOLID?", params={"Retriever": {"top_k": 1}})
+    res = p_retrieval.run(query="What is SOLID?", params={"Retriever": {"top_k": 5}})
     print_documents(res)
 
 
