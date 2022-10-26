@@ -44,7 +44,7 @@ def test_retriever():
 
 
 def get_summarizer():
-    summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
+    summarizer = TransformersSummarizer(model_name_or_path="facebook/bart-large-cnn")
     return summarizer
 
 
