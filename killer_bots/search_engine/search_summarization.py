@@ -10,7 +10,7 @@ logging.getLogger("haystack").setLevel(logging.INFO)
 
 
 def get_document_store():
-    document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
+    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat")
     return document_store
 
 
