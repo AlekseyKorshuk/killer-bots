@@ -8,6 +8,7 @@ import logging
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 logging.getLogger("haystack").setLevel(logging.INFO)
 
+
 def get_document_store():
     document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
     return document_store
@@ -34,7 +35,7 @@ def get_retriever(doc_dir):
 
 
 def test_retriever():
-    retriever = get_retriever("/app/killer-bots/bots/code_guru/database")
+    retriever = get_retriever("/app/killer-bots/killer_bots/bots/code_guru/database")
     p_retrieval = DocumentSearchPipeline(retriever)
     res = p_retrieval.run(query="What is SOLID?", params={"Retriever": {"top_k": 3}})
     print_documents(res, max_text_len=512)
