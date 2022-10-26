@@ -70,12 +70,15 @@ class SearchSummarization:
 
 def test_search_summarization_pipeline():
     pipeline = SearchSummarization("/app/killer-bots/killer_bots/bots/code_guru/database")
-    query = "What is SOLID?"
-    res = pipeline(query=query)
-    print("Query:", query)
-    print("Result:", res)
+    while True:
+        query = input("> ")
+        print(pipeline(query))
+    # query = "What is SOLID?"
+    # res = pipeline(query=query)
+    # print("Query:", query)
+    # print("Result:", res)
 
 
 if __name__ == "__main__":
-    test_retriever()
+    # test_retriever()
     test_search_summarization_pipeline()
