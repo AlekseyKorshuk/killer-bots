@@ -61,7 +61,7 @@ params = {
     "repetition_penalty": 1.0,
     "eos_token_id": 50118,  # 50118
     "device": device,
-    "do_sample": False,
+    "do_sample": True,
 }
 
 
