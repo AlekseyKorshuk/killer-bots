@@ -55,7 +55,7 @@ def load_huggingface_model(model_id):
 
 
 params = {
-    "top_p": 0,
+    "top_p": 0.9,
     "top_k": 10,
     "temperature": 1.0,
     "repetition_penalty": 1.0,
