@@ -1,5 +1,9 @@
 SOLID Principles-simple and easy explanation
 
+
+
+
+
 SOLID Principles is a coding standard that all developers should have a clear concept for developing software properly to avoid a bad design. It was promoted by Robert C Martin and is used across the object-oriented design spectrum. When applied properly it makes your code more extendable, logical, and easier to read.
 When the developer builds software following a bad design, the code can become inflexible and more brittle. Small changes in the software can result in bugs. For these reasons, we should follow SOLID Principles.
 It takes some time to understand, but if you write code following these principles, it will improve code quality and help you understand the most well-designed software.
