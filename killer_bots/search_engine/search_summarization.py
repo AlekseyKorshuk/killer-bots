@@ -61,5 +61,5 @@ def test_search_summarization_pipeline():
 
 
 if __name__ == "__main__":
-    # test_retriever()
+    test_retriever()
     test_search_summarization_pipeline()
