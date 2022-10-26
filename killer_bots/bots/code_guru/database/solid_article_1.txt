@@ -1,28 +1,17 @@
-SOLID Principles-simple and easy explanation
-
 SOLID Principles is a coding standard that all developers should have a clear concept for developing software properly to avoid a bad design. It was promoted by Robert C Martin and is used across the object-oriented design spectrum. When applied properly it makes your code more extendable, logical, and easier to read.
 When the developer builds software following a bad design, the code can become inflexible and more brittle. Small changes in the software can result in bugs. For these reasons, we should follow SOLID Principles.
 It takes some time to understand, but if you write code following these principles, it will improve code quality and help you understand the most well-designed software.
 To understand SOLID principles, you have to know the use of the interface clearly. If your concept isn’t clear about interface then you can read this doc.
 I’m going to try to explain SOLID Principles in the simplest way so that it’s easy for beginners to understand. Let’s go through each principle one by one:
+
 Single Responsibility Principle:
 A class should have one, and only one, reason to change.
 One class should serve only one purpose. This does not imply that each class should have only one method, but they should all relate directly to the responsibility of the class. All the methods and properties should work towards the same goal. When a class serves multiple purposes or responsibilities, it should be made into a new class.
-Please look at the following code:
-
-The above class violates the single responsibility principle. Why should this class retrieve data from the database? It is related to the persistence layer. The persistence layer deals with persisting (storing and retrieving) data from a data store (such as a database, for example). So it is not the responsibility of this class.
-Method format is also not the responsibility of this class, because we may need different data formats such as XML, JSON, HTML, etc.
-So finally the refactored code will be described as below:
 
 Open-Closed Principle:
 Entities should be open for extension, but closed for modification.
 Software entities (classes, modules, functions, etc.) should be extendable without actually changing the contents of the class you’re extending. If we could follow this principle strongly enough, it is possible to then modify the behavior of our code without ever touching a piece of the original code.
-Please look at the following code:
 
-If we want to calculate the area of a square, we have to modify the calculate method in the CostManager class. It breaks the open-closed principle. According to this principle, we can’t modify, but we can extend.
-So how can we fix this problem? See the following code:
-
-Now we can find a square’s area without modifying the CostManager class.
 Liskov Substitution Principle:
 The Liskov Substitution principle was introduced by Barbara Liskov in her conference keynote “Data abstraction” in 1987. Barbara Liskov and Jeannette Wing formulated the principle succinctly in a 1994 paper as follows:
 Let φ(x) be a property provable about objects x of type T. Then φ(y) should be true for objects y of type S where S is a subtype of T.
@@ -34,26 +23,19 @@ Robert Martin made the definition smoother and more concise in 1996:
 Functions that use pointers of references to base classes must be able to use objects of derived classes without knowing it.
 Or simply: Subclass/derived classes should be substitutable for their base/parent class.
 It states that any implementation of an abstraction (interface) should be substitutable in any place that the abstraction is accepted. Basically, it takes care that while coding using interfaces in our code, we not only have a contract of input that the interface receives, but also the output returned by different classes implementing that interface; they should be of the same type.
-This code snippet shows what violates LSP and how we can fix it:
 
 Interface Segregation Principle:
 A client should not be forced to implement an interface that it doesn’t use.
 This rule means that we should break our interfaces into many smaller ones, so they better satisfy the exact needs of our clients.
 Similar to the Single Responsibility Principle, the goal of the Interface Segregation Principle is to minimize side consequences and repetition by dividing the software into multiple, independent parts.
-Let’s see an example:
-
-In the above code, RobotWorker doesn’t need sleep, but the class has to implement the sleep method because we know that all methods are abstract in the interface. It breaks the Interface Segregation law. Please see the following code for how we can fix it:
 
 Dependency Inversion Principle:
 High-level modules should not depend on low-level modules. Both should depend on abstractions.
 Abstractions should not depend on details. Details should depend on abstractions.
 Or simply: Depend on abstractions, not on concretions.
 By applying the Dependency Inversion Principle, the modules can be easily changed by other modules just changing the dependency module. Any changes to the low-level module won’t affect the high-level module.
-Please look at the following code:
 
 There’s a common misunderstanding that dependency inversion is simply another way to say dependency injection. However, the two are not the same.
 In the above code, in spite of injecting the MySQLConnection class in the PasswordReminder class, it depends on MySQLConnection. The high-level module PasswordReminder shouldn’t depend on the low-level module MySQLConnection.
 If we want to change the connection from MySQLConnection to MongoDBConnection, we have to change the hard-coded constructor injection in the PasswordReminder class.
-The PasswordReminder class should depend on abstractions, not on concretions. But how can we do it? Please see the following example:
-
-In the above code, we want to change the connection from MySQLConnection to MongoDBConnection. We don’t need to change constructor injection in the PasswordReminder class. Because here the PasswordReminder class depends on abstractions, not concretions.
+The PasswordReminder class should depend on abstractions, not on concretions. But how can we do it?
