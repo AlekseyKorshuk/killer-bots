@@ -65,7 +65,7 @@ class SearchSummarization:
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
-        return res["documents"][0]["content"]
+        return res["documents"][0].content
 
 
 def test_search_summarization_pipeline():
