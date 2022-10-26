@@ -8,7 +8,7 @@ from transformers import (
 )
 
 from killer_bots.evaluation.utils import run_score
-from killer_bots.bots.code_guru.bot import CodeGuruBot
+from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext
 
 import time
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
 
     run_score(
         [
-            CodeGuruBot(
+            CodeGuruBotWithContext(
                 model=model,
                 tokenizer=tokenizer,
                 description={'model': MODEL, 'reward_model': None},
