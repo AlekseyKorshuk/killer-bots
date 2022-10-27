@@ -81,4 +81,7 @@ class CodeGuruBotWithDialogue(Bot):
         print("PROMPT:")
         print(lines)
         print("END PROMPT")
+        print("CHAT HISTORY:")
+        print(self.chat_history)
+        print("END CHAT HISTORY")
         return lines
