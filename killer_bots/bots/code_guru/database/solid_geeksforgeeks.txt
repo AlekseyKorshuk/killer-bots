@@ -1,13 +1,11 @@
 In software development, Object-Oriented Design plays a crucial role when it comes to writing flexible, scalable, maintainable, and reusable code. There are so many benefits of using OOD but every developer should also have the knowledge of the SOLID principle for good object-oriented design in programming. The SOLID principle was introduced by Robert C. Martin, also known as Uncle Bob and it is a coding standard in programming.
-
-List of SOLID Principles:
 Single Responsibility Principle (SRP)
 Open/Closed Principle (OCP)
 Liskov’s Substitution Principle (LSP)
 Interface Segregation Principle (ISP)
 Dependency Inversion Principle (DIP)
+SOLID-Principle-in-Programming-Understand-With-Real-Life-Examples
 
-Why SOLID Principles are Important?
 The SOLID principle helps in reducing tight coupling. Tight coupling means a group of classes are highly dependent on one another which you should avoid in your code. Opposite of tight coupling is loose coupling and your code is considered as a good code when it has loosely-coupled classes. Loosely coupled classes minimize changes in your code, helps in making code more reusable, maintainable, flexible and stable. Now let’s discuss one by one these principles…
 
 1. Single Responsibility Principle: This principle states that “a class should have only one reason to change” which means every class should have a single responsibility or single job or single purpose. Take the example of developing software. The task is divided into different members doing different things as front-end designers do design, the tester does testing and backend developer takes care of backend development part then we can say that everyone has a single job or responsibility.
