@@ -63,7 +63,7 @@ if __name__ == "__main__":
     # model.resize_token_embeddings(len(tokenizer))
     # print(tokenizer('[EOT]'))
     # eot_id = tokenizer('[EOT]')['input_ids'][-1]
-    params['eos_token_id'] = 2
+    # params['eos_token_id'] = 2
 
     bot = CodeGuruBotWithDialogue(
         model=model,

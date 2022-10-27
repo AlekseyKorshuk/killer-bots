@@ -25,6 +25,7 @@ class Bot(object):
         self.top_k = params.get("top_k", 0)
         self.do_sample = params.get("do_sample", True)
         self.repetition_penalty = params.get("repetition_penalty", 1.13125)
+        self.stopping_criteria = None
 
         self.device = params.get("device", 0)
         self.reset_chat_history()
@@ -92,6 +93,7 @@ class Bot(object):
         return self.model.generate(
             input_ids=encoded.input_ids,
             attention_mask=encoded.attention_mask,
+            stopping_criteria=self.stopping_criteria
             **request_params,
         )
 
