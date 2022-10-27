@@ -66,11 +66,16 @@ class StoppingCriteriaSub(StoppingCriteria):
 
     def __init__(self, stops=[]):
         StoppingCriteria.__init__(self)
+        self.stops = stops
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, stops=[]):
+        print("STOPPING CRITERIA")
+        print("INPUT_IDS", input_ids)
+        print("END STOPPING CRITERIA")
         self.stops = stops
         for i in range(len(stops)):
             self.stops = self.stops[i]
+        return False
 
 
 class CodeGuruBotWithDialogue(Bot):
@@ -84,9 +89,9 @@ class CodeGuruBotWithDialogue(Bot):
             **params,
         )
         self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
-        input_ids = self.tokenizer("User:").input_ids[1:]
+        input_ids = self.tokenizer("\nUser:").input_ids[1:]
         print(input_ids)
-        self.stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=[input_ids])])
+        self.stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=input_ids)])
 
     def _format_model_inputs(self, text):
         context = self.pipeline(text)
