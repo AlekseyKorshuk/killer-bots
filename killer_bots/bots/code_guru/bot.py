@@ -78,7 +78,7 @@ class CodeGuruBotWithDialogue(Bot):
         # lines += ["", prompts.START_PROMPT]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
-        lines = "\n".join(lines)
+        lines = "[EOT]\n".join(lines)
         print("PROMPT:")
         print(lines)
         print("END PROMPT")
