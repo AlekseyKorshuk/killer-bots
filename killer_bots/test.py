@@ -16,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 MODEL = 'facebook/opt-30b'
 
-MODEL = 'facebook/opt-125m'
+# MODEL = 'facebook/opt-125m'
 
 
 # MODEL = 'EleutherAI/gpt-j-6B'
@@ -74,5 +74,5 @@ if __name__ == "__main__":
         **params,
     )
 
-    response = bot.respond("List all SOLID principles separating them with a new line.")
+    response = bot.respond("Can you list all SOLID principles separating them with a new line?")
     print(response)
