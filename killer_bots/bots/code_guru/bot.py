@@ -70,6 +70,7 @@ class CodeGuruBotWithDialogue(Bot):
             **params,
         )
         self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
+        self.splitter_text = tokenizer.decode([2])
 
     def _format_model_inputs(self, text):
         context = self.pipeline(text)
@@ -78,7 +79,7 @@ class CodeGuruBotWithDialogue(Bot):
         # lines += ["", prompts.START_PROMPT]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
-        lines = "[EOT]\n".join(lines)
+        lines = f"{self.splitter_text}\n".join(lines)
         print("PROMPT:")
         print(lines)
         print("END PROMPT")
