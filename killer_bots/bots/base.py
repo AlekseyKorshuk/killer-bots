@@ -93,7 +93,7 @@ class Bot(object):
         return self.model.generate(
             input_ids=encoded.input_ids,
             attention_mask=encoded.attention_mask,
-            stopping_criteria=self.stopping_criteria
+            stopping_criteria=self.stopping_criteria,
             **request_params,
         )
 
