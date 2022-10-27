@@ -65,7 +65,7 @@ class CodeGuruBotLFQA(Bot):
 class StoppingCriteriaSub(StoppingCriteria):
 
     def __init__(self, stops=[]):
-        StoppingCriteria.__init__(self),
+        StoppingCriteria.__init__(self)
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, stops=[]):
         self.stops = stops
