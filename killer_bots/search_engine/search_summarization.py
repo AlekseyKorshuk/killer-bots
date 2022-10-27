@@ -1,3 +1,4 @@
+import numpy as np
 from haystack.document_stores import FAISSDocumentStore
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
 from haystack.nodes import DensePassageRetriever, TransformersSummarizer
@@ -73,9 +74,10 @@ class SearchSummarization:
         document_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_documents(
             [Document(response)]
         )
-        import pdb; pdb.set_trace()
-        score = cosine_similarity(query_embedding, document_embedding)[0][0]
-        return (response, score)
+        # import pdb; pdb.set_trace()
+        cosine_score = cosine_similarity(query_embedding, document_embedding)[0][0]
+        dot_score = np.dot(query_embedding[0], document_embedding[0])
+        return (response, cosine_score, dot_score)
 
 
 def test_search_summarization_pipeline():
