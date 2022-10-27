@@ -25,6 +25,7 @@ class Bot(object):
         self.top_k = params.get("top_k", 0)
         self.do_sample = params.get("do_sample", True)
         self.repetition_penalty = params.get("repetition_penalty", 1.13125)
+        self.stopping_ids = None
         self.stopping_criteria = None
 
         self.device = params.get("device", 0)
@@ -98,6 +99,9 @@ class Bot(object):
         )
 
     def _decode(self, outputs):
+        import pdb; pdb.set_trace()
+        if self.stopping_ids is not None:
+            outputs = outputs[-len(self.stopping_ids):]
         return self.tokenizer.decode(
             outputs,
             skip_special_tokens=True,

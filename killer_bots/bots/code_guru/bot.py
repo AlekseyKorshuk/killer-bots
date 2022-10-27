@@ -89,7 +89,6 @@ class CodeGuruBotWithDialogue(Bot):
         )
         self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
         input_ids = self.tokenizer("\nUser:").input_ids[1:]
-        print(input_ids)
         self.stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=input_ids)])
 
     def _format_model_inputs(self, text):
