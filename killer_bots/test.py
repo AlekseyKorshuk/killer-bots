@@ -16,7 +16,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 MODEL = 'facebook/opt-30b'
 
-MODEL = 'facebook/opt-125m'
+# MODEL = 'facebook/opt-125m'
 
 
 # MODEL = 'EleutherAI/gpt-j-6B'
@@ -59,11 +59,11 @@ if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
 
-    num_added_toks = tokenizer.add_tokens(['[EOT]'], special_tokens=True)
-    model.resize_token_embeddings(len(tokenizer))
-    print(tokenizer('[EOT]'))
-    eot_id = tokenizer('[EOT]')['input_ids'][-1]
-    params['eos_token_id'] = eot_id
+    # num_added_toks = tokenizer.add_tokens(['[EOT]'], special_tokens=True)
+    # model.resize_token_embeddings(len(tokenizer))
+    # print(tokenizer('[EOT]'))
+    # eot_id = tokenizer('[EOT]')['input_ids'][-1]
+    params['eos_token_id'] = 2
 
     bot = CodeGuruBotWithDialogue(
         model=model,
