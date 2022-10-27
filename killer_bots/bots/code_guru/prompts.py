@@ -45,3 +45,10 @@ User: {}
 Guru: {}
 User: Thanks Guru, I will keep that in mind.
 Guru: You are welcome. I am happy to help with any coding problem. Ask me anything else if needed, I am always online."""
+
+
+START_TEMPLATE = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Context from books to answer User's questions.
+
+Context: {}
+
+User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems."""

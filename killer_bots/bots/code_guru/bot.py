@@ -73,8 +73,8 @@ class CodeGuruBotWithDialogue(Bot):
     def _format_model_inputs(self, text):
         context = self.pipeline(text)
 
-        lines = [prompts.DIALOGUE_TEMPLATE.format(text, context)]
-        lines += ["", prompts.START_PROMPT]
+        lines = [prompts.START_TEMPLATE.format(context)]
+        # lines += ["", prompts.START_PROMPT]
         lines += self.chat_history
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
