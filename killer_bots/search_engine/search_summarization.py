@@ -15,7 +15,7 @@ logging.getLogger("haystack").setLevel(logging.INFO)
 
 def get_document_store():
     os.remove("faiss_document_store.db")
-    document_store = FAISSDocumentStore(embedding_dim=768, faiss_index_factory_str="Flat")
+    document_store = FAISSDocumentStore(embedding_dim=1024, faiss_index_factory_str="Flat")
     return document_store
 
 
