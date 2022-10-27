@@ -30,7 +30,7 @@ class Bot(object):
         self.reset_chat_history()
 
     def _get_cropped_history(self):
-        if self.max_history_size > 0:
+        if self.max_history_size > 0 and len(self.chat_history) > self.max_history_size * 2:
             return self.chat_history[:1] + self.chat_history[-self.max_history_size * 2 - 1:]
         return self.chat_history
 
