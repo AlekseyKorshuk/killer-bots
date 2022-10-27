@@ -78,7 +78,8 @@ class SearchSummarization:
         # import pdb; pdb.set_trace()
         cosine_score = cosine_similarity(query_embedding, document_embedding)[0][0]
         dot_score = np.dot(query_embedding[0], document_embedding[0])
-        return (response, cosine_score, dot_score)
+        return response
+        # return (response, cosine_score, dot_score)
 
 
 def test_search_summarization_pipeline():
@@ -87,6 +88,23 @@ def test_search_summarization_pipeline():
         query = input("> ")
         print(pipeline(query))
 
+
+TEST_QUESTIONS = [
+    "What is SOLID?",
+    "What is the difference between a class and an object?",
+    "What is Single Responsibility Principle?",
+    "What is Open-Closed Principle?",
+    "What is Liskov Substitution Principle?",
+    "What is Interface Segregation Principle?",
+    "What is Dependency Inversion Principle?",
+    "Why should I use SOLID?",
+    "Who created SOLID?",
+    "How are you?",
+    "What is your name?",
+    "What is your age?",
+    "What is your favorite color?",
+    "How can you help me?",
+]
 
 if __name__ == "__main__":
     # test_retriever()
