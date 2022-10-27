@@ -8,7 +8,6 @@ from transformers import (
 )
 
 from killer_bots.bots.code_guru import prompts
-from killer_bots.evaluation.utils import run_score
 from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA, CodeGuruBotWithDialogue
 
 import time
