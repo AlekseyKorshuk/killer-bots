@@ -17,7 +17,6 @@ def get_document_store():
 
 def write_docs(document_store, doc_dir):
     docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
-    # Now, let's write the dicts containing documents to our DB.
     print(f"Number of docs: {len(docs)}")
     # import pdb; pdb.set_trace()
     document_store.write_documents(docs)
@@ -73,10 +72,6 @@ def test_search_summarization_pipeline():
     while True:
         query = input("> ")
         print(pipeline(query))
-    # query = "What is SOLID?"
-    # res = pipeline(query=query)
-    # print("Query:", query)
-    # print("Result:", res)
 
 
 if __name__ == "__main__":
