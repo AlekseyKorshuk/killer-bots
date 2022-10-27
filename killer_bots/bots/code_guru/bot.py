@@ -1,6 +1,7 @@
 from killer_bots.bots.base import Bot
 from killer_bots.bots.code_guru import prompts
 from killer_bots.search_engine.search_summarization import SearchSummarization
+from killer_bots.search_engine.lfqa import LFQA
 
 
 class CodeGuruBot(Bot):
@@ -25,7 +26,7 @@ class CodeGuruBotWithContext(Bot):
             first_message="I am happy to help with any coding problem. What situation are you facing?",
             **params,
         )
-        self.pipeline = SearchSummarization("/app/killer-bots/killer_bots/bots/code_guru/database")
+        self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
 
     def _format_model_inputs(self, text):
         lines = [self.prompt] + self.chat_history

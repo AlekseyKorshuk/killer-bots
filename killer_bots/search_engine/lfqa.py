@@ -40,7 +40,7 @@ class LFQA:
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
         response = res["documents"][0].content
-        return response
+        return response.replace("\n", " ")
         # return (response, cosine_score, dot_score)
 
 
