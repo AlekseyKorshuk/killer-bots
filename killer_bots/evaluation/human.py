@@ -71,8 +71,8 @@ def load_tokenizer(model_id):
 
 
 if __name__ == "__main__":
-    # model = load_huggingface_model(MODEL)
-    # tokenizer = load_tokenizer(MODEL)
+    model = load_huggingface_model(MODEL)
+    tokenizer = load_tokenizer(MODEL)
 
     run_score(
         [
