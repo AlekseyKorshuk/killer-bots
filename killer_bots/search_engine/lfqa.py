@@ -8,25 +8,13 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 import logging
 
-from killer_bots.search_engine.utils import get_search_summarization_pipeline, get_retriever, get_summarizer
+from killer_bots.search_engine.utils import get_search_summarization_pipeline, get_retriever, get_summarizer, \
+    get_lfqa_pipeline
 from haystack.nodes import Seq2SeqGenerator
 from haystack.pipelines import GenerativeQAPipeline
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 logging.getLogger("haystack").setLevel(logging.INFO)
-
-
-def get_lfqa_generator():
-    generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
-    return generator
-
-
-def get_lfqa_pipeline(doc_dir):
-    generator = get_lfqa_generator()
-    retriever = get_retriever(doc_dir)
-    pipeline = GenerativeQAPipeline(generator, retriever)
-    # import pdb; pdb.set_trace()
-    return pipeline
 
 
 class LFQA:
@@ -53,6 +41,14 @@ def test_lfqa_pipeline():
         print(pipeline(query))
 
 
+def evaluate_lfqa_pipeline(questions):
+    pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
+    for question in questions:
+        print("Question:", question)
+        print("Answer:", pipeline(question))
+        print()
+
+
 TEST_QUESTIONS = [
     "What is SOLID?",
     "What is Single Responsibility Principle?",
@@ -70,5 +66,5 @@ TEST_QUESTIONS = [
 ]
 
 if __name__ == "__main__":
-    # test_retriever()
+    evaluate_lfqa_pipeline(TEST_QUESTIONS)
     test_lfqa_pipeline()

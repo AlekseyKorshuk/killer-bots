@@ -63,6 +63,7 @@ params = {
     "eos_token_id": 50118,  # 50118
     "device": device,
     "do_sample": True,
+    "max_new_tokens": 256,
 }
 
 
@@ -81,6 +82,7 @@ if __name__ == "__main__":
                 tokenizer=tokenizer,
                 description={'model': MODEL, 'reward_model': None},
                 prompt=prompts.PROMPT,
+                max_history_size=3,
                 **params,
             ),
         ],

@@ -58,6 +58,7 @@ class CodeGuruBotLFQA(Bot):
         self._add_bot_message(response)
         return response
 
+
 class CodeGuruBotWithDialogue(Bot):
     def __init__(self, model, tokenizer, description, **params):
         super().__init__(
@@ -75,7 +76,7 @@ class CodeGuruBotWithDialogue(Bot):
 
         lines = [prompts.START_TEMPLATE.format(context)]
         # lines += ["", prompts.START_PROMPT]
-        lines += self.chat_history
+        lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
         print("PROMPT:")

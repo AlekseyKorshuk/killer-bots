@@ -2,8 +2,8 @@ import os
 from haystack.document_stores import FAISSDocumentStore
 import numpy as np
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
-from haystack.nodes import DensePassageRetriever, TransformersSummarizer
-from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline
+from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator
+from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline, GenerativeQAPipeline
 from haystack import Document
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -47,4 +47,16 @@ def get_search_summarization_pipeline(doc_dir):
     retriever = get_retriever(doc_dir)
     pipeline = SearchSummarizationPipeline(summarizer=summarizer, retriever=retriever, return_in_answer_format=False)
     # import pdb; pdb.set_trace()
+    return pipeline
+
+
+def get_lfqa_generator():
+    generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
+    return generator
+
+
+def get_lfqa_pipeline(doc_dir):
+    generator = get_lfqa_generator()
+    retriever = get_retriever(doc_dir)
+    pipeline = GenerativeQAPipeline(generator, retriever)
     return pipeline

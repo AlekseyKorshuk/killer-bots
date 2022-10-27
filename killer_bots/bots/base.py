@@ -18,6 +18,7 @@ class Bot(object):
         self.user_name = params.get("user_name", "User")
         self.first_message = params.get("first_message", "Hi.")
         self.prompt = params.get("prompt", "This is a conversation.")
+        self.max_history_size = params.get("max_history_size", -1)
 
         self.temperature = params.get("temperature", 0.72)
         self.top_p = params.get("top_p", 0.725)
@@ -27,6 +28,11 @@ class Bot(object):
 
         self.device = params.get("device", 0)
         self.reset_chat_history()
+
+    def _get_cropped_history(self):
+        if self.max_history_size > 0:
+            return self.chat_history[:1] + self.chat_history[-self.max_history_size * 2 - 1:]
+        return self.chat_history
 
     def reset_chat_history(self):
         self.chat_history = []
