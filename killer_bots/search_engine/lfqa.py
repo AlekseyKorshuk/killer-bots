@@ -41,7 +41,7 @@ class LFQA:
         res = self.pipeline.run(query=query, params=self.params)
         response = res["documents"][0].content.replace("\n", " ")
         if response[-1] != ".":
-            response[-1] = "."
+            response = response[:-1] + "."
         return response
         # return (response, cosine_score, dot_score)
 
