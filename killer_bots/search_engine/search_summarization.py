@@ -73,6 +73,7 @@ class SearchSummarization:
         document_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_documents(
             [Document(response)]
         )
+        import pdb; pdb.set_trace()
         score = cosine_similarity(query_embedding, document_embedding)[0][0]
         return (response, score)
 
@@ -85,5 +86,5 @@ def test_search_summarization_pipeline():
 
 
 if __name__ == "__main__":
-    test_retriever()
+    # test_retriever()
     test_search_summarization_pipeline()
