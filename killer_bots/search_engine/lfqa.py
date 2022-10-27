@@ -27,7 +27,7 @@ class LFQA:
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
-        response = res["documents"][0].content.replace("\n", " ")
+        response = res["documents"][0].content
         if response[-1] != ".":
             response = response[:-1] + "."
         return response
