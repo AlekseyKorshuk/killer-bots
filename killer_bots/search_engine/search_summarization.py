@@ -69,7 +69,9 @@ class SearchSummarization:
         res = self.pipeline.run(query=query, params=self.params)
         response = res["documents"][0].content
         query_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_queries([query])
-        document_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_documents([response])
+        document_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_documents(
+            [Document(response)]
+        )
         score = cosine_similarity(query_embedding, document_embedding)[0][0]
         return (response, score)
 
