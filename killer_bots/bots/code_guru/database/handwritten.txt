@@ -1,50 +1,50 @@
 Covariance & Contravariance
 In it's simplest form, covariance, contravariance and invariance describe type "assignment compatibility":
-• Covariant: class A is a covariant of class B when class A is a subtype of class B - class of type A can be assigned to an variable of class type B. Use out keyword in c# to indicate covariance. Often used in return type assignment compatibility.
-• Contravariant: class A is a contravariant of class B when class A is a supertype of class B - class of type B can be assigned to a variable of class type A. Use in keyword in c# to indicate contravariance. Often used in method parameter assignment compatibility.
-• Invariant: class A is neither a subtype nor a supertype of Class B - no assignment can be made between the two types.
+Covariant: class A is a covariant of class B when class A is a subtype of class B - class of type A can be assigned to an variable of class type B. Use out keyword in c# to indicate covariance. Often used in return type assignment compatibility.
+Contravariant: class A is a contravariant of class B when class A is a supertype of class B - class of type B can be assigned to a variable of class type A. Use in keyword in c# to indicate contravariance. Often used in method parameter assignment compatibility.
+Invariant: class A is neither a subtype nor a supertype of Class B - no assignment can be made between the two types.
 
 What is DRY?
 Don't Repeat Yourself - AKA: Duplication is Evil (DIE)
-• "Every piece of knowledge must have a single, unambiguous, authoritative representation within a system" [The Pragmatic Programmer]
-• Hunt and Thomas apply it quite broadly to include "database schemas, test plans, the build system, even documentation"
-• When applied successfully, a modification of any single element of a system does not require a change in other logically-unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync
+"Every piece of knowledge must have a single, unambiguous, authoritative representation within a system" [The Pragmatic Programmer]
+Hunt and Thomas apply it quite broadly to include "database schemas, test plans, the build system, even documentation"
+When applied successfully, a modification of any single element of a system does not require a change in other logically-unrelated elements. Additionally, elements that are logically related all change predictably and uniformly, and are thus kept in sync
 
 What constitutes Bad Software Design?
 A piece of software that fulfills its requirements and yet exhibits any or all of the following three traits has a bad design:
-• Rigidity: It is hard to change because every change affects too many other parts of the system
-• Fragility: When you make a change, unexpected parts of the system break
-• Immobility: It is hard to reuse in another application because it cannot be disentangled from the current application
+Rigidity: It is hard to change because every change affects too many other parts of the system
+Fragility: When you make a change, unexpected parts of the system break
+Immobility: It is hard to reuse in another application because it cannot be disentangled from the current application
 
 What is the Dependency Inversion Principle?
 A specific form of decoupling where conventional dependency relationships established from high-level, policy-setting modules to low-level, dependency modules are reversed for the purpose of rendering high-level modules independent of the low-level module implementation details.
-• High-level modules should not depend on low-level modules; both should depend on abstractions
-• Abstractions should not depend on details; details should depend on abstractions
+High-level modules should not depend on low-level modules; both should depend on abstractions
+Abstractions should not depend on details; details should depend on abstractions
 
 What is the Interface Segregation Principle?
-• Classes that implement interfaces should not be forced to implement methods they do not use. Another way of putting it is: use small interfaces, not fat ones
-• Focuses on the cohesiveness of interfaces with respect to the implementors that use them
-• Keep each implementation independent of interfaces that they do not use. If you need to change one interface, you shouldn't need to change the other
+Classes that implement interfaces should not be forced to implement methods they do not use. Another way of putting it is: use small interfaces, not fat ones
+Focuses on the cohesiveness of interfaces with respect to the implementors that use them
+Keep each implementation independent of interfaces that they do not use. If you need to change one interface, you shouldn't need to change the other
 
 What are the behavioral conditions that a subtype must meet in the Liskov Substitution Principle?
-• Preconditions cannot be strengthened in a subtype
-• Postconditions cannot be weakened in a subtype
-• Invariants of the supertype must be preserved in a subtype
-• History constraint (the "history rule"). Objects are regarded as being modifiable only through their methods (encapsulation)
-• Subtypes may introduce methods that are not present in the supertype. However, state changes in the subtype must be invariant with those that can occur in the supertype.
-• Fields added to the subtype may be safely modified because they are not observable through the supertype methods.
+Preconditions cannot be strengthened in a subtype
+Postconditions cannot be weakened in a subtype
+Invariants of the supertype must be preserved in a subtype
+History constraint (the "history rule"). Objects are regarded as being modifiable only through their methods (encapsulation)
+Subtypes may introduce methods that are not present in the supertype. However, state changes in the subtype must be invariant with those that can occur in the supertype.
+Fields added to the subtype may be safely modified because they are not observable through the supertype methods.
 
 What are the standard signature requirements of the Liskov Substitution Principle?
-• Contravariance of method arguments in the subtype
-• Covariance of return types in the subtype
-• No new exceptions should be thrown by methods of the subtype, except where those exceptions are themselves subtypes of exceptions thrown by the methods of the supertype
+Contravariance of method arguments in the subtype
+Covariance of return types in the subtype
+No new exceptions should be thrown by methods of the subtype, except where those exceptions are themselves subtypes of exceptions thrown by the methods of the supertype
 
 What is the Liskov Substitution Principle?
 ...is the notion that "objects in a program should be replaceable with instances of their subtypes without altering the correctness of that program"
 Liskov's notion of a behavioral subtype defines a notion of substitutability for mutable objects; that is, if S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program (e.g., correctness)
 
 Describe Meyer's original implementation inheritance version of the Open/Closed Principle.
-• A classes implementation should only be modified to correct errors; new or changed features would require a subclass be created
-• The subclass uses current functionality by inheritance
-• The subclass interface need not implement the original classes interface
-• Meyers has been replaced by Martins polymorphic interface version
+A classes implementation should only be modified to correct errors; new or changed features would require a subclass be created
+The subclass uses current functionality by inheritance
+The subclass interface need not implement the original classes interface
+Meyers has been replaced by Martins polymorphic interface version
