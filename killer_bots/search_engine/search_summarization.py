@@ -56,6 +56,7 @@ def get_search_summarization_pipeline(doc_dir):
     summarizer = get_summarizer()
     retriever = get_retriever(doc_dir)
     pipeline = SearchSummarizationPipeline(summarizer=summarizer, retriever=retriever, return_in_answer_format=False)
+    import pdb; pdb.set_trace()
     return pipeline
 
 
