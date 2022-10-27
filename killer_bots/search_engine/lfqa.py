@@ -8,52 +8,44 @@ from sklearn.metrics.pairwise import cosine_similarity
 import os
 import logging
 
-from killer_bots.search_engine.utils import get_search_summarization_pipeline, get_retriever
+from killer_bots.search_engine.utils import get_search_summarization_pipeline, get_retriever, get_summarizer
+from haystack.nodes import Seq2SeqGenerator
+from haystack.pipelines import GenerativeQAPipeline
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 logging.getLogger("haystack").setLevel(logging.INFO)
 
 
+def get_lfqa_generator():
+    generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
+    return generator
 
 
-
-def test_retriever():
-    retriever = get_retriever("/app/killer-bots/killer_bots/bots/code_guru/database")
-    p_retrieval = DocumentSearchPipeline(retriever)
-    res = p_retrieval.run(query="What is SOLID?", params={"Retriever": {"top_k": 5}})
-    # print(res)
-    print_documents(res)
-
+def get_lfqa_pipeline(doc_dir):
+    generator = get_lfqa_generator()
+    retriever = get_retriever(doc_dir)
+    pipeline = GenerativeQAPipeline(generator, retriever)
+    # import pdb; pdb.set_trace()
+    return pipeline
 
 
-
-
-
-
-class SearchSummarization:
-    params = {"Retriever": {"top_k": 5}, "Summarizer": {"generate_single_summary": True}}
+class LFQA:
+    params = {"Retriever": {"top_k": 5}, "Generator": {"top_k": 5}}
 
     def __init__(self, doc_dir, params=None):
-        self.pipeline = get_search_summarization_pipeline(doc_dir)
+        self.pipeline = get_lfqa_pipeline(doc_dir)
         if params is not None:
             self.params = params
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
         response = res["documents"][0].content
-        query_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_queries([query])
-        document_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_documents(
-            [Document(response)]
-        )
-        # import pdb; pdb.set_trace()
-        cosine_score = cosine_similarity(query_embedding, document_embedding)[0][0]
-        dot_score = np.dot(query_embedding[0], document_embedding[0])
         return response
         # return (response, cosine_score, dot_score)
 
 
-def test_search_summarization_pipeline():
-    pipeline = SearchSummarization("/app/killer-bots/killer_bots/bots/code_guru/database")
+def test_lfqa_pipeline():
+    pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
     while True:
         query = input("> ")
         print(pipeline(query))
@@ -78,4 +70,4 @@ TEST_QUESTIONS = [
 
 if __name__ == "__main__":
     # test_retriever()
-    test_search_summarization_pipeline()
+    test_lfqa_pipeline()
