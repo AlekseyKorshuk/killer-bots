@@ -47,7 +47,7 @@ User: Thanks Guru, I will keep that in mind.
 Guru: You are welcome. I am happy to help with any coding problem. Ask me anything else if needed, I am always online."""
 
 
-START_TEMPLATE = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Context from books to answer User's questions.
+START_TEMPLATE = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Context from books to answer User's questions directly, with detailed explanations.
 
 Context: {}
 
