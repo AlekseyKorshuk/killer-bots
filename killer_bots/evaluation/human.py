@@ -9,7 +9,7 @@ from transformers import (
 
 from killer_bots.bots.code_guru import prompts
 from killer_bots.evaluation.utils import run_score
-from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext
+from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA
 
 import time
 
@@ -71,14 +71,14 @@ def load_tokenizer(model_id):
 
 
 if __name__ == "__main__":
-    model = load_huggingface_model(MODEL)
-    tokenizer = load_tokenizer(MODEL)
+    # model = load_huggingface_model(MODEL)
+    # tokenizer = load_tokenizer(MODEL)
 
     run_score(
         [
-            CodeGuruBotWithContext(
-                model=model,
-                tokenizer=tokenizer,
+            CodeGuruBotLFQA(
+                model=None,
+                tokenizer=None,
                 description={'model': MODEL, 'reward_model': None},
                 prompt=prompts.PROMPT,
                 **params,

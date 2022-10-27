@@ -38,3 +38,22 @@ class CodeGuruBotWithContext(Bot):
         print(lines)
         print("END PROMPT")
         return lines
+
+
+class CodeGuruBotLFQA(Bot):
+    def __init__(self, model, tokenizer, description, **params):
+        super().__init__(
+            model=model,
+            tokenizer=tokenizer,
+            description=description,
+            bot_name="Guru",
+            first_message="I am happy to help with any coding problem. What situation are you facing?",
+            **params,
+        )
+        self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
+
+    def respond(self, text):
+        self._add_user_message(text)
+        response = self.pipeline(text)
+        self._add_bot_message(response)
+        return response
