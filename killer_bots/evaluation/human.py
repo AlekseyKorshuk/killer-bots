@@ -77,8 +77,8 @@ if __name__ == "__main__":
     run_score(
         [
             CodeGuruBotLFQA(
-                model=None,
-                tokenizer=None,
+                model=model,
+                tokenizer=tokenizer,
                 description={'model': MODEL, 'reward_model': None},
                 prompt=prompts.PROMPT,
                 **params,
