@@ -2,6 +2,9 @@ from haystack.document_stores import FAISSDocumentStore
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
 from haystack.nodes import DensePassageRetriever, TransformersSummarizer
 from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline
+from haystack import Document
+from sklearn.metrics.pairwise import cosine_similarity
+
 import os
 import logging
 
@@ -64,9 +67,11 @@ class SearchSummarization:
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
-        print(res)
-        import pdb; pdb.set_trace()
-        return res["documents"][0].content
+        response = res["documents"][0].content
+        query_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_queries([query])
+        document_embedding = self.pipeline.pipeline.graph._node['Retriever']['component'].embed_documents([response])
+        score = cosine_similarity(query_embedding, document_embedding)[0][0]
+        return (response, score)
 
 
 def test_search_summarization_pipeline():
