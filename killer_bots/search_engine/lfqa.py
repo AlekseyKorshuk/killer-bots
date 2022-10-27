@@ -39,8 +39,10 @@ class LFQA:
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
-        response = res["documents"][0].content
-        return response.replace("\n", " ")
+        response = res["documents"][0].content.replace("\n", " ")
+        if response[-1] != ".":
+            response[-1] = "."
+        return response
         # return (response, cosine_score, dot_score)
 
 
@@ -53,7 +55,6 @@ def test_lfqa_pipeline():
 
 TEST_QUESTIONS = [
     "What is SOLID?",
-    "What is the difference between a class and an object?",
     "What is Single Responsibility Principle?",
     "What is Open-Closed Principle?",
     "What is Liskov Substitution Principle?",
