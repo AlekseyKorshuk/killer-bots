@@ -44,7 +44,7 @@ params = {
     "top_k": 20,
     "temperature": 1.0,
     "repetition_penalty": 1.0,
-    "eos_token_id": 50118,  # 50118
+    # "eos_token_id": 50118,  # 50118
     "device": device,
     "do_sample": True,
     "max_new_tokens": 256,
