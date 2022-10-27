@@ -89,10 +89,14 @@ class CodeGuruBotWithDialogue(Bot):
         self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
         input_ids = self.tokenizer("\nUser:").input_ids[1:]
         self.stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=input_ids)])
+        self.previous_context = ""
 
     def _format_model_inputs(self, text):
-        context = self.pipeline(text)
-
+        current_context = self.pipeline(text)
+        context = current_context
+        if current_context != self.previous_context and self.previous_context != "":
+            context = self.previous_context + "\n" + current_context
+        self.previous_context = current_context
         lines = [prompts.START_TEMPLATE.format(context)]
         # lines += ["", prompts.START_PROMPT]
         lines += self._get_cropped_history()
