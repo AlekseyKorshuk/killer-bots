@@ -69,6 +69,10 @@ class StoppingCriteriaSub(StoppingCriteria):
         self.stops = stops
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, stops=[]):
+        input_ids = input_ids[0][-len(self.stops):]
+        print(input_ids, torch.tensor(self.stops))
+        return input_ids == torch.tensor(self.stops)
+
         print("STOPPING CRITERIA")
         print("INPUT_IDS", input_ids)
         print("END STOPPING CRITERIA")
