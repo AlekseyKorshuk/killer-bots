@@ -32,8 +32,8 @@ def get_retriever(doc_dir):
     document_store = write_docs(document_store, doc_dir)
     retriever = DensePassageRetriever(
         document_store=document_store,
-        # query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
-        # passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
+        query_embedding_model="CarperAI/carptriever-1",
+        passage_embedding_model="CarperAI/carptriever-1",
     )
     document_store.update_embeddings(retriever)
     return retriever
