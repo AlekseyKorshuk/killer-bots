@@ -30,7 +30,7 @@ def get_lfqa_pipeline(doc_dir):
 
 
 class LFQA:
-    params = {"Retriever": {"top_k": 5}, "Generator": {"top_k": 5}}
+    params = {"Retriever": {"top_k": 5}, "Generator": {"top_k": 5, "do_sample": True, "max_length": 128}}
 
     def __init__(self, doc_dir, params=None):
         self.pipeline = get_lfqa_pipeline(doc_dir)
