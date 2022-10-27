@@ -70,7 +70,6 @@ class StoppingCriteriaSub(StoppingCriteria):
 
     def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, stops=[]):
         input_ids = input_ids.cpu()[0][-len(self.stops):]
-        print(input_ids, torch.tensor(self.stops))
         for a, b in zip(input_ids, self.stops):
             if a != b:
                 return False
