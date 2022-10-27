@@ -44,9 +44,9 @@ def test_lfqa_pipeline():
 def evaluate_lfqa_pipeline(questions):
     pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
     for question in questions:
+        print()
         print("Question:", question)
         print("Answer:", pipeline(question))
-        print()
 
 
 TEST_QUESTIONS = [
@@ -58,11 +58,6 @@ TEST_QUESTIONS = [
     "What is Dependency Inversion Principle?",
     "Why should I use SOLID?",
     "Who created SOLID?",
-    "How are you?",
-    "What is your name?",
-    "What is your age?",
-    "What is your favorite color?",
-    "How can you help me?",
 ]
 
 if __name__ == "__main__":
