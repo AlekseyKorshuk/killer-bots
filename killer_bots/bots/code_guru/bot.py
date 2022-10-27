@@ -57,3 +57,28 @@ class CodeGuruBotLFQA(Bot):
         response = self.pipeline(text)
         self._add_bot_message(response)
         return response
+
+class CodeGuruBotWithDialogue(Bot):
+    def __init__(self, model, tokenizer, description, **params):
+        super().__init__(
+            model=model,
+            tokenizer=tokenizer,
+            description=description,
+            bot_name="Guru",
+            first_message="I am happy to help with any coding problem. What situation are you facing?",
+            **params,
+        )
+        self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
+
+    def _format_model_inputs(self, text):
+        context = self.pipeline(text)
+
+        lines = [prompts.DIALOGUE_TEMPLATE.format(text, context)]
+        lines += ["", prompts.START_PROMPT]
+        lines += self.chat_history
+        lines += [f"{self.bot_name}:"]
+        lines = "\n".join(lines)
+        print("PROMPT:")
+        print(lines)
+        print("END PROMPT")
+        return lines

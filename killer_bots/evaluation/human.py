@@ -9,15 +9,15 @@ from transformers import (
 
 from killer_bots.bots.code_guru import prompts
 from killer_bots.evaluation.utils import run_score
-from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA
+from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA, CodeGuruBotWithDialogue
 
 import time
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# MODEL = 'facebook/opt-125m'
-# MODEL = 'EleutherAI/gpt-j-6B'
 MODEL = 'facebook/opt-30b'
+MODEL = 'facebook/opt-125m'
+# MODEL = 'EleutherAI/gpt-j-6B'
 
 REWARD_MODEL = "ChaiML/roberta-base-dalio-reg-v1"
 # REWARD_MODEL = '/models/dalio_reward_models/checkpoint-2700'
@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
     run_score(
         [
-            CodeGuruBotLFQA(
+            CodeGuruBotWithDialogue(
                 model=model,
                 tokenizer=tokenizer,
                 description={'model': MODEL, 'reward_model': None},
