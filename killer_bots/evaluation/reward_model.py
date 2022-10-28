@@ -117,7 +117,7 @@ sweep_configuration = {
             'top_p': {'max': 1.0, 'min': 0.0},
             'top_k': {'values': list(range(0, 20 + 1))},
             'temperature': {'max': 1.5, 'min': 0.5},
-            'repetition_penalty': {'max': 1.25, 'min': 0.75},
+            'repetition_penalty': {'max': 1.5, 'min': 0.5},
         }
 }
 
@@ -152,21 +152,30 @@ def evaluate():
         **current_params,
     )
 
-    stats = []
+    stats = {
+        "question": [],
+        "context": [],
+        "response": [],
+        "scores": [],
+    }
     for question in tqdm.tqdm(questions):
         response = bot.respond(question).strip()
         context = bot.previous_context[-1]
-        result = hypothesis_call(pipe, context, response)
-        stats.append(int(result))
-    stats = np.array(stats)
-    df = pd.DataFrame(stats, index=questions, columns=['result'])
+        score = hypothesis_call(pipe, context, response)
+        stats["question"].append(question)
+        stats["context"].append(context)
+        stats["response"].append(response)
+        stats["scores"].append(score)
+    scores = np.array(stats["scores"])
+    df = pd.DataFrame(stats)
     print(df.describe())
     wandb.log({
         'dataframe': wandb.Table(dataframe=df),
-        'mean_score': stats.mean(),
+        'mean_score': scores.mean(),
     })
 
 
 if __name__ == "__main__":
     sweep_id = wandb.sweep(sweep=sweep_configuration, project='coding-guru')
+    print(sweep_id)
     wandb.agent(sweep_id, function=evaluate)
