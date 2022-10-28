@@ -115,6 +115,7 @@ if __name__ == "__main__":
         **params,
     )
 
+    TEST_QUESTIONS = TEST_QUESTIONS * 5
     pipe = get_evaluation_pipeline()
     stats = []
     for question in tqdm.tqdm(TEST_QUESTIONS):
