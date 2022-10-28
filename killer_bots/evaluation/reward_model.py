@@ -124,6 +124,7 @@ if __name__ == "__main__":
         bot.previous_context = []
         result = hypothesis_call(pipe, context, response)
         print("Question:", question)
+        print("Context:", context)
         print("Response:", response)
         print("Result:", result)
         stats.append(int(result))
