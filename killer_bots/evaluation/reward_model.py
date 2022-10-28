@@ -85,9 +85,8 @@ TEST_QUESTIONS = [
 
 
 def get_evaluation_pipeline():
-    model_ = load_huggingface_model("google/flan-t5-xl", AutoModelForSeq2SeqLM)
-    tokenizer_ = load_tokenizer("google/flan-t5-xl")
-    pipe = pipeline("text2text-generation", model=model_, tokenizer=tokenizer_, device=0)
+    pipe = pipeline("text2text-generation", model="google/flan-t5-xl", device="cuda:0",
+                    model_kwargs={"torch_dtype": torch.bfloat16})
     return pipe
 
 
