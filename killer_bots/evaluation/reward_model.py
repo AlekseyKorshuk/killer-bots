@@ -5,6 +5,7 @@ from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
     AutoModelForSequenceClassification, pipeline,
+    AutoModelForSeq2SeqLM
 )
 
 from killer_bots.bots.code_guru import prompts
@@ -28,7 +29,7 @@ REWARD_TOKENIZER = "ChaiML/roberta-base-dalio-reg-v1"
 # REWARD_TOKENIZER = 'EleutherAI/gpt-neo-2.7B'
 
 
-def load_huggingface_model(model_id):
+def load_huggingface_model(model_id, model_class=AutoModelForCausalLM):
     filename = model_id.replace('/', '_').replace('-', '_') + '.pt'
     cache_path = os.path.join('/tmp', filename)
 
@@ -38,7 +39,7 @@ def load_huggingface_model(model_id):
         model = torch.load(cache_path)
     else:
         print('loading model from scratch')
-        model = AutoModelForCausalLM.from_pretrained(model_id)
+        model = model_class.from_pretrained(model_id)
         model.half().eval().to(device)
         torch.save(model, cache_path)
     print('duration', time.time() - start)
@@ -84,7 +85,7 @@ TEST_QUESTIONS = [
 
 
 def get_evaluation_pipeline():
-    model_ = load_huggingface_model("google/flan-t5-xl")
+    model_ = load_huggingface_model("google/flan-t5-xl", AutoModelForSeq2SeqLM)
     tokenizer_ = load_tokenizer("google/flan-t5-xl")
     pipe = pipeline("text2text-generation", model=model_, tokenizer=tokenizer_, device="cuda:0",
                     model_kwargs={"torch_dtype": torch.bfloat16})
