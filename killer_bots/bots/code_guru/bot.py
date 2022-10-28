@@ -87,8 +87,14 @@ class CodeGuruBotWithDialogue(Bot):
             **params,
         )
         self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
-        input_ids = self.tokenizer("User:").input_ids[1:]
-        self.stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=input_ids)])
+        stop_words = ["User:", "Guru:", "Context:"]
+        stopping_criterias = []
+        for word in stop_words:
+            input_ids = self.tokenizer(word).input_ids[1:]
+            stopping_criterias.append(
+                StoppingCriteriaSub(stops=input_ids)
+            )
+        self.stopping_criteria = StoppingCriteriaList(stopping_criterias)
         self.previous_context_size = 2
         self.previous_context = []
 
