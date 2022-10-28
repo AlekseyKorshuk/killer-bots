@@ -116,9 +116,9 @@ sweep_configuration = {
     'parameters':
         {
             'top_k': {'values': list(range(0, 20 + 1))},
-            'temperature': {'max': 1.2, 'min': 0.8},
-            'repetition_penalty': {'max': 1.2, 'min': 0.8},
-            'top_p': {'max': 1.0, 'min': 0.0},
+            'temperature': {'max': 1.2, 'min': 0.8, "distribution": "uniform"},
+            'repetition_penalty': {'max': 1.2, 'min': 0.8, "distribution": "uniform"},
+            'top_p': {'max': 1.0, 'min': 0.0, "distribution": "uniform"},
         }
 }
 
