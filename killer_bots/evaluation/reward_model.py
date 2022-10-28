@@ -107,10 +107,7 @@ def hypothesis_call(pipe, context, response):
     return 1
 
 
-if __name__ == "__main__":
-    model = load_huggingface_model(MODEL)
-    tokenizer = load_tokenizer(MODEL)
-
+def evaluate(params, model, tokenizer, pipe, questions):
     bot = CodeGuruBotWithDialogue(
         model=model,
         tokenizer=tokenizer,
@@ -120,19 +117,24 @@ if __name__ == "__main__":
         **params,
     )
 
-    TEST_QUESTIONS = TEST_QUESTIONS * 5
     pipe = get_evaluation_pipeline()
     stats = []
-    for question in tqdm.tqdm(TEST_QUESTIONS):
+    for question in tqdm.tqdm(questions):
         response = bot.respond(question).strip()
         context = bot.previous_context[-1]
         # bot.previous_context = []
-        print("Question:", question)
+        # print("Question:", question)
         result = hypothesis_call(pipe, context, response)
         # print("Context:", context)
         # print("Response:", response)
-        print("Result:", result)
+        # print("Result:", result)
         stats.append(int(result))
     stats = np.array(stats)
-    df = pd.DataFrame(stats, index=TEST_QUESTIONS, columns=['result'])
+    df = pd.DataFrame(stats, index=questions, columns=['result'])
     print(df.describe())
+    return stats.mean()
+
+
+if __name__ == "__main__":
+    model = load_huggingface_model(MODEL)
+    tokenizer = load_tokenizer(MODEL)
