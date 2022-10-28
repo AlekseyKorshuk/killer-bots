@@ -162,7 +162,7 @@ def evaluate():
     df = pd.DataFrame(stats, index=questions, columns=['result'])
     print(df.describe())
     wandb.log({
-        'dataframe': df,
+        'dataframe': wandb.Table(dataframe=df),
         'mean_score': stats.mean(),
     })
 
