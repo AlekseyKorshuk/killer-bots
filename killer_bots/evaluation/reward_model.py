@@ -162,6 +162,7 @@ def evaluate():
     for question in tqdm.tqdm(questions):
         response = bot.respond(question).strip()
         bot.reset_chat_history()
+        bot.previous_context = bot.previous_context[-1:]
         context = bot.previous_context[-1]
         score = hypothesis_call(pipe, context, response)
         stats["question"].append(question)
