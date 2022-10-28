@@ -185,7 +185,10 @@ def run_sweep():
 
 
 if __name__ == "__main__":
-    evaluate(params)
+    stats = evaluate(params)
+    scores = np.array(stats["score"])
+    df = pd.DataFrame(stats)
+    print(df.describe())
     # sweep_id = wandb.sweep(sweep=sweep_configuration, project='coding-guru')
     # print(sweep_id)
     # wandb.agent(sweep_id, function=run_sweep)
