@@ -99,7 +99,11 @@ def hypothesis_call(pipe, context, response):
              "Does the premise entail the hypothesis (yes/no)?"
     prompt = prompt.format(context, response)
     response = str(pipe(prompt, max_length=1024)[0]["generated_text"]).lower().strip()
-    return "yes" in response
+    if "yes" in response:
+        return 2
+    elif "no" in response:
+        return 0
+    return 1
 
 
 if __name__ == "__main__":
