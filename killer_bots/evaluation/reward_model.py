@@ -1,5 +1,4 @@
 import os
-
 import torch
 import tqdm
 from transformers import (
@@ -14,6 +13,7 @@ from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, 
 import pandas as pd
 import numpy as np
 import time
+import wandb
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -98,7 +98,7 @@ def hypothesis_call(pipe, context, response):
              "{}\n" \
              "Does the premise entail the hypothesis (yes/no)?"
     prompt = prompt.format(context, response)
-    print(prompt)
+    # print(prompt)
     response = str(pipe(prompt, max_length=1024)[0]["generated_text"]).lower().strip()
     if "yes" in response:
         return 2
@@ -107,34 +107,66 @@ def hypothesis_call(pipe, context, response):
     return 1
 
 
-def evaluate(params, model, tokenizer, pipe, questions):
+# Define sweep config
+sweep_configuration = {
+    'method': 'bayes',
+    'name': 'sweep',
+    'metric': {'goal': 'maximize', 'name': 'mean_score'},
+    'parameters':
+        {
+            'top_p': {'max': 1.0, 'min': 0.0},
+            'top_k': {'values': list(range(0, 20 + 1))},
+            'temperature': {'max': 1.5, 'min': 0.5},
+            'repetition_penalty': {'max': 1.25, 'min': 0.75},
+        }
+}
+
+# Start sweep job.
+
+model = load_huggingface_model(MODEL)
+tokenizer = load_tokenizer(MODEL)
+pipe = get_evaluation_pipeline()
+questions = TEST_QUESTIONS * 5
+
+
+def evaluate():
+    run = wandb.init()
+    global model, tokenizer, pipe, questions
+    current_params = {
+        "top_p": wandb.config.top_p,
+        "top_k": wandb.config.top_k,
+        "temperature": wandb.config.temperature,
+        "repetition_penalty": wandb.config.repetition_penalty,
+        "eos_token_id": 50118,  # 50118
+        "device": device,
+        "do_sample": True,
+        "max_new_tokens": 256,
+    }
+
     bot = CodeGuruBotWithDialogue(
         model=model,
         tokenizer=tokenizer,
         description={'model': MODEL, 'reward_model': None},
         prompt=prompts.PROMPT,
         max_history_size=3,
-        **params,
+        **current_params,
     )
 
-    pipe = get_evaluation_pipeline()
     stats = []
     for question in tqdm.tqdm(questions):
         response = bot.respond(question).strip()
         context = bot.previous_context[-1]
-        # bot.previous_context = []
-        # print("Question:", question)
         result = hypothesis_call(pipe, context, response)
-        # print("Context:", context)
-        # print("Response:", response)
-        # print("Result:", result)
         stats.append(int(result))
     stats = np.array(stats)
     df = pd.DataFrame(stats, index=questions, columns=['result'])
     print(df.describe())
-    return stats.mean()
+    wandb.log({
+        'dataframe': df,
+        'mean_score': stats.mean(),
+    })
 
 
 if __name__ == "__main__":
-    model = load_huggingface_model(MODEL)
-    tokenizer = load_tokenizer(MODEL)
+    sweep_id = wandb.sweep(sweep=sweep_configuration, project='my-first-sweep')
+    wandb.agent(sweep_id, function=evaluate)
