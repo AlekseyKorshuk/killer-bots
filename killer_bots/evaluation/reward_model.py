@@ -115,10 +115,10 @@ sweep_configuration = {
     'metric': {'goal': 'maximize', 'name': 'mean_score'},
     'parameters':
         {
-            'top_p': {'max': 1.0, 'min': 0.0},
             'top_k': {'values': list(range(0, 20 + 1))},
             'temperature': {'max': 1.2, 'min': 0.8},
-            'repetition_penalty': {'max': 1.1, 'min': 0.9},
+            'repetition_penalty': {'max': 1.2, 'min': 0.8},
+            'top_p': {'max': 1.0, 'min': 0.0},
         }
 }
 
