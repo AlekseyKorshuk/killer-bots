@@ -121,6 +121,7 @@ if __name__ == "__main__":
     for question in tqdm.tqdm(TEST_QUESTIONS):
         response = bot.respond(question)
         context = bot.get_context()
+        bot.previous_context = []
         result = hypothesis_call(pipe, context, response)
         print("Question:", question)
         print("Response:", response)

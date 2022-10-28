@@ -99,7 +99,7 @@ class CodeGuruBotWithDialogue(Bot):
         self.previous_context = []
 
     def get_context(self):
-        self.previous_contex = self.previous_context[-self.previous_context_size:]
+        self.previous_context = self.previous_context[-self.previous_context_size:]
         context = self.previous_context
         context.reverse()
         context = "\n".join(set(context))
