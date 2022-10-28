@@ -59,7 +59,7 @@ def load_huggingface_model(model_id, model_class=AutoModelForCausalLM):
 
 params = {
     "top_p": 1,
-    "top_k": 20,
+    "top_k": 12,
     "temperature": 1.0,
     "repetition_penalty": 1.0,
     "eos_token_id": 50118,  # 50118
@@ -117,8 +117,8 @@ sweep_configuration = {
         {
             'top_p': {'max': 1.0, 'min': 0.0},
             'top_k': {'values': list(range(0, 20 + 1))},
-            'temperature': {'max': 1.5, 'min': 0.5},
-            'repetition_penalty': {'max': 1.5, 'min': 0.5},
+            'temperature': {'max': 1.2, 'min': 0.8},
+            'repetition_penalty': {'max': 1.1, 'min': 0.9},
         }
 }
 
@@ -130,27 +130,14 @@ pipe = get_evaluation_pipeline()
 questions = TEST_QUESTIONS * 5
 
 
-def evaluate():
-    run = wandb.init()
-    global model, tokenizer, pipe, questions
-    current_params = {
-        "top_p": wandb.config.top_p,
-        "top_k": wandb.config.top_k,
-        "temperature": wandb.config.temperature,
-        "repetition_penalty": wandb.config.repetition_penalty,
-        "eos_token_id": 50118,  # 50118
-        "device": device,
-        "do_sample": True,
-        "max_new_tokens": 256,
-    }
-
+def evaluate(params):
     bot = CodeGuruBotWithDialogue(
         model=model,
         tokenizer=tokenizer,
         description={'model': MODEL, 'reward_model': None},
         prompt=prompts.PROMPT,
         max_history_size=3,
-        **current_params,
+        **params,
     )
 
     stats = {
@@ -169,6 +156,25 @@ def evaluate():
         stats["context"].append(context)
         stats["response"].append(response)
         stats["score"].append(score)
+    return stats
+
+
+def run_sweep():
+    run = wandb.init()
+    global model, tokenizer, pipe, questions
+    current_params = {
+        "top_p": wandb.config.top_p,
+        "top_k": wandb.config.top_k,
+        "temperature": wandb.config.temperature,
+        "repetition_penalty": wandb.config.repetition_penalty,
+        "eos_token_id": 50118,  # 50118
+        "device": device,
+        "do_sample": True,
+        "max_new_tokens": 256,
+    }
+
+    stats = evaluate(current_params)
+
     scores = np.array(stats["score"])
     df = pd.DataFrame(stats)
     print(df.describe())
@@ -179,6 +185,7 @@ def evaluate():
 
 
 if __name__ == "__main__":
-    sweep_id = wandb.sweep(sweep=sweep_configuration, project='coding-guru')
-    print(sweep_id)
-    wandb.agent(sweep_id, function=evaluate)
+    evaluate(params)
+    # sweep_id = wandb.sweep(sweep=sweep_configuration, project='coding-guru')
+    # print(sweep_id)
+    # wandb.agent(sweep_id, function=run_sweep)
