@@ -154,8 +154,12 @@ def evaluate(params):
         score = hypothesis_call(pipe, context, response)
         stats["question"].append(question)
         stats["context"].append(context)
-        stats["response"].append(response)
+        if response in stats["response"]:
+            score = 0
         stats["score"].append(score)
+        stats["response"].append(response)
+
+
     return stats
 
 
