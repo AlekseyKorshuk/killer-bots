@@ -98,15 +98,18 @@ class CodeGuruBotWithDialogue(Bot):
         self.previous_context_size = 2
         self.previous_context = []
 
-    def _format_model_inputs(self, text):
-        current_context = self.pipeline(text)
-        self.previous_context.append(current_context)
+    def get_context(self):
         self.previous_contex = self.previous_context[-self.previous_context_size:]
         context = self.previous_context
         context.reverse()
         context = "\n".join(set(context))
+        return context
+
+    def _format_model_inputs(self, text):
+        current_context = self.pipeline(text)
+        self.previous_context.append(current_context)
+        context = self.get_context()
         lines = [prompts.START_TEMPLATE.format(context)]
-        # lines += ["", prompts.START_PROMPT]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)

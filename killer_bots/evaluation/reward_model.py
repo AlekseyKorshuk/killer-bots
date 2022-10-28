@@ -4,13 +4,13 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    AutoModelForSequenceClassification,
+    AutoModelForSequenceClassification, pipeline,
 )
 
 from killer_bots.bots.code_guru import prompts
-from killer_bots.evaluation.utils import run_score
 from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA, CodeGuruBotWithDialogue
-
+import pandas as pd
+import numpy as np
 import time
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -71,6 +71,37 @@ def load_tokenizer(model_id):
     return AutoTokenizer.from_pretrained(MODEL)
 
 
+TEST_QUESTIONS = [
+    "What is SOLID?",
+    "What is Single Responsibility Principle?",
+    "What is Open-Closed Principle?",
+    "What is Liskov Substitution Principle?",
+    "What is Interface Segregation Principle?",
+    "What is Dependency Inversion Principle?",
+    "Why should I use SOLID?",
+    "Who created SOLID?",
+]
+
+
+def get_evaluation_pipeline():
+    model_ = load_huggingface_model("google/flan-t5-xl")
+    tokenizer_ = load_tokenizer("google/flan-t5-xl")
+    pipe = pipeline("text2text-generation", model=model_, tokenizer=tokenizer_, device="cuda:0",
+                    model_kwargs={"torch_dtype": torch.bfloat16})
+    return pipe
+
+
+def hypothesis_call(pipe, context, response):
+    prompt = "Premise:\n" \
+             "{}\n" \
+             "Hypothesis:\n" \
+             "{}\n" \
+             "Does the premise entail the hypothesis (yes/no)?"
+    prompt = prompt.format(context, response)
+    response = str(pipe(prompt, max_length=1024)[0]["generated_text"]).lower().strip()
+    return "yes" in response
+
+
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
@@ -83,3 +114,14 @@ if __name__ == "__main__":
         max_history_size=3,
         **params,
     )
+
+    pipe = get_evaluation_pipeline()
+    stats = []
+    for question in TEST_QUESTIONS:
+        response = bot.respond(question)
+        context = bot.get_context()
+        result = hypothesis_call(pipe, context, response)
+        stats.append(result)
+    stats = np.array(stats)
+    df = pd.DataFrame(stats, index=TEST_QUESTIONS, columns=['result'])
+    print(df.describe())

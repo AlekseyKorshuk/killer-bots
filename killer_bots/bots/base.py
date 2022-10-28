@@ -120,6 +120,9 @@ class Bot(object):
                 break
         return response if not response or i < 1 else response[:i + 1]
 
+    def get_context(self):
+        return ""
+
     def respond(self, text):
         self._add_user_message(text)
 
