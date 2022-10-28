@@ -156,7 +156,7 @@ def evaluate():
         "question": [],
         "context": [],
         "response": [],
-        "scores": [],
+        "score": [],
     }
     for question in tqdm.tqdm(questions):
         response = bot.respond(question).strip()
@@ -165,8 +165,8 @@ def evaluate():
         stats["question"].append(question)
         stats["context"].append(context)
         stats["response"].append(response)
-        stats["scores"].append(score)
-    scores = np.array(stats["scores"])
+        stats["score"].append(score)
+    scores = np.array(stats["score"])
     df = pd.DataFrame(stats)
     print(df.describe())
     wandb.log({
