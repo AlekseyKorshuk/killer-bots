@@ -98,6 +98,7 @@ def hypothesis_call(pipe, context, response):
              "{}\n" \
              "Does the premise entail the hypothesis (yes/no)?"
     prompt = prompt.format(context, response)
+    print(prompt)
     response = str(pipe(prompt, max_length=1024)[0]["generated_text"]).lower().strip()
     if "yes" in response:
         return 2
@@ -126,10 +127,10 @@ if __name__ == "__main__":
         response = bot.respond(question)
         context = bot.previous_context[-1]
         # bot.previous_context = []
-        result = hypothesis_call(pipe, context, response)
         print("Question:", question)
-        print("Context:", context)
-        print("Response:", response)
+        result = hypothesis_call(pipe, context, response)
+        # print("Context:", context)
+        # print("Response:", response)
         print("Result:", result)
         stats.append(int(result))
     stats = np.array(stats)
