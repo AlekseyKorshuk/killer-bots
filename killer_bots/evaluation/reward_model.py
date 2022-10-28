@@ -168,5 +168,5 @@ def evaluate():
 
 
 if __name__ == "__main__":
-    sweep_id = wandb.sweep(sweep=sweep_configuration, project='my-first-sweep')
+    sweep_id = wandb.sweep(sweep=sweep_configuration, project='coding-guru')
     wandb.agent(sweep_id, function=evaluate)
