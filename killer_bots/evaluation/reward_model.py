@@ -1,6 +1,7 @@
 import os
 
 import torch
+import tqdm
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
@@ -85,7 +86,7 @@ TEST_QUESTIONS = [
 
 
 def get_evaluation_pipeline():
-    pipe = pipeline("text2text-generation", model="google/flan-t5-xl", device="cuda:0",
+    pipe = pipeline("text2text-generation", model="google/flan-t5-xl", device=0,
                     model_kwargs={"torch_dtype": torch.bfloat16})
     return pipe
 
@@ -116,7 +117,7 @@ if __name__ == "__main__":
 
     pipe = get_evaluation_pipeline()
     stats = []
-    for question in TEST_QUESTIONS:
+    for question in tqdm.tqdm(TEST_QUESTIONS):
         response = bot.respond(question)
         context = bot.get_context()
         result = hypothesis_call(pipe, context, response)
