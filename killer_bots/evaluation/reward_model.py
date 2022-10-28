@@ -127,7 +127,7 @@ sweep_configuration = {
 model = load_huggingface_model(MODEL)
 tokenizer = load_tokenizer(MODEL)
 pipe = get_evaluation_pipeline()
-questions = TEST_QUESTIONS * 5
+questions = TEST_QUESTIONS * 3
 
 
 def evaluate(params):
