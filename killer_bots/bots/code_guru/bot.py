@@ -89,14 +89,14 @@ class CodeGuruBotWithDialogue(Bot):
         self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
         input_ids = self.tokenizer("User:").input_ids[1:]
         self.stopping_criteria = StoppingCriteriaList([StoppingCriteriaSub(stops=input_ids)])
-        self.previous_context = ""
+        self.previous_context_size = 2
+        self.previous_context = []
 
     def _format_model_inputs(self, text):
         current_context = self.pipeline(text)
-        context = current_context
-        if current_context != self.previous_context and self.previous_context != "":
-            context = self.previous_context + "\n" + current_context
-        self.previous_context = current_context
+        self.previous_context.append(current_context)
+        self.previous_contex = self.previous_context[-self.previous_context_size:]
+        context = "\n".join(set(self.previous_context))
         lines = [prompts.START_TEMPLATE.format(context)]
         # lines += ["", prompts.START_PROMPT]
         lines += self._get_cropped_history()
@@ -105,7 +105,7 @@ class CodeGuruBotWithDialogue(Bot):
         print("PROMPT:")
         print(lines)
         print("END PROMPT")
-        print("CHAT HISTORY:")
-        print(self.chat_history)
-        print("END CHAT HISTORY")
+        # print("CHAT HISTORY:")
+        # print(self.chat_history)
+        # print("END CHAT HISTORY")
         return lines
