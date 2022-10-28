@@ -122,6 +122,8 @@ if __name__ == "__main__":
         response = bot.respond(question)
         context = bot.get_context()
         result = hypothesis_call(pipe, context, response)
+        print("Question:", question)
+        print("Response:", response)
         print("Result:", result)
         stats.append(int(result))
     stats = np.array(stats)
