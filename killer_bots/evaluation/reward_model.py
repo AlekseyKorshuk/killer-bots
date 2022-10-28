@@ -120,8 +120,8 @@ if __name__ == "__main__":
     stats = []
     for question in tqdm.tqdm(TEST_QUESTIONS):
         response = bot.respond(question)
-        context = bot.get_context()
-        bot.previous_context = []
+        context = bot.previous_context[-1]
+        # bot.previous_context = []
         result = hypothesis_call(pipe, context, response)
         print("Question:", question)
         print("Context:", context)
