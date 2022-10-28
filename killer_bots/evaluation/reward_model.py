@@ -82,6 +82,7 @@ TEST_QUESTIONS = [
     "What is Dependency Inversion Principle?",
     "Why should I use SOLID?",
     "Who created SOLID?",
+    # "Can you list the SOLID principles?",
 ]
 
 
@@ -160,6 +161,7 @@ def evaluate():
     }
     for question in tqdm.tqdm(questions):
         response = bot.respond(question).strip()
+        bot.reset_chat_history()
         context = bot.previous_context[-1]
         score = hypothesis_call(pipe, context, response)
         stats["question"].append(question)
