@@ -124,7 +124,7 @@ if __name__ == "__main__":
     pipe = get_evaluation_pipeline()
     stats = []
     for question in tqdm.tqdm(TEST_QUESTIONS):
-        response = bot.respond(question)
+        response = bot.respond(question).strip()
         context = bot.previous_context[-1]
         # bot.previous_context = []
         print("Question:", question)
