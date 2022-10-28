@@ -102,7 +102,9 @@ class CodeGuruBotWithDialogue(Bot):
         current_context = self.pipeline(text)
         self.previous_context.append(current_context)
         self.previous_contex = self.previous_context[-self.previous_context_size:]
-        context = "\n".join(set(self.previous_context))
+        context = self.previous_context
+        context.reverse()
+        context = "\n".join(set(context))
         lines = [prompts.START_TEMPLATE.format(context)]
         # lines += ["", prompts.START_PROMPT]
         lines += self._get_cropped_history()
