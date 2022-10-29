@@ -6,6 +6,7 @@ from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2Se
 from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline, GenerativeQAPipeline
 from haystack import Document
 from sklearn.metrics.pairwise import cosine_similarity
+import urllib.request
 
 import os
 import logging
@@ -76,6 +77,9 @@ def get_lfqa_pipeline(doc_dir):
 def get_huggingface_course_docs():
     doc_dir = "huggingface_course"
     url = "https://downgit.github.io/#/home?url=https://github.com/huggingface/course/tree/main/chapters/en"
+    urllib.request.urlretrieve(
+        "https://downgit.github.io/#/home?url=https://github.com/huggingface/course/tree/main/chapters/en",
+        "huggingface_course.zip")
     if not os.path.exists(doc_dir):
         fetch_archive_from_http(url=url, output_dir=doc_dir)
     docs = convert_files_to_docs(dir_path=doc_dir, split_paragraphs=True)
