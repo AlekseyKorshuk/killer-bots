@@ -27,6 +27,7 @@ class Bot(object):
         self.repetition_penalty = params.get("repetition_penalty", 1.13125)
         self.stopping_ids = None
         self.stopping_criteria = None
+        self.stop_words = []
 
         self.device = params.get("device", 0)
         self.reset_chat_history()
@@ -133,6 +134,9 @@ class Bot(object):
         outputs = self._generate(encoded, request_params)
 
         decoded = self._decode(outputs[0][len(encoded.input_ids[0]):])
+        decoded = decoded.rstrip()
+        for stop_word in self.stop_words:
+            decoded = decoded.replace(stop_word, "")
         response = self._truncate_incomplete_sentence(decoded.rstrip())
 
         self._add_bot_message(response)
