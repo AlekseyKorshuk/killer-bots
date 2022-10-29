@@ -88,7 +88,7 @@ def get_huggingface_course_docs():
     if not os.path.exists(doc_dir):
         fetch_archive_from_http(url=url, output_dir=doc_dir)
     change_extentions_to_txt(doc_dir)
-    docs = convert_files_to_docs(dir_path=doc_dir, split_paragraphs=False)
+    docs = convert_files_to_docs(dir_path=doc_dir, split_paragraphs=True)
     preprocessor = PreProcessor(
         clean_empty_lines=True,
         clean_whitespace=True,
