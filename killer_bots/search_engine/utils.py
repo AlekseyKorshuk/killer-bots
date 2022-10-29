@@ -71,3 +71,17 @@ def get_lfqa_pipeline(doc_dir):
     retriever = get_retriever(doc_dir)
     pipeline = GenerativeQAPipeline(generator, retriever)
     return pipeline
+
+
+def get_huggingface_course_docs():
+    doc_dir = "huggingface_course"
+    url = "https://download-directory.github.io/?url=https%3A%2F%2Fgithub.com%2Fhuggingface%2Fcourse%2Ftree%2Fmain%2Fchapters%2Fen"
+    if not os.path.exists(doc_dir):
+        fetch_archive_from_http(url=url, output_dir=doc_dir)
+    docs = convert_files_to_docs(dir_path=doc_dir, split_paragraphs=True)
+    return docs
+
+
+if __name__ == "__main__":
+    docs = get_huggingface_course_docs()
+    print(f"Number of docs: {len(docs)}")
