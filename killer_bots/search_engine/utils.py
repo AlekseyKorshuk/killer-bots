@@ -93,7 +93,7 @@ def get_huggingface_course_docs():
         clean_empty_lines=True,
         clean_whitespace=True,
         clean_header_footer=False,
-        split_by="sentence",
+        split_by="word",
         split_length=100,
         split_respect_sentence_boundary=True,
     )
