@@ -18,7 +18,7 @@ logging.getLogger("haystack").setLevel(logging.INFO)
 
 
 class LFQA:
-    params = {"Retriever": {"top_k": 2}, "Generator": {"top_k": 1}}
+    params = {"Retriever": {"top_k": 5}, "Generator": {"top_k": 5}}
 
     def __init__(self, doc_dir, params=None):
         self.pipeline = get_lfqa_pipeline(doc_dir)
@@ -29,6 +29,8 @@ class LFQA:
         res = self.pipeline.run(query=query, params=self.params)
         print(res)
         # response = res["answers"][0].answer
+        print("Answer:", res["answers"][0].answer)
+        print()
         response = res["documents"][0].content
         if response[-1] != ".":
             response = response[:-1] + "."
