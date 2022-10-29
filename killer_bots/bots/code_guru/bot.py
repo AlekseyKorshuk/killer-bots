@@ -113,9 +113,9 @@ class CodeGuruBotWithDialogue(Bot):
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
-        # print("PROMPT:")
-        # print(lines)
-        # print("END PROMPT")
+        print("PROMPT:")
+        print(lines)
+        print("END PROMPT")
         # print("CHAT HISTORY:")
         # print(self.chat_history)
         # print("END CHAT HISTORY")
