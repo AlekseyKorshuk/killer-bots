@@ -59,7 +59,7 @@ def load_huggingface_model(model_id, model_class=AutoModelForCausalLM):
 
 params = {
     "top_p": 1,
-    "top_k": 12,
+    "top_k": 20,
     "temperature": 1.0,
     "repetition_penalty": 1.0,
     # "eos_token_id": 50118,  # 50118
@@ -189,10 +189,10 @@ def run_sweep():
 
 
 if __name__ == "__main__":
-    # stats = evaluate(params)
-    # scores = np.array(stats["score"])
-    # df = pd.DataFrame(stats)
-    # print(df.describe())
-    sweep_id = wandb.sweep(sweep=sweep_configuration, project='coding-guru')
-    print(sweep_id)
-    wandb.agent(sweep_id, function=run_sweep)
+    stats = evaluate(params)
+    scores = np.array(stats["score"])
+    df = pd.DataFrame(stats)
+    print(df.describe())
+    # sweep_id = wandb.sweep(sweep=sweep_configuration, project='coding-guru')
+    # print(sweep_id)
+    # wandb.agent(sweep_id, function=run_sweep)
