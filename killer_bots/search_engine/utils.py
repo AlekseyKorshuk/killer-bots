@@ -76,10 +76,10 @@ def get_lfqa_pipeline(doc_dir):
 
 def get_huggingface_course_docs():
     doc_dir = "huggingface_course"
-    url = "https://downgit.github.io/#/home?url=https://github.com/huggingface/course/tree/main/chapters/en"
-    urllib.request.urlretrieve(
-        "https://downgit.github.io/#/home?url=https://github.com/huggingface/course/tree/main/chapters/en",
-        "huggingface_course.zip")
+    url = "https://file.io/q4Clerw6IKym"
+    # urllib.request.urlretrieve(
+    #     "https://downgit.github.io/#/home?url=https://github.com/huggingface/course/tree/main/chapters/en",
+    #     "huggingface_course.zip")
     if not os.path.exists(doc_dir):
         fetch_archive_from_http(url=url, output_dir=doc_dir)
     docs = convert_files_to_docs(dir_path=doc_dir, split_paragraphs=True)
