@@ -104,3 +104,4 @@ def get_huggingface_course_docs():
 if __name__ == "__main__":
     docs = get_huggingface_course_docs()
     print(f"Number of docs: {len(docs)}")
+    print(docs[:5])
