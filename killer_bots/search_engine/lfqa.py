@@ -27,6 +27,7 @@ class LFQA:
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
+        print(res)
         response = res["documents"][0].content
         if response[-1] != ".":
             response = response[:-1] + "."
@@ -61,5 +62,5 @@ TEST_QUESTIONS = [
 ]
 
 if __name__ == "__main__":
-    evaluate_lfqa_pipeline(TEST_QUESTIONS)
+    # evaluate_lfqa_pipeline(TEST_QUESTIONS)
     test_lfqa_pipeline()
