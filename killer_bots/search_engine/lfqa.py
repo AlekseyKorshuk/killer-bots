@@ -18,7 +18,7 @@ logging.getLogger("haystack").setLevel(logging.INFO)
 
 
 class LFQA:
-    params = {"Retriever": {"top_k": 5}, "Generator": {"top_k": 5}}
+    params = {"Retriever": {"top_k": 3}, "Generator": {"top_k": 1}}
 
     def __init__(self, doc_dir, params=None):
         self.pipeline = get_lfqa_pipeline(doc_dir)
