@@ -63,5 +63,5 @@ TEST_QUESTIONS = [
 ]
 
 if __name__ == "__main__":
-    # evaluate_lfqa_pipeline(TEST_QUESTIONS)
+    evaluate_lfqa_pipeline(TEST_QUESTIONS)
     test_lfqa_pipeline()
