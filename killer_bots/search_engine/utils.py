@@ -73,6 +73,11 @@ def get_lfqa_pipeline(doc_dir):
     pipeline = GenerativeQAPipeline(generator, retriever)
     return pipeline
 
+def change_extentions_to_txt(dir_path):
+    for root, dirs, files in os.walk(dir_path):
+        for file in files:
+            if file.endswith(".mdx"):
+                os.rename(os.path.join(root, file), os.path.join(root, file.replace(".mdx", ".txt")))
 
 def get_huggingface_course_docs():
     doc_dir = "huggingface_course"
@@ -82,6 +87,7 @@ def get_huggingface_course_docs():
     #     "huggingface_course.zip")
     if not os.path.exists(doc_dir):
         fetch_archive_from_http(url=url, output_dir=doc_dir)
+    change_extentions_to_txt(doc_dir)
     docs = convert_files_to_docs(dir_path=doc_dir, split_paragraphs=True)
     return docs
 
