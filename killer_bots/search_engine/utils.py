@@ -2,7 +2,7 @@ import os
 from haystack.document_stores import FAISSDocumentStore
 import numpy as np
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
-from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator
+from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator, PreProcessor
 from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline, GenerativeQAPipeline
 from haystack import Document
 from sklearn.metrics.pairwise import cosine_similarity
@@ -19,6 +19,17 @@ def get_document_store():
 
 def write_docs(document_store, doc_dir):
     docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+
+    preprocessor = PreProcessor(
+        clean_empty_lines=True,
+        clean_whitespace=True,
+        clean_header_footer=False,
+        split_by="word",
+        split_length=100,
+        split_respect_sentence_boundary=True,
+    )
+    docs = preprocessor.process(docs)
+
     print(f"Number of docs: {len(docs)}")
     # import pdb; pdb.set_trace()
     document_store.write_documents(docs)
