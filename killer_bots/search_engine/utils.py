@@ -19,17 +19,18 @@ def get_document_store():
 
 
 def write_docs(document_store, doc_dir):
-    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
-
-    preprocessor = PreProcessor(
-        clean_empty_lines=True,
-        clean_whitespace=True,
-        clean_header_footer=False,
-        split_by="word",
-        split_length=100,
-        split_respect_sentence_boundary=True,
-    )
-    docs = preprocessor.process(docs)
+    # docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+    #
+    # preprocessor = PreProcessor(
+    #     clean_empty_lines=True,
+    #     clean_whitespace=True,
+    #     clean_header_footer=False,
+    #     split_by="word",
+    #     split_length=100,
+    #     split_respect_sentence_boundary=True,
+    # )
+    # docs = preprocessor.process(docs)
+    docs = get_huggingface_course_docs()
 
     print(f"Number of docs: {len(docs)}")
     # import pdb; pdb.set_trace()
@@ -73,11 +74,13 @@ def get_lfqa_pipeline(doc_dir):
     pipeline = GenerativeQAPipeline(generator, retriever)
     return pipeline
 
+
 def change_extentions_to_txt(dir_path):
     for root, dirs, files in os.walk(dir_path):
         for file in files:
             if file.endswith(".mdx"):
                 os.rename(os.path.join(root, file), os.path.join(root, file.replace(".mdx", ".txt")))
+
 
 def get_huggingface_course_docs():
     doc_dir = "huggingface_course"
