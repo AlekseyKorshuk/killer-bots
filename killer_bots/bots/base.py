@@ -100,14 +100,15 @@ class Bot(object):
         )
 
     def _decode(self, outputs):
-        # import pdb; pdb.set_trace()
-        if self.stopping_ids is not None:
-            outputs = outputs[-len(self.stopping_ids):]
-        return self.tokenizer.decode(
+        decoded = self.tokenizer.decode(
             outputs,
             skip_special_tokens=True,
             clean_up_tokenization_spaces=False,
         )
+        decoded = decoded.rstrip()
+        for stop_word in self.stop_words:
+            decoded = decoded.replace(stop_word, "")
+        return decoded
 
     def _add_user_message(self, text):
         self.chat_history.append(f"{self.user_name}: {text.strip()}")
@@ -134,9 +135,6 @@ class Bot(object):
         outputs = self._generate(encoded, request_params)
 
         decoded = self._decode(outputs[0][len(encoded.input_ids[0]):])
-        decoded = decoded.rstrip()
-        for stop_word in self.stop_words:
-            decoded = decoded.replace(stop_word, "")
         response = self._truncate_incomplete_sentence(decoded.rstrip())
 
         self._add_bot_message(response)
