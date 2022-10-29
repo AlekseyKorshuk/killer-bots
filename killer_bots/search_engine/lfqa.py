@@ -27,10 +27,10 @@ class LFQA:
 
     def __call__(self, query):
         res = self.pipeline.run(query=query, params=self.params)
-        print(res)
+        # print(res)
         # response = res["answers"][0].answer
-        print("Answer:", res["answers"][0].answer)
-        print()
+        # print("Answer:", res["answers"][0].answer)
+
         response = res["documents"][0].content
         if response[-1] != ".":
             response = response[:-1] + "."

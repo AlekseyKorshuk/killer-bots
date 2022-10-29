@@ -19,18 +19,18 @@ def get_document_store():
 
 
 def write_docs(document_store, doc_dir):
-    # docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
-    #
-    # preprocessor = PreProcessor(
-    #     clean_empty_lines=True,
-    #     clean_whitespace=True,
-    #     clean_header_footer=False,
-    #     split_by="word",
-    #     split_length=100,
-    #     split_respect_sentence_boundary=True,
-    # )
-    # docs = preprocessor.process(docs)
-    docs = get_huggingface_course_docs()
+    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+
+    preprocessor = PreProcessor(
+        clean_empty_lines=True,
+        clean_whitespace=True,
+        clean_header_footer=False,
+        split_by="word",
+        split_length=100,
+        split_respect_sentence_boundary=True,
+    )
+    docs = preprocessor.process(docs)
+    # docs = get_huggingface_course_docs()
 
     print(f"Number of docs: {len(docs)}")
     # import pdb; pdb.set_trace()
