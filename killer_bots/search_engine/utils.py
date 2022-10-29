@@ -76,7 +76,7 @@ def get_lfqa_pipeline(doc_dir):
 
 def get_huggingface_course_docs():
     doc_dir = "huggingface_course"
-    url = "https://file.io/q4Clerw6IKym"
+    url = "https://github.com/AlekseyKorshuk/cdn/raw/main/huggingface-course/huggingface%20course%20main%20chapters-en.zip"
     # urllib.request.urlretrieve(
     #     "https://downgit.github.io/#/home?url=https://github.com/huggingface/course/tree/main/chapters/en",
     #     "huggingface_course.zip")
