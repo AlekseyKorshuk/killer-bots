@@ -59,6 +59,7 @@ TEST_QUESTIONS = [
     "What is Dependency Inversion Principle?",
     "Why should I use SOLID?",
     "Who created SOLID?",
+    "What is SOLID and what are its principles?",
 ]
 
 if __name__ == "__main__":
