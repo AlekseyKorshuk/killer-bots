@@ -185,7 +185,7 @@ class Pipeline:
                                                                  attention_mask=model_input["attention_mask"].to(0),
                                                                  min_length=4,
                                                                  max_length=256,
-                                                                 do_sample=True,
+                                                                 do_sample=False,
                                                                  early_stopping=True,
                                                                  num_beams=8,
                                                                  temperature=1.0,
