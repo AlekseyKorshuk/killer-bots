@@ -155,7 +155,7 @@ def test():
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
-    res = p_retrieval.run(query="Tell me something about SOLID?", params={"Retriever": {"top_k": num_docs}})
+    res = p_retrieval.run(query="why i need to refactor my code?", params={"Retriever": {"top_k": num_docs}})
     documents = res["documents"]
     stats = {}
     counter = {}
