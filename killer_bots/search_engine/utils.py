@@ -80,8 +80,8 @@ def get_rag_generator():
         model_name_or_path="facebook/rag-token-nq",
         use_gpu=True,
         top_k=1,
-        max_length=200,
-        min_length=2,
+        max_length=300,
+        min_length=50,
         embed_title=True,
         num_beams=2,
     )
