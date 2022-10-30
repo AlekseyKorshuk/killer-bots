@@ -131,7 +131,10 @@ def get_huggingface_course_docs():
 
 def test():
     doc_dir = "/app/killer-bots/killer_bots/bots/code_guru/database"
-    os.remove("faiss_full_document_store.db")
+    try:
+        os.remove("faiss_full_document_store.db")
+    except:
+        pass
     document_store = FAISSDocumentStore(
         sql_url="sqlite:///faiss_full_document_store.db",
         embedding_dim=128,
