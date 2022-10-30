@@ -169,7 +169,7 @@ def test():
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
-    tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
+    tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
     while True:
         query = input("> ")
         # query = "why i need to refactor my code?"
