@@ -4,7 +4,6 @@ import torch.nn.functional as F
 from nltk import sent_tokenize
 from sentence_transformers import SentenceTransformer, util
 
-
 # Sentences we want sentence embeddings for
 file_path = './killer_bots/bots/code_guru/database/handwritten.txt'
 with open(file_path, 'r') as f:
@@ -20,12 +19,14 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 pairs = []
 for i in range(len(sentences) - 1):
-    pairs.append((sentences[i], sentences[i + 1]))
+    pairs.append((i, i + 1))
 
 embeddings = model.encode(sentences, convert_to_tensor=True)
 cosine_scores = util.cos_sim(embeddings, embeddings)
 print(cosine_scores)
 
+for pair in pairs:
+    print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1], cosine_scores[pair[0], pair[1]]))
 
 # for pair in pairs:
 #     print(pair[0])
