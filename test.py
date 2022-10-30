@@ -58,12 +58,30 @@ def generate_summary(nested_sentences):
   summaries = [sentence for sublist in summaries for sentence in sublist]
   return summaries
 
+sm = Summarizer(model='distilbert-base-uncased')
+
+def generate_summary2(nested_sentences):
+  device = 'cuda'
+  summaries = []
+  for nested in nested_sentences:
+    output = sm(body=nested, ratio=0.3)
+
+    # input_tokenized = bart_tokenizer.encode(' '.join(nested), truncation=True, return_tensors='pt')
+    # input_tokenized = input_tokenized.to(device)
+    # summary_ids = bart_model.to('cuda').generate(input_tokenized,
+    #                                   length_penalty=3.0,
+    #                                   min_length=30,
+    #                                   max_length=100)
+    # output = [bart_tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in summary_ids]
+    summaries.append(output)
+  return summaries
+
 
 summ = generate_summary(nested)
 
 print("\n".join(summ))
 
-sm = Summarizer(model='distilbert-base-uncased')
 print(len(DOCUMENT))
-result = sm(body=DOCUMENT, ratio=0.25)
-print(result)
+
+summ = generate_summary2(nested)
+print("\n".join(summ))
