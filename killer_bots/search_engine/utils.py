@@ -156,8 +156,21 @@ def test():
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
     res = p_retrieval.run(query="Tell me something about SOLID?", params={"Retriever": {"top_k": 2}})
-    print(res)
-    print_documents(res, max_text_len=512)
+    documents = res["documents"]
+    stats = {}
+    counter = {}
+    for doc in documents:
+        if doc.meta["name"] not in stats:
+            stats[doc.meta["name"]] = 0
+            counter[doc.meta["name"]] = 0
+        stats[doc.meta["name"]] += doc.score
+        counter[doc.meta["name"]] += 1
+    for key in stats:
+        stats[key] /= counter[key]
+    # sort by score descending order
+    stats = {k: v for k, v in sorted(stats.items(), key=lambda item: item[1], reverse=True)}
+    print(stats)
+    # print_documents(res, max_text_len=512)
 
 
 if __name__ == "__main__":
