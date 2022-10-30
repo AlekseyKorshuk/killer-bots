@@ -157,7 +157,7 @@ def test():
     document_store.write_documents(docs)
 
     num_docs = len(docs)
-    num_docs = 3
+    # num_docs = 3
     print(f"Number of docs: {num_docs}")
 
     retriever = EmbeddingRetriever(
