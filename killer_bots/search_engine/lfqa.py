@@ -29,7 +29,7 @@ class LFQA:
         res = self.pipeline.run(query=query, params=self.params)
         # print(res)
         # response = res["answers"][0].answer
-        # print("Answer:", res["answers"][0].answer)
+        print("Answer:", res["answers"][0].answer)
         for document in res["documents"]:
             print("---->", document.content)
         response = res["documents"][0].content

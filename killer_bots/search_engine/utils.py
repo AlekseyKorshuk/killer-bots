@@ -2,7 +2,7 @@ import os
 from haystack.document_stores import FAISSDocumentStore
 import numpy as np
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
-from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator, PreProcessor
+from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator, PreProcessor, RAGenerator
 from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline, GenerativeQAPipeline
 from haystack import Document
 from sklearn.metrics.pairwise import cosine_similarity
@@ -68,9 +68,23 @@ def get_lfqa_generator():
     generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
     return generator
 
+def get_rag_generator():
+    generator = RAGenerator(
+        model_name_or_path="facebook/rag-token-nq",
+        use_gpu=True,
+        top_k=1,
+        max_length=200,
+        min_length=2,
+        embed_title=True,
+        num_beams=2,
+    )
+    # generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
+    return generator
+
 
 def get_lfqa_pipeline(doc_dir):
-    generator = get_lfqa_generator()
+    # generator = get_lfqa_generator()
+    generator = get_rag_generator()
     retriever = get_retriever(doc_dir)
     pipeline = GenerativeQAPipeline(generator, retriever)
     return pipeline
