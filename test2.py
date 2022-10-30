@@ -13,7 +13,9 @@ with open(file_path, 'r') as f:
 sentences = []
 for paragraph in data.replace("\r\n", "\n").split("\n\n"):
     if len(paragraph.strip()) > 0:
-        sentences.append(sent_tokenize(paragraph.strip()))
+        for sent in sent_tokenize(paragraph):
+            sentences.append(sent)
+        # sentences.append(sent_tokenize(paragraph.strip()))
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -32,7 +34,10 @@ for i, sentence in enumerate(sentences):
 
 
 for pair in pairs:
+    print("Sentence {}: {}".format(pair[0], sentences[pair[0]]))
+    print("Sentence {}: {}".format(pair[1], sentences[pair[1]]))
     print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1], cosine_scores[pair[0], pair[1]]))
+    print("")
 
 # for pair in pairs:
 #     print(pair[0])
