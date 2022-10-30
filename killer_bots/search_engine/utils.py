@@ -150,8 +150,8 @@ def test():
 
     retriever = EmbeddingRetriever(
         document_store=document_store,
-        embedding_model="sentence-transformers/multi-qa-mpnet-base-dot-v1",
-        model_format="sentence_transformers"
+        embedding_model="CarperAI/carptriever-1",
+        # model_format="sentence_transformers"
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
