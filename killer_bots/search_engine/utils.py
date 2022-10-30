@@ -181,6 +181,7 @@ def test():
                 top_docs.append(doc)
                 ids.append(i)
         top_docs = top_docs[:5]
+        ids = ids[:5]
         print_documents({"documents": top_docs, "query": query}, max_text_len=512)
         print(ids)
 
