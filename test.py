@@ -61,4 +61,9 @@ def generate_summary(nested_sentences):
 
 summ = generate_summary(nested)
 
-print(summ)
+print("\n".join(summ))
+
+sm = Summarizer(model='distilbert-base-uncased')
+print(len(DOCUMENT))
+result = sm(body=DOCUMENT, ratio=0.25)
+print(result)
