@@ -142,7 +142,7 @@ def test():
         return_embedding=True
     )
     change_extentions_to_txt(doc_dir)
-    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=False)
+    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
     num_docs = len(docs)
     print(f"Number of docs: {num_docs}")
     # import pdb; pdb.set_trace()
