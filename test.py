@@ -59,7 +59,6 @@ def generate_summary(nested_sentences):
   return summaries
 
 
-sm = Summarizer(model='distilbert-base-uncased')
-result = sm(body=DOCUMENT, ratio=0.15)
-print(result)
+summ = generate_summary(nested)
 
+print(summ)
