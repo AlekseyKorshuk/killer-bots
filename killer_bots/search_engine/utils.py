@@ -155,8 +155,8 @@ def test():
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
-    res = p_retrieval.run(query="Tell me something about SOLID?", params={"Retriever": {"top_k": num_docs}})
-    print(res[0])
+    res = p_retrieval.run(query="Tell me something about SOLID?", params={"Retriever": {"top_k": 2}})
+    print(res)
     print_documents(res, max_text_len=512)
 
 
