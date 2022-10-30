@@ -143,10 +143,21 @@ def test():
     )
     change_extentions_to_txt(doc_dir)
     docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+
+    # import pdb; pdb.set_trace()
+    preprocessor = PreProcessor(
+        clean_empty_lines=True,
+        clean_whitespace=True,
+        clean_header_footer=False,
+        split_by="word",
+        split_length=100,
+        split_respect_sentence_boundary=True,
+    )
+    docs = preprocessor.process(docs)
+    document_store.write_documents(docs)
+
     num_docs = len(docs)
     print(f"Number of docs: {num_docs}")
-    # import pdb; pdb.set_trace()
-    document_store.write_documents(docs)
 
     retriever = EmbeddingRetriever(
         document_store=document_store,
