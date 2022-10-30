@@ -61,7 +61,7 @@ def generate_summary(nested_sentences):
     return summaries
 
 
-sm = Summarizer(model=BART_PATH)
+sm = Summarizer(model='distilbert-base-uncased')
 
 
 def generate_summary2(nested_sentences):
@@ -89,3 +89,6 @@ print(len(DOCUMENT))
 
 summ = generate_summary2(nested)
 print("\n".join(summ))
+
+res = sm.calculate_elbow(DOCUMENT, k_max=10)
+print(res)
