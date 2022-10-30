@@ -30,7 +30,8 @@ class LFQA:
         # print(res)
         # response = res["answers"][0].answer
         # print("Answer:", res["answers"][0].answer)
-
+        for document in res["documents"]:
+            print("---->", document.content)
         response = res["documents"][0].content
         if response[-1] != ".":
             response = response[:-1] + "."
