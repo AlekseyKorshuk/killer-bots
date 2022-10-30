@@ -56,7 +56,7 @@ def get_retriever(doc_dir):
     #     passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
     # )
     retriever = BM25Retriever(document_store=document_store)
-    document_store.update_embeddings(retriever)
+    # document_store.update_embeddings(retriever)
     return retriever
 
 
