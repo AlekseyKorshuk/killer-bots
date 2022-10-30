@@ -155,7 +155,8 @@ def test():
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
-    res = p_retrieval.run(query="why i need to refactor my code?", params={"Retriever": {"top_k": num_docs}})
+    query = "why i need to refactor my code?"
+    res = p_retrieval.run(query=query, params={"Retriever": {"top_k": num_docs}})
     documents = res["documents"]
     stats = {}
     counter = {}
@@ -176,7 +177,7 @@ def test():
         if doc.meta["name"] in top_files:
             top_docs.append(doc)
     top_docs = top_docs[:5]
-    print_documents({"documents": top_docs}, max_text_len=512)
+    print_documents({"documents": top_docs, "query": query}, max_text_len=512)
 
 
 if __name__ == "__main__":
