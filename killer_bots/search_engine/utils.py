@@ -14,7 +14,7 @@ import logging
 
 def get_document_store():
     os.remove("faiss_document_store.db")
-    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat", return_embedding=True)
+    document_store = FAISSDocumentStore(embedding_dim=768, faiss_index_factory_str="Flat", return_embedding=True)
     return document_store
 
 
