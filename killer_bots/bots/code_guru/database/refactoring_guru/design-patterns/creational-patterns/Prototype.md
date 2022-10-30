@@ -4,7 +4,6 @@ Also known as: Clone
 
 **Prototype** is a creational design pattern that lets you copy existing objects without making your code dependent on their classes.
 
-![Prototype Design Pattern](https://refactoring.guru/images/patterns/content/prototype/prototype.png)
 
 ## Problem
 

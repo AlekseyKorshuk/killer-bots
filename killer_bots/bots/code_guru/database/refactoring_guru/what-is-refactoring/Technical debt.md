@@ -1,9 +1,3 @@
-![](https://refactoring.guru/images/content-public/announcement-en-1.svg?id=2b6bba0470947f2a60cdac20b809cf3d)
-
-Hey, I have just reduced the price for all products. Let's prepare our programming skills for the post-COVID era. [Check it out »](https://refactoring.guru/store)
-
-![](https://refactoring.guru/images/content-public/announcement-en-2.svg?id=d0c7bf36cfcc7c733fad50a30fd99920)
-
 Everyone does their best to write excellent code from scratch. There probably isn’t a programmer out there who intentionally writes unclean code to the detriment of the project. But at what point does clean code become unclean?
 
 The metaphor of “technical debt” in regards to unclean code was originally suggested by Ward Cunningham.

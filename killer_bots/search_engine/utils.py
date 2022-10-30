@@ -137,7 +137,7 @@ def test():
         pass
     document_store = FAISSDocumentStore(
         sql_url="sqlite:///faiss_full_document_store.db",
-        embedding_dim=1024,
+        # embedding_dim=128,
         faiss_index_factory_str="Flat",
         return_embedding=True
     )
@@ -150,8 +150,8 @@ def test():
 
     retriever = EmbeddingRetriever(
         document_store=document_store,
-        embedding_model="CarperAI/carptriever-1",
-        # model_format="sentence_transformers"
+        embedding_model="sentence-transformers/multi-qa-mpnet-base-dot-v1",
+        model_format="sentence_transformers"
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
@@ -175,11 +175,14 @@ def test():
         print(stats)
         top_files = list(stats.keys())[:5]
         top_docs = []
-        for doc in documents:
+        ids = []
+        for i, doc in enumerate(documents):
             if doc.meta["name"] in top_files:
                 top_docs.append(doc)
+                ids.append(i)
         top_docs = top_docs[:5]
         print_documents({"documents": top_docs, "query": query}, max_text_len=512)
+        print(ids)
 
 
 if __name__ == "__main__":

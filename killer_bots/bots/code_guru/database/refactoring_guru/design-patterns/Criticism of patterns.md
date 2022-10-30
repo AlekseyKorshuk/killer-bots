@@ -1,9 +1,3 @@
-![](https://refactoring.guru/images/content-public/announcement-en-1.svg?id=2b6bba0470947f2a60cdac20b809cf3d)
-
-Hey, I have just reduced the price for all products. Let's prepare our programming skills for the post-COVID era. [Check it out »](https://refactoring.guru/store)
-
-![](https://refactoring.guru/images/content-public/announcement-en-2.svg?id=d0c7bf36cfcc7c733fad50a30fd99920)
-
 It seems like only lazy people haven’t criticized design patterns yet. Let’s take a look at the most typical arguments against using patterns.
 
 #### Kludges for a weak programming language 

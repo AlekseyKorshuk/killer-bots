@@ -1,14 +1,6 @@
-![](https://refactoring.guru/images/content-public/announcement-en-1.svg?id=2b6bba0470947f2a60cdac20b809cf3d)
-
-Hey, I have just reduced the price for all products. Let's prepare our programming skills for the post-COVID era. [Check it out »](https://refactoring.guru/store)
-
-![](https://refactoring.guru/images/content-public/announcement-en-2.svg?id=d0c7bf36cfcc7c733fad50a30fd99920)
-
 ## Intent
 
 **Singleton** is a creational design pattern that lets you ensure that a class has only one instance, while providing a global access point to this instance.
-
-![Singleton pattern](https://refactoring.guru/images/patterns/content/singleton/singleton.png?id=108a0b9b5ea5c4426e0afa4504491d6f)
 
 ## Problem
 
@@ -20,8 +12,6 @@ The Singleton pattern solves two problems at the same time, violating the _Singl
     
     Note that this behavior is impossible to implement with a regular constructor since a constructor call **must** always return a new object by design.
     
-
-![The global access to an object](https://refactoring.guru/images/patterns/content/singleton/singleton-comic-1-en.png?id=157509c5693a657ba465c7a9d58a7c25)
 
 Clients may not even realize that they’re working with the same object all the time.
 
