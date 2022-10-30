@@ -22,11 +22,16 @@ pairs = []
 for i in range(len(sentences) - 1):
     pairs.append((sentences[i], sentences[i + 1]))
 
-for pair in pairs:
-    print(pair[0])
-    print(pair[1])
-    embeddings1 = model.encode(pair[0], convert_to_tensor=True)
-    embeddings2 = model.encode(pair[1], convert_to_tensor=True)
-    cosine_scores = util.cos_sim(embeddings1, embeddings2)
-    print(cosine_scores)
+embeddings = model.encode(sentences, convert_to_tensor=True)
+cosine_scores = util.cos_sim(embeddings, embeddings)
+print(cosine_scores)
+
+
+# for pair in pairs:
+#     print(pair[0])
+#     print(pair[1])
+#     embeddings1 = model.encode(pair[0], convert_to_tensor=True)
+#     embeddings2 = model.encode(pair[1], convert_to_tensor=True)
+#     cosine_scores = util.cos_sim(embeddings1, embeddings2)
+#     print(cosine_scores)
 # split list into pairs
