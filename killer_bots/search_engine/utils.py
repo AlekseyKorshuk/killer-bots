@@ -12,6 +12,8 @@ import urllib.request
 import os
 import logging
 
+from transformers import AutoTokenizer
+
 
 def get_document_store():
     os.remove("faiss_document_store.db")
@@ -167,6 +169,7 @@ def test():
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
+    tokenizer = AutoTokenizer.from_pretrained("EleutherAI/gpt-j-6B")
     while True:
         query = input("> ")
         # query = "why i need to refactor my code?"
@@ -200,6 +203,11 @@ def test():
         scores = [doc.score for doc in top_docs]
         print_documents({"documents": top_docs, "query": query}, max_text_len=None)
         print(scores)
+        joined_text = "\n".join([doc.content for doc in top_docs])
+        num_tokens = len(tokenizer(joined_text).input_ids)
+        print(f"num_tokens: {num_tokens}")
+        num_tokens = len(tokenizer(joined_text).input_ids[0])
+        print(f"num_tokens: {num_tokens}")
 
 
 if __name__ == "__main__":
