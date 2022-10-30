@@ -137,7 +137,7 @@ def test():
         pass
     document_store = FAISSDocumentStore(
         sql_url="sqlite:///faiss_full_document_store.db",
-        # embedding_dim=128,
+        embedding_dim=1024,
         faiss_index_factory_str="Flat",
         return_embedding=True
     )
