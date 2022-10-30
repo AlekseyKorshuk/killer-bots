@@ -171,7 +171,6 @@ def test():
         query = input("> ")
         # query = "why i need to refactor my code?"
         res = p_retrieval.run(query=query, params={"Retriever": {"top_k": num_docs}})
-        print(res)
         documents = res["documents"]
         stats = {}
         counter = {}
@@ -195,10 +194,12 @@ def test():
                 ids.append(i)
         top_docs = top_docs[:5]
         ids = ids[:5]
+
         top_docs = sorted(top_docs, key=lambda x: x.meta['vector_id'], reverse=False)
         top_docs = sorted(top_docs, key=lambda x: x.meta['name'], reverse=False)
+        scores = [doc.score for doc in top_docs]
         print_documents({"documents": top_docs, "query": query}, max_text_len=None)
-        print(ids)
+        print(scores)
 
 
 if __name__ == "__main__":
