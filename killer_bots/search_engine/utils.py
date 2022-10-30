@@ -206,8 +206,6 @@ def test():
         joined_text = "\n".join([doc.content for doc in top_docs])
         num_tokens = len(tokenizer(joined_text).input_ids)
         print(f"num_tokens: {num_tokens}")
-        num_tokens = len(tokenizer(joined_text).input_ids[0])
-        print(f"num_tokens: {num_tokens}")
 
 
 if __name__ == "__main__":
