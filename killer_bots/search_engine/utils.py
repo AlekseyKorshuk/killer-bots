@@ -142,7 +142,7 @@ def test():
         return_embedding=True
     )
     change_extentions_to_txt(doc_dir)
-    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=False)
 
     # import pdb; pdb.set_trace()
     preprocessor = PreProcessor(
