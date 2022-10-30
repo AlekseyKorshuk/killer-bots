@@ -157,6 +157,7 @@ def test():
     document_store.write_documents(docs)
 
     num_docs = len(docs)
+    num_docs = 3
     print(f"Number of docs: {num_docs}")
 
     retriever = EmbeddingRetriever(
@@ -170,6 +171,7 @@ def test():
         query = input("> ")
         # query = "why i need to refactor my code?"
         res = p_retrieval.run(query=query, params={"Retriever": {"top_k": num_docs}})
+        print(res)
         documents = res["documents"]
         stats = {}
         counter = {}
