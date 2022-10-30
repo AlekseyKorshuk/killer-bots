@@ -25,6 +25,12 @@ embeddings = model.encode(sentences, convert_to_tensor=True)
 cosine_scores = util.cos_sim(embeddings, embeddings)
 print(cosine_scores)
 
+for i, sentence in enumerate(sentences):
+    print("Sentence {}:".format(i))
+    print(sentence)
+    print("")
+
+
 for pair in pairs:
     print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1], cosine_scores[pair[0], pair[1]]))
 
