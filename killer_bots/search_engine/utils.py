@@ -1,9 +1,9 @@
 import os
-from haystack.document_stores import FAISSDocumentStore
+from haystack.document_stores import FAISSDocumentStore, ElasticsearchDocumentStore
 import numpy as np
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
 from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator, PreProcessor, RAGenerator, \
-    BM25Retriever, SentenceTransformersRanker
+    BM25Retriever, SentenceTransformersRanker, EmbeddingRetriever
 from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline, GenerativeQAPipeline
 from haystack import Document, Pipeline
 from sklearn.metrics.pairwise import cosine_similarity
@@ -135,11 +135,9 @@ def test():
         os.remove("faiss_full_document_store.db")
     except:
         pass
-    document_store = FAISSDocumentStore(
-        sql_url="sqlite:///faiss_full_document_store.db",
-        embedding_dim=128,
-        faiss_index_factory_str="Flat",
-        return_embedding=True
+    document_store = ElasticsearchDocumentStore(
+        similarity="dot_product",
+        embedding_dim=768
     )
     change_extentions_to_txt(doc_dir)
     docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
@@ -148,10 +146,10 @@ def test():
     # import pdb; pdb.set_trace()
     document_store.write_documents(docs)
 
-    retriever = DensePassageRetriever(
+    retriever = EmbeddingRetriever(
         document_store=document_store,
-        query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
-        passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
+        embedding_model="sentence-transformers/multi-qa-mpnet-base-dot-v1",
+        model_format="sentence_transformers"
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
