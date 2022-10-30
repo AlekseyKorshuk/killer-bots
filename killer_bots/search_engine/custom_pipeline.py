@@ -183,7 +183,7 @@ class Pipeline:
 
             generated_answers_encoded = self.bart_model.generate(input_ids=model_input["input_ids"].to(0),
                                                                  attention_mask=model_input["attention_mask"].to(0),
-                                                                 min_length=4,
+                                                                 min_length=200,
                                                                  max_length=256,
                                                                  do_sample=False,
                                                                  early_stopping=True,
