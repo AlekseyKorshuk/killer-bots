@@ -143,7 +143,7 @@ class Pipeline:
         print("Query:", query)
         print("Docs:")
         for doc in top_docs:
-            print(doc.meta["name"], doc.score)
+            print(doc.meta["vector_id"], doc.meta["name"], doc.score)
         num_tokens = len(self.tokenizer(answer).input_ids)
         print(f"Number of tokens: {num_tokens}")
 
