@@ -79,8 +79,8 @@ def get_lfqa_pipeline(doc_dir):
 def change_extentions_to_txt(dir_path):
     for root, dirs, files in os.walk(dir_path):
         for file in files:
-            if file.endswith(".mdx"):
-                os.rename(os.path.join(root, file), os.path.join(root, file.replace(".mdx", ".txt")))
+            if file.endswith(".md"):
+                os.rename(os.path.join(root, file), os.path.join(root, file.replace(".md", ".txt")))
 
 
 def get_huggingface_course_docs():
