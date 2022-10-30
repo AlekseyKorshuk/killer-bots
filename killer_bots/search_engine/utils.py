@@ -2,7 +2,8 @@ import os
 from haystack.document_stores import FAISSDocumentStore
 import numpy as np
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
-from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator, PreProcessor, RAGenerator
+from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator, PreProcessor, RAGenerator, \
+    BM25Retriever
 from haystack.pipelines import DocumentSearchPipeline, SearchSummarizationPipeline, GenerativeQAPipeline
 from haystack import Document
 from sklearn.metrics.pairwise import cosine_similarity
@@ -14,7 +15,7 @@ import logging
 
 def get_document_store():
     os.remove("faiss_document_store.db")
-    document_store = FAISSDocumentStore(embedding_dim=768, faiss_index_factory_str="Flat", return_embedding=True)
+    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat", return_embedding=True)
     return document_store
 
 
@@ -42,18 +43,19 @@ def write_docs(document_store, doc_dir):
 def get_retriever(doc_dir):
     document_store = get_document_store()
     document_store = write_docs(document_store, doc_dir)
-    retriever = DensePassageRetriever(
-        document_store=document_store,
-        query_embedding_model="facebook/dpr-question_encoder-single-nq-base",
-        passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base",
-        use_gpu=True,
-        embed_title=True,
-    )
+    # retriever = DensePassageRetriever(
+    #     document_store=document_store,
+    #     query_embedding_model="facebook/dpr-question_encoder-single-nq-base",
+    #     passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base",
+    #     use_gpu=True,
+    #     embed_title=True,
+    # )
     # retriever = DensePassageRetriever(
     #     document_store=document_store,
     #     query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
     #     passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
     # )
+    retriever = BM25Retriever(document_store=document_store)
     document_store.update_embeddings(retriever)
     return retriever
 
@@ -90,8 +92,8 @@ def get_rag_generator():
 
 
 def get_lfqa_pipeline(doc_dir):
-    # generator = get_lfqa_generator()
-    generator = get_rag_generator()
+    generator = get_lfqa_generator()
+    # generator = get_rag_generator()
     retriever = get_retriever(doc_dir)
     pipeline = GenerativeQAPipeline(generator, retriever)
     return pipeline
