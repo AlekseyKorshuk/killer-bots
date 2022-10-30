@@ -105,7 +105,7 @@ def get_top_docs(documents, stats, top_k=5):
 
 
 def postprocess_top_docs(top_docs):
-    top_docs = sorted(top_docs, key=lambda x: x.score, reverse=False)
+    top_docs = sorted(top_docs, key=lambda x: x.score, reverse=True)
     top_docs = sorted(top_docs, key=lambda x: x.meta['vector_id'], reverse=False)
     top_docs = sorted(top_docs, key=lambda x: x.meta['name'], reverse=False)
     return top_docs
