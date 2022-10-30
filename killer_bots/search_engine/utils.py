@@ -1,5 +1,5 @@
 import os
-from haystack.document_stores import FAISSDocumentStore, ElasticsearchDocumentStore
+from haystack.document_stores import FAISSDocumentStore
 import numpy as np
 from haystack.utils import convert_files_to_docs, fetch_archive_from_http, clean_wiki_text, print_documents
 from haystack.nodes import DensePassageRetriever, TransformersSummarizer, Seq2SeqGenerator, PreProcessor, RAGenerator, \
@@ -135,9 +135,11 @@ def test():
         os.remove("faiss_full_document_store.db")
     except:
         pass
-    document_store = ElasticsearchDocumentStore(
-        similarity="dot_product",
-        embedding_dim=768
+    document_store = FAISSDocumentStore(
+        sql_url="sqlite:///faiss_full_document_store.db",
+        # embedding_dim=128,
+        faiss_index_factory_str="Flat",
+        return_embedding=True
     )
     change_extentions_to_txt(doc_dir)
     docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
