@@ -96,7 +96,7 @@ class Pipeline:
         self.document_search_pipeline = DocumentSearchPipeline(self.retriever)
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
 
-    def get_relevant_docs(self, query, top_k):
+    def get_relevant_docs(self, query):
         documents = self.document_search_pipeline.run(
             query=query,
             params={
@@ -116,7 +116,7 @@ class Pipeline:
         print(f"Number of tokens: {num_tokens}")
 
     def __call__(self, query, top_k=5, verbose=False):
-        documents = self.get_relevant_docs(query, self.num_docs)
+        documents = self.get_relevant_docs(query)
         stats = get_file_scores(documents)
         top_docs = get_top_docs(documents, stats, top_k)
         top_docs = postprocess_top_docs(top_docs)
