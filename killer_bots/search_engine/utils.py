@@ -142,8 +142,9 @@ def test():
         return_embedding=True
     )
     change_extentions_to_txt(doc_dir)
-    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=False)
-    print(f"Number of docs: {len(docs)}")
+    docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+    num_docs = len(docs)
+    print(f"Number of docs: {num_docs}")
     # import pdb; pdb.set_trace()
     document_store.write_documents(docs)
 
@@ -154,7 +155,8 @@ def test():
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
-    res = p_retrieval.run(query="Tell me something about SOLID?", params={"Retriever": {"top_k": 10}})
+    res = p_retrieval.run(query="Tell me something about SOLID?", params={"Retriever": {"top_k": num_docs}})
+    print(res[0])
     print_documents(res, max_text_len=512)
 
 
