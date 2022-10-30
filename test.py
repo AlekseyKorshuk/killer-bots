@@ -64,7 +64,7 @@ def generate_summary2(nested_sentences):
   device = 'cuda'
   summaries = []
   for nested in nested_sentences:
-    output = sm(body=nested, ratio=0.3)
+    output = sm(body=' '.join(nested), ratio=0.3)
 
     # input_tokenized = bart_tokenizer.encode(' '.join(nested), truncation=True, return_tensors='pt')
     # input_tokenized = input_tokenized.to(device)
