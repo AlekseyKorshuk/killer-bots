@@ -124,3 +124,10 @@ class Pipeline:
         if verbose:
             self.print_logs(query, top_docs, answer)
         return answer
+
+
+if __name__ == "__main__":
+    pipeline = Pipeline("/app/killer-bots/killer_bots/bots/code_guru/database")
+    while True:
+        query = input("> ")
+        print(pipeline(query, verbose=True))
