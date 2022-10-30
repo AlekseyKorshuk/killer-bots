@@ -14,7 +14,7 @@ import logging
 
 def get_document_store():
     os.remove("faiss_document_store.db")
-    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat")
+    document_store = FAISSDocumentStore(embedding_dim=128, faiss_index_factory_str="Flat", return_embedding=True)
     return document_store
 
 
@@ -44,9 +44,16 @@ def get_retriever(doc_dir):
     document_store = write_docs(document_store, doc_dir)
     retriever = DensePassageRetriever(
         document_store=document_store,
-        query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
-        passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
+        query_embedding_model="facebook/dpr-question_encoder-single-nq-base",
+        passage_embedding_model="facebook/dpr-ctx_encoder-single-nq-base",
+        use_gpu=True,
+        embed_title=True,
     )
+    # retriever = DensePassageRetriever(
+    #     document_store=document_store,
+    #     query_embedding_model="vblagoje/dpr-question_encoder-single-lfqa-wiki",
+    #     passage_embedding_model="vblagoje/dpr-ctx_encoder-single-lfqa-wiki",
+    # )
     document_store.update_embeddings(retriever)
     return retriever
 
