@@ -37,7 +37,6 @@ def write_docs(document_store, doc_dir):
     document_store.write_documents(docs)
     return document_store
 
-
 def get_retriever(doc_dir):
     document_store = get_document_store()
     document_store = write_docs(document_store, doc_dir)
