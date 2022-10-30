@@ -155,29 +155,31 @@ def test():
     )
     document_store.update_embeddings(retriever)
     p_retrieval = DocumentSearchPipeline(retriever)
-    query = "why i need to refactor my code?"
-    res = p_retrieval.run(query=query, params={"Retriever": {"top_k": num_docs}})
-    documents = res["documents"]
-    stats = {}
-    counter = {}
-    for doc in documents:
-        if doc.meta["name"] not in stats:
-            stats[doc.meta["name"]] = 0
-            counter[doc.meta["name"]] = 0
-        stats[doc.meta["name"]] += doc.score
-        counter[doc.meta["name"]] += 1
-    for key in stats:
-        stats[key] /= counter[key]
-    # sort by score descending order
-    stats = {k: v for k, v in sorted(stats.items(), key=lambda item: item[1], reverse=True)}
-    print(stats)
-    top_files = list(stats.keys())[:5]
-    top_docs = []
-    for doc in documents:
-        if doc.meta["name"] in top_files:
-            top_docs.append(doc)
-    top_docs = top_docs[:5]
-    print_documents({"documents": top_docs, "query": query}, max_text_len=512)
+    while True:
+        query = input("> ")
+        # query = "why i need to refactor my code?"
+        res = p_retrieval.run(query=query, params={"Retriever": {"top_k": num_docs}})
+        documents = res["documents"]
+        stats = {}
+        counter = {}
+        for doc in documents:
+            if doc.meta["name"] not in stats:
+                stats[doc.meta["name"]] = 0
+                counter[doc.meta["name"]] = 0
+            stats[doc.meta["name"]] += doc.score
+            counter[doc.meta["name"]] += 1
+        for key in stats:
+            stats[key] /= counter[key]
+        # sort by score descending order
+        stats = {k: v for k, v in sorted(stats.items(), key=lambda item: item[1], reverse=True)}
+        print(stats)
+        top_files = list(stats.keys())[:5]
+        top_docs = []
+        for doc in documents:
+            if doc.meta["name"] in top_files:
+                top_docs.append(doc)
+        top_docs = top_docs[:5]
+        print_documents({"documents": top_docs, "query": query}, max_text_len=512)
 
 
 if __name__ == "__main__":
