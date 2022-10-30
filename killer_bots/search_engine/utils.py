@@ -195,6 +195,7 @@ def test():
                 ids.append(i)
         top_docs = top_docs[:5]
         ids = ids[:5]
+        top_docs = sorted(top_docs, key=lambda x: x.meta.vector_id, reverse=False)
         print_documents({"documents": top_docs, "query": query}, max_text_len=None)
         print(ids)
 
