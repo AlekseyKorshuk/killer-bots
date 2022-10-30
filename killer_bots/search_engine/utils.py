@@ -19,6 +19,7 @@ def get_document_store():
 
 
 def write_docs(document_store, doc_dir):
+    change_extentions_to_txt(doc_dir)
     docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
 
     preprocessor = PreProcessor(
@@ -36,6 +37,7 @@ def write_docs(document_store, doc_dir):
     # import pdb; pdb.set_trace()
     document_store.write_documents(docs)
     return document_store
+
 
 def get_retriever(doc_dir):
     document_store = get_document_store()
