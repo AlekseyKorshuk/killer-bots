@@ -193,9 +193,9 @@ class Pipeline:
                                                                  top_p=None,
                                                                  eos_token_id=self.bart_tokenizer.eos_token_id,
                                                                  no_repeat_ngram_size=3,
-                                                                 num_return_sequences=3)
+                                                                 num_return_sequences=1)
             output = self.bart_tokenizer.batch_decode(generated_answers_encoded, skip_special_tokens=True,
-                                             clean_up_tokenization_spaces=True)
+                                                      clean_up_tokenization_spaces=True)
             print("BART answer:", output)
             self.print_logs(query, top_docs, answer)
         return answer
