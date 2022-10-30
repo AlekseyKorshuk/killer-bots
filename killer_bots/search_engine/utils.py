@@ -170,7 +170,13 @@ def test():
     # sort by score descending order
     stats = {k: v for k, v in sorted(stats.items(), key=lambda item: item[1], reverse=True)}
     print(stats)
-    # print_documents(res, max_text_len=512)
+    top_files = list(stats.keys())[:5]
+    top_docs = []
+    for doc in documents:
+        if doc.meta["name"] in top_files:
+            top_docs.append(doc)
+    top_docs = top_docs[:5]
+    print_documents({"documents": top_docs}, max_text_len=512)
 
 
 if __name__ == "__main__":
