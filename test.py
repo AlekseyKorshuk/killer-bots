@@ -90,5 +90,5 @@ print(len(DOCUMENT))
 summ = generate_summary2(nested)
 print("\n".join(summ))
 
-res = sm.calculate_elbow(DOCUMENT, k_max=10)
+res = sm.calculate_optimal_k(DOCUMENT, k_max=10)
 print(res)
