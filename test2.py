@@ -1,4 +1,5 @@
 import tqdm
+from haystack import Document
 from haystack.utils import convert_files_to_docs
 from transformers import AutoTokenizer, AutoModel
 import torch
@@ -41,9 +42,14 @@ def is_title(text):
 
 
 def get_docs_text(docs):
-    return '\n'.join([doc.content for doc in docs])
+    return '\n'.join([clean_wiki_text(doc.content) for doc in docs])
 
 
+def join_docs(docs):
+    return Document(content=get_docs_text(docs), meta=docs[0].meta)
+
+
+prepared_docs = []
 small_threshold = 0.1
 threshold = 0.35
 next_threshold = 0.4
@@ -67,7 +73,7 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
     if add_flag:
         current_docs.append(doc)
         if i == len(docs) - 2:
-            final_docs.append(get_docs_text(current_docs))
+            final_docs.append(join_docs(current_docs))
     else:
         if len(current_docs) == 1:
             print(current_docs[0].content)
@@ -76,11 +82,10 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
         is_last_title = is_title(current_docs[-1].content)
         if is_last_title:
             if len(current_docs) > 1:
-                final_docs.append(get_docs_text(current_docs[:-1]))
+                final_docs.append(join_docs(current_docs[:-1]))
             current_docs = [current_docs[-1], doc]
-
         else:
-            final_docs.append(get_docs_text(current_docs))
+            final_docs.append(join_docs(current_docs))
             current_docs = [doc]
 
 input("Press Enter to continue...")
