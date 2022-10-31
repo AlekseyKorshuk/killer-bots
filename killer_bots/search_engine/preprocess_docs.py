@@ -66,6 +66,11 @@ class PreprocessDocs:
         prepared_docs = []
         current_docs = [docs[0]]
         for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), desc="Preprocessing docs"):
+            if doc.meta['name'] != current_docs[-1].meta['name']:
+                prepared_docs.append(join_docs(current_docs))
+                current_docs = [doc]
+                continue
+
             score = self.get_score(get_docs_text(current_docs), doc.content)
             add_flag = False
             if score > self.threshold and current_docs[-1].meta['name'] == doc.meta['name']:
