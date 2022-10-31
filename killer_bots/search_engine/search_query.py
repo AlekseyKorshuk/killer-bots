@@ -66,7 +66,7 @@ params = {
     # "top_k": 20,
     # "temperature": 1.0,
     # "repetition_penalty": 1.0,
-    "eos_token_id": 50118,  # 50118
+    "eos_token_id": 198,  # 50118
     "device": device,
     "do_sample": False,
     "max_new_tokens": 256,
@@ -112,10 +112,10 @@ if __name__ == "__main__":
         query = input("User: ")
         if query == "exit":
             break
-        input_ids = tokenizer.encode(prompt + query + "\nSearch:", return_tensors="pt").to(device)
+        inputs = tokenizer(prompt + query + "\nSearch:", return_tensors="pt").to(device)
         output_ids = model.generate(
-            input_ids, **params
+            **inputs, **params
         )
-        output_text = tokenizer.decode(output_ids[0][len(input_ids[0]):], skip_special_tokens=True)
+        output_text = tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
         print(f"Search:{output_text}")
 
