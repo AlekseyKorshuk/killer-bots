@@ -16,22 +16,49 @@ sentences = [doc.content for doc in docs]
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-pairs = []
-for i in range(len(sentences) - 1):
-    pairs.append((i, i + 1))
 
-embeddings = model.encode(sentences, convert_to_tensor=True)
-cosine_scores = util.cos_sim(embeddings, embeddings)
-print(cosine_scores)
+def get_score(text1, text2):
+    # Compute embedding for both lists
+    embeddings1 = model.encode([text1], convert_to_tensor=True)
+    embeddings2 = model.encode([text2], convert_to_tensor=True)
 
-for i, sentence in enumerate(sentences):
-    print("Sentence {}:".format(i))
-    print(sentence)
-    print("")
+    # Compute cosine-similarits
+    cosine_scores = util.pytorch_cos_sim(embeddings1, embeddings2)
 
-for pair in pairs:
-    print("Sentence {}: {}".format(pair[0], sentences[pair[0]]))
-    print("Sentence {}: {}".format(pair[1], sentences[pair[1]]))
-    print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1],
-                                                                             cosine_scores[pair[0], pair[1]]))
-    print("")
+    return cosine_scores
+
+
+threshold = 0.2
+final_docs = []
+current_doc = docs[0].content
+for doc in docs[1:]:
+    score = get_score(current_doc, doc.content)
+    if score > threshold:
+        current_doc += doc.content
+    else:
+        final_docs.append(current_doc)
+        current_doc = doc.content
+
+for doc in final_docs:
+    print(doc)
+    print("#" * 100)
+
+# pairs = []
+# for i in range(len(sentences) - 1):
+#     pairs.append((i, i + 1))
+#
+# embeddings = model.encode(sentences, convert_to_tensor=True)
+# cosine_scores = util.cos_sim(embeddings, embeddings)
+# print(cosine_scores)
+#
+# for i, sentence in enumerate(sentences):
+#     print("Sentence {}:".format(i))
+#     print(sentence)
+#     print("")
+#
+# for pair in pairs:
+#     print("Sentence {}: {}".format(pair[0], sentences[pair[0]]))
+#     print("Sentence {}: {}".format(pair[1], sentences[pair[1]]))
+#     print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1],
+#                                                                              cosine_scores[pair[0], pair[1]]))
+#     print("")
