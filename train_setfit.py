@@ -32,6 +32,7 @@ trainer = SetFitTrainer(
 # Train and evaluate
 trainer.train()
 metrics = trainer.evaluate()
+print(metrics)
 
 # Push model to the Hub
 trainer.push_to_hub("AlekseyKorshuk/is-title-setfit")
