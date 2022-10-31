@@ -12,7 +12,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 MODEL = 'facebook/opt-30b'
 # MODEL = 'facebook/opt-125m'
-# MODEL = 'EleutherAI/gpt-j-6B'
+MODEL = 'EleutherAI/gpt-j-6B'
 
 REWARD_MODEL = "ChaiML/roberta-base-dalio-reg-v1"
 # REWARD_MODEL = '/models/dalio_reward_models/checkpoint-2700'
@@ -117,6 +117,5 @@ if __name__ == "__main__":
             input_ids, **params
         )
         output_text = tokenizer.decode(output_ids[0][len(input_ids[0]):], skip_special_tokens=True)
-        print("Search:", output_text)
+        print(f"Search:{output_text}")
 
-    prompt = "This is a "
