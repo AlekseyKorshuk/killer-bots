@@ -35,8 +35,8 @@ def clean_wiki_text(text: str) -> str:
     text = re.sub(r"(==.*==\n\n\n)", "", text)
 
     # remove multiple dashes
-    # text = re.sub(r"#+ +", "", text)
-    # text = re.sub(r" +#+", "", text)
+    text = re.sub(r"#+ +", "", text)
+    text = re.sub(r" +#+", "", text)
 
     return text
 

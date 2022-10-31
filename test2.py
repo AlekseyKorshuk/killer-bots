@@ -7,6 +7,7 @@ from nltk import sent_tokenize
 from sentence_transformers import SentenceTransformer, util
 
 # Sentences we want sentence embeddings for
+from killer_bots.search_engine.custom_pipeline import clean_wiki_text
 from killer_bots.search_engine.utils import change_extentions_to_txt
 
 doc_dir = './killer_bots/bots/code_guru/database/'
@@ -20,6 +21,8 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def get_score(text1, text2):
     # Compute embedding for both lists
+    text1 = clean_wiki_text(text1)
+    text2 = clean_wiki_text(text2)
     embeddings1 = model.encode([text1], convert_to_tensor=True)
     embeddings2 = model.encode([text2], convert_to_tensor=True)
 
