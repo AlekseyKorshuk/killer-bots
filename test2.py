@@ -42,7 +42,7 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
     add_flag = False
     if score > threshold and current_doc.meta['name'] == doc.meta['name']:
         add_flag = True
-    elif len(current_doc.content) <= 65 and score > small_threshold:
+    elif len(clean_wiki_text(current_doc.content)) <= 50 and score > small_threshold:
         add_flag = True
     # else:
     #     next_score = get_score(
