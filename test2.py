@@ -34,12 +34,12 @@ def get_score(text1, text2):
 
 # Download from Hub and run inference
 is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit")
-# Run inference
-preds = is_title_model(["i loved the spiderman movie!", "pineapple on pizza is the worst 🤮"])
-print(preds)
+
+
 
 def is_title(text):
-    return len(clean_wiki_text(text)) <= 55
+    return is_title_model([clean_wiki_text(text)])[0] == 1
+
 
 small_threshold = 0.1
 threshold = 0.35
