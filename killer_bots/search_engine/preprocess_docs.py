@@ -37,6 +37,7 @@ def get_docs_text(docs):
 
 
 def join_docs(docs):
+    assert set([doc.meta["name"] for doc in docs]) == 1
     return Document(content=get_docs_text(docs), meta=docs[0].meta)
 
 
