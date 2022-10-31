@@ -8,7 +8,7 @@ import torch
 print(f"Is CUDA available: {torch.cuda.is_available()}")
 print(f"CUDA device: {torch.cuda.get_device_name(torch.cuda.current_device())}")
 
-pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device="cuda:0",
+pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device=0,
                      model_kwargs={"torch_dtype": torch.bfloat16})
 
 with open('./killer_bots/bots/code_guru/database/handwritten.txt', 'r') as f:
