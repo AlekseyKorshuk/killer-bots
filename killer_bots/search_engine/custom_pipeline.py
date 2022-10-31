@@ -164,7 +164,7 @@ class Pipeline:
         answer = postprocess_answer(top_docs)
         if verbose:
             self.print_logs(query, top_docs, answer)
-        return answer
+        return [doc.content for doc in top_docs]
 
 
 if __name__ == "__main__":
