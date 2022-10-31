@@ -22,7 +22,7 @@ def clean_wiki_text(text: str) -> str:
     lines = text.split("\n")
     cleaned = []
     for l in lines:
-        if len(l) > 30:
+        if len(l) > 0:
             cleaned.append(l)
         elif l[:2] == "==" and l[-2:] == "==":
             cleaned.append(l)
