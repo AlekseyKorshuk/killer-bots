@@ -37,7 +37,9 @@ def get_docs_text(docs):
 
 
 def join_docs(docs):
-    assert set([doc.meta["name"] for doc in docs]) == 1
+    if set([doc.meta["name"] for doc in docs]) == 1:
+        print(docs)
+        raise Exception("All docs must have the same name")
     return Document(content=get_docs_text(docs), meta=docs[0].meta)
 
 
