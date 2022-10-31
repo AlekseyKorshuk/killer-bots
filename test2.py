@@ -35,7 +35,7 @@ current_doc = docs[0]
 for doc in tqdm.tqdm(docs[1:]):
     score = get_score(current_doc.content, doc.content)
     if score > threshold and current_doc.meta['name'] == doc.meta['name']:
-        current_doc.conent += doc.content
+        current_doc.content += doc.content
     else:
         final_docs.append(current_doc)
         current_doc = doc.content
