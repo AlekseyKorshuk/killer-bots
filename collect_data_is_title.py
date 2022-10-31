@@ -49,13 +49,13 @@ dataset = datasets.DatasetDict(
     {
         "train": datasets.Dataset.from_dict(
             {
-                "sentence": X_train,
+                "text": X_train,
                 "label": y_train
             }
         ),
         "validation": datasets.Dataset.from_dict(
             {
-                "sentence": X_test,
+                "text": X_test,
                 "label": y_test
             }
         )
