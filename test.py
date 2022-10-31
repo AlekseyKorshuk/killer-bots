@@ -1,22 +1,20 @@
-from sentence_transformers import SentenceTransformer, util
+import os
+import torch
+import numpy as np
+from transformers import pipeline
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+import torch
+print(f"Is CUDA available: {torch.cuda.is_available()}")
+print(f"CUDA device: {torch.cuda.get_device_name(torch.cuda.current_device())}")
 
+pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device="cuda:0", model_kwargs={"torch_dtype":torch.bfloat16})
 
-def get_score(text1, text2):
-    sentences = [text1, text2]
-    # Compute embeddings
-    embeddings = model.encode(sentences, convert_to_tensor=True)
+with open('./killer_bots/bots/code_guru/database/handwritten.txt', 'r') as f:
+    text = f.read()
 
-    # Compute cosine-similarities for each sentence with each other sentence
-    cosine_scores = util.cos_sim(embeddings, embeddings)
+paragraphs = text.split("\n")
+paragraphs = [p for p in paragraphs if len(p) > 0]
 
-    return cosine_scores[0][1]
-
-
-# Single list of sentences
-sentences = ['#### During a code review',
-             'The code review may be the last chance to tidy up the code before it becomes available to the public.',
-             ]
-
-print(get_score(sentences[0], sentences[1]))
+for p in paragraphs:
+    print(f"Paragraph: {p}")
+    print(f"Response: {pipe_flan(f'Summarize the following text: {p}', max_length=4096, num_beams=10, num_return_sequences=1)}")
