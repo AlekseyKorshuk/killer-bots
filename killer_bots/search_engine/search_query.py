@@ -104,11 +104,11 @@ This is a conversation where Coding Guru is giving advice on being a developer a
 User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
 Search: none
 Bot: I am happy to help with any coding problem. What situation are you facing?
-User: Can you explain me what is OOP?
+User: What is it? Can you explain me what is OOP?
 Search: oop, what is oop
 Bot: OOP stands for Object-Oriented Programming. It is a programming paradigm based on the concept of “objects”, which can contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.
-User: I want to start learning OOP. What should I do?
-Search: oop, how to learn oop, how to start learning oop
+User: I want to start learning OOP. What should I do? And what is the best way to learn OOP?
+Search: oop, how to learn oop, how to start learning oop, best way to learn oop, best way to learn programming
 Bot: I would recommend reading Head First Design Patterns by Eric Freeman and Elisabeth Robson. It is a great book that will help you learn OOP.
 User: I heard about SOLID principles. What are they?
 Search: solid, what are solid principles
