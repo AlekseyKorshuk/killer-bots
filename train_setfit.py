@@ -26,7 +26,7 @@ trainer = SetFitTrainer(
     batch_size=16,
     num_iterations=20,  # The number of text pairs to generate for contrastive learning
     num_epochs=1,  # The number of epochs to use for constrastive learning
-    column_mapping={"sentence": "text", "label": "label"}  # Map dataset columns to text/label expected by trainer
+    # column_mapping={"sentence": "text", "label": "label"}  # Map dataset columns to text/label expected by trainer
 )
 
 # Train and evaluate
