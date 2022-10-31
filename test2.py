@@ -27,9 +27,9 @@ def get_score(text1, text2):
     embeddings2 = model.encode(text2, convert_to_tensor=True)
 
     # Compute cosine-similarits
-    cosine_scores = util.pytorch_cos_sim(embeddings1, embeddings2)
+    cosine_scores = util.cos_sim(embeddings1, embeddings2)
 
-    return cosine_scores[0][0]
+    return cosine_scores
 
 
 threshold = 0.3
