@@ -38,7 +38,7 @@ for doc in tqdm.tqdm(docs[1:]):
         current_doc.content += doc.content
     else:
         final_docs.append(current_doc)
-        current_doc = doc.content
+        current_doc = doc
 
 for doc in final_docs:
     print(doc)
