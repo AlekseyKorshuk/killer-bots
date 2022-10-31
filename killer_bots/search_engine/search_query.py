@@ -66,7 +66,7 @@ params = {
     # "top_k": 20,
     # "temperature": 1.0,
     "repetition_penalty": 1.1,
-    "length_penalty": 1.2,
+    # "length_penalty": 1.2,
     "eos_token_id": 50118,  # 50118
     # "pad_token_id": 50256,  # 50118
     "device": device,
@@ -150,6 +150,9 @@ This is a conversation where Coding Guru is giving advice on being a developer a
 User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
 Search: none
 Bot: I am happy to help with any coding problem. What situation are you facing?
+User: I need to learn what is Design Patterns. Can you explain me what is it?
+Search: design patterns, what is design patterns, what is design patterns in programming
+Bot: Design patterns are typical solutions to common problems in software design. Each pattern is like a blueprint that you can customize to solve a particular design problem in your code.
 User: """
 
 if __name__ == "__main__":
