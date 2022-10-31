@@ -96,7 +96,8 @@ class CodeGuruBotWithDialogue(Bot):
                 StoppingCriteriaSub(stops=input_ids)
             )
         self.stopping_criteria = StoppingCriteriaList(stopping_criterias)
-        self.previous_context_size = 10
+        self.previous_context_size = 6
+        self.top_k = 3
         self.previous_context = []
 
     def get_context(self):
@@ -107,10 +108,11 @@ class CodeGuruBotWithDialogue(Bot):
         return context
 
     def _format_model_inputs(self, text):
-        current_contexts = self.pipeline(text)
+        current_contexts = self.pipeline(text, top_k=self.top_k)
         for context in current_contexts:
-            if context not in self.previous_context:
-                self.previous_context.append(context)
+            if context in self.previous_context:
+                self.previous_context.remove(context)
+            self.previous_context.append(context)
         # self.previous_context.append(current_context)
         context = self.get_context()
         lines = [prompts.START_TEMPLATE.format(context)]
