@@ -21,8 +21,9 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def get_score(text1, text2):
     # Compute embedding for both lists
-    # text1 = clean_wiki_text(text1)
-    # text2 = clean_wiki_text(text2)
+
+    text1 = clean_wiki_text(text1)
+    text2 = clean_wiki_text(text2)
     # Compute embeddings
     embeddings = model.encode([text1, text2], convert_to_tensor=True)
 
@@ -32,19 +33,21 @@ def get_score(text1, text2):
     return cosine_scores[0][1]
 
 
-threshold = 0.3
-final_docs = []
-current_doc = docs[0]
-for doc in tqdm.tqdm(docs[1:]):
-    score = get_score(current_doc.content, doc.content)
-    print("Text1: ", current_doc.content)
-    print("Text2: ", doc.content)
-    print("Score: ", score)
-    if score > threshold and current_doc.meta['name'] == doc.meta['name']:
-        current_doc.content += "\n" + doc.content
-    else:
-        final_docs.append(current_doc)
-        current_doc = doc
+print(clean_wiki_text("#### During a code review"))
+
+# threshold = 0.3
+# final_docs = []
+# current_doc = docs[0]
+# for doc in tqdm.tqdm(docs[1:]):
+#     score = get_score(current_doc.content, doc.content)
+#     print("Text1: ", current_doc.content)
+#     print("Text2: ", doc.content)
+#     print("Score: ", score)
+#     if score > threshold and current_doc.meta['name'] == doc.meta['name']:
+#         current_doc.content += "\n" + doc.content
+#     else:
+#         final_docs.append(current_doc)
+#         current_doc = doc
 
 # for doc in final_docs:
 #     print(doc.content)
