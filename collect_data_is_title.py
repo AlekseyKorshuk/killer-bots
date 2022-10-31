@@ -53,7 +53,7 @@ dataset = datasets.DatasetDict(
                 "label": y_train
             }
         ),
-        "test": datasets.Dataset.from_dict(
+        "validation": datasets.Dataset.from_dict(
             {
                 "text": X_test,
                 "label": y_test
