@@ -37,7 +37,7 @@ def join_docs(docs):
 class PreprocessDocs:
     def __init__(self):
         self.similarity_model = SentenceTransformer("all-MiniLM-L6-v2")
-        self.is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit").to(0)
+        self.is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit", device="cuda")
         self.small_threshold = 0.1
         self.threshold = 0.35
         self.next_threshold = 0.4
