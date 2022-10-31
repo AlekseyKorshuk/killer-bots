@@ -13,6 +13,10 @@ def clean_wiki_text(text: str) -> str:
     while "\n\n" in text:
         text = text.replace("\n\n", "\n")
 
+    # get rid of multiple spaces
+    while "  " in text:
+        text = text.replace("  ", " ")
+
     # add paragraphs (identified by wiki section title which is always in format "==Some Title==")
     text = text.replace("\n==", "\n\n\n==")
 
@@ -23,7 +27,7 @@ def clean_wiki_text(text: str) -> str:
     text = re.sub(r"#+ +", "", text)
     text = re.sub(r" +#+", "", text)
 
-    return text
+    return text.strip()
 
 
 def get_docs_text(docs):
