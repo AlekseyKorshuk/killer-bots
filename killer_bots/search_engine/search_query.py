@@ -156,8 +156,10 @@ Bot: Design patterns are typical solutions to common problems in software design
 User: i am building weather app, which one to choose?
 Search: design patterns, design patterns for weather app
 Bot: I would recommend using Observer pattern. It is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
+User: I heard about it
+Search: design patterns, observer pattern, what is observer pattern, how to use observer pattern
+Bot: The Observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.
 User: """
-
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
