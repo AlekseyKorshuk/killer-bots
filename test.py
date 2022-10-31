@@ -1,95 +1,27 @@
-import re
-import nltk
-from summarizer import Summarizer
+from sentence_transformers import SentenceTransformer, util
 
-nltk.download('punkt')
-nltk.download('stopwords')
+model = SentenceTransformer('all-MiniLM-L6-v2')
 
-file_path = './killer_bots/bots/code_guru/database/handwritten.txt'
-with open(file_path, 'r') as f:
-    data = f.read()
-DOCUMENT = data
+# Single list of sentences
+sentences = ['#### During a code review',
+             'The code review may be the last chance to tidy up the code before it becomes available to the public.',
+]
 
-DOCUMENT = re.sub(r'\n|\r', ' ', DOCUMENT)
-DOCUMENT = re.sub(r' +', ' ', DOCUMENT)
-DOCUMENT = DOCUMENT.strip()
+#Compute embeddings
+embeddings = model.encode(sentences, convert_to_tensor=True)
 
+#Compute cosine-similarities for each sentence with each other sentence
+cosine_scores = util.cos_sim(embeddings, embeddings)
 
-def nest_sentences(document):
-    nested = []
-    sent = []
-    length = 0
-    for sentence in nltk.sent_tokenize(document):
-        length += len(sentence)
-        if length < 1024:
-            sent.append(sentence)
-        else:
-            nested.append(sent)
-            sent = []
-            length = 0
+#Find the pairs with the highest cosine similarity scores
+pairs = []
+for i in range(len(cosine_scores)-1):
+    for j in range(i+1, len(cosine_scores)):
+        pairs.append({'index': [i, j], 'score': cosine_scores[i][j]})
 
-    if sent:
-        nested.append(sent)
+#Sort scores in decreasing order
+pairs = sorted(pairs, key=lambda x: x['score'], reverse=True)
 
-    return nested
-
-
-nested = nest_sentences(DOCUMENT)
-
-from transformers import BartTokenizer, BartForConditionalGeneration, BartConfig
-
-BART_PATH = 'facebook/bart-large-cnn'
-
-bart_model = BartForConditionalGeneration.from_pretrained(BART_PATH, output_past=True)
-bart_tokenizer = BartTokenizer.from_pretrained(BART_PATH, output_past=True)
-
-
-def generate_summary(nested_sentences):
-    device = 'cuda'
-    summaries = []
-    for nested in nested_sentences:
-        input_tokenized = bart_tokenizer.encode(' '.join(nested), truncation=True, return_tensors='pt')
-        input_tokenized = input_tokenized.to(device)
-        summary_ids = bart_model.to('cuda').generate(input_tokenized,
-                                                     length_penalty=3.0,
-                                                     min_length=30,
-                                                     max_length=100)
-        output = [bart_tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in
-                  summary_ids]
-        summaries.append(output)
-    summaries = [sentence for sublist in summaries for sentence in sublist]
-    return summaries
-
-
-sm = Summarizer(model='distilbert-base-uncased')
-
-
-def generate_summary2(nested_sentences):
-    device = 'cuda'
-    summaries = []
-    for nested in nested_sentences:
-        k = sm.calculate_optimal_k(' '.join(nested), k_max=10)
-        output = sm(body=' '.join(nested), num_sentences=k)
-
-        # input_tokenized = bart_tokenizer.encode(' '.join(nested), truncation=True, return_tensors='pt')
-        # input_tokenized = input_tokenized.to(device)
-        # summary_ids = bart_model.to('cuda').generate(input_tokenized,
-        #                                   length_penalty=3.0,
-        #                                   min_length=30,
-        #                                   max_length=100)
-        # output = [bart_tokenizer.decode(g, skip_special_tokens=True, clean_up_tokenization_spaces=False) for g in summary_ids]
-        summaries.append(output)
-    return summaries
-
-
-summ = generate_summary(nested)
-
-print("\n".join(summ))
-
-print(len(DOCUMENT))
-
-summ = generate_summary2(nested)
-print("\n".join(summ))
-
-res = sm.calculate_optimal_k(DOCUMENT, k_max=10)
-print(res)
+for pair in pairs[0:10]:
+    i, j = pair['index']
+    print("{} \t\t {} \t\t Score: {:.4f}".format(sentences[i], sentences[j], pair['score']))
