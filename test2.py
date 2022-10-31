@@ -36,22 +36,25 @@ def get_score(text1, text2):
 is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit")
 
 
-
 def is_title(text):
     return is_title_model([clean_wiki_text(text)])[0] == 1
+
+
+def get_docs_text(docs):
+    return '\n'.join([doc.content for doc in docs])
 
 
 small_threshold = 0.1
 threshold = 0.35
 final_docs = []
-current_doc = docs[0]
+current_docs = [docs[0]]
 for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
-    score = get_score(current_doc.content, doc.content)
+    score = get_score(get_docs_text(current_docs), doc.content)
 
     add_flag = False
-    if score > threshold and current_doc.meta['name'] == doc.meta['name']:
+    if score > threshold and current_docs[-1].meta['name'] == doc.meta['name']:
         add_flag = True
-    elif is_title(current_doc.content) and score > small_threshold:
+    elif is_title(get_docs_text(current_docs)) and score > small_threshold:
         add_flag = True
     # else:
     #     next_score = get_score(
@@ -61,15 +64,19 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
     #     if next_score > threshold and current_doc.meta['name'] == docs[i + 1].meta['name']:
     #         add_flag = True
     if add_flag:
-        current_doc.content += "\n" + doc.content
+        current_docs.append(doc)
         if i == len(docs) - 2:
-            final_docs.append(current_doc)
+            final_docs.append(get_docs_text(current_docs))
     else:
-        final_docs.append(current_doc)
-        current_doc = doc
+        if is_title(current_docs[-1].content):
+            current_docs = [current_docs[-1], doc]
+            final_docs.append(get_docs_text(current_docs[:-1]))
+        else:
+            final_docs.append(get_docs_text(current_docs))
+            current_docs = [doc]
 
 for doc in final_docs:
-    print(doc.content)
+    print(doc)
     print("#" * 100)
 
 # pairs = []
