@@ -32,6 +32,9 @@ def get_score(text1, text2):
     return cosine_scores[0][1]
 
 
+def is_title(text):
+    return len(clean_wiki_text(text)) <= 55
+
 small_threshold = 0.1
 threshold = 0.35
 final_docs = []
@@ -42,7 +45,7 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
     add_flag = False
     if score > threshold and current_doc.meta['name'] == doc.meta['name']:
         add_flag = True
-    elif len(clean_wiki_text(current_doc.content)) <= 50 and score > small_threshold:
+    elif is_title(current_doc.content) and score > small_threshold:
         add_flag = True
     # else:
     #     next_score = get_score(
