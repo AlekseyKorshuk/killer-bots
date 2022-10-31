@@ -40,7 +40,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     test_size=0.25)
 
 print(y_test)
-print('% of positive samples in train set:', sum(y_train == 1) / len(X_train))
-print('% of positive samples in test set:', sum(y_test== 1) / len(X_test))
+print('% of positive samples in train set:', sum(y_train) / len(X_train))
+print('% of positive samples in test set:', sum(y_test) / len(X_test))
 
 # dataset = datasets.Dataset.from_dict(data)
