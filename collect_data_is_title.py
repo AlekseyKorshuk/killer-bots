@@ -37,10 +37,29 @@ y = data['label']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     stratify=y,
-                                                    test_size=0.25)
+                                                    test_size=0.2)
 
 print(y_test)
 print('% of positive samples in train set:', sum(y_train) / len(X_train))
 print('% of positive samples in test set:', sum(y_test) / len(X_test))
 
 # dataset = datasets.Dataset.from_dict(data)
+
+dataset = datasets.DatasetDict(
+    {
+        "train": datasets.Dataset.from_dict(
+            {
+                "text": X_train,
+                "label": y_train
+            }
+        ),
+        "test": datasets.Dataset.from_dict(
+            {
+                "text": X_test,
+                "label": y_test
+            }
+        )
+    }
+)
+
+dataset.push_to_hub("AlekseyKorshuk/is_title")
