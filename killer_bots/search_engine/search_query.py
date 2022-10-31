@@ -95,6 +95,9 @@ Bot: You can use refactoring to clean up the code. Refactoring is a process of i
 User: How I can refactor my code?
 Search: refactoring, how to refactor code, tools to refactor code
 Bot: Refactoring should be done as a series of small changes, each of which makes the existing code slightly better while still leaving the program in working order.
+User: Also what is Bridge Pattern? I have heard about it.
+Search: bridge pattern, what is bridge pattern, how to use bridge pattern
+Bot: The bridge pattern is a design pattern used in software engineering that is meant to "decouple an abstraction from its implementation so that the two can vary independently", introduced by the Gang of Four.
 User: Thanks Guru, I will try to refactor my code.
 Search: none
 Bot: You are welcome. I am happy to help.
