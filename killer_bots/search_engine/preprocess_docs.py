@@ -27,6 +27,8 @@ def clean_wiki_text(text: str) -> str:
     text = re.sub(r"#+ +", "", text)
     text = re.sub(r" +#+", "", text)
 
+    text = re.sub(r"\n +\n", "\n", text)
+
     return text.strip()
 
 
