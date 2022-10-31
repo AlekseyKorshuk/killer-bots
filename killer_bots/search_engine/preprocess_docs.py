@@ -65,7 +65,7 @@ class PreprocessDocs:
     def __call__(self, docs):
         prepared_docs = []
         current_docs = [docs[0]]
-        for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), title="Preprocessing docs"):
+        for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), desc="Preprocessing docs"):
             score = self.get_score(get_docs_text(current_docs), doc.content)
             add_flag = False
             if score > self.threshold and current_docs[-1].meta['name'] == doc.meta['name']:
