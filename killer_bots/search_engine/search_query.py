@@ -151,5 +151,6 @@ if __name__ == "__main__":
         )
         output_text = tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
         # prompt += output_text + "\nBot: " + output_text + "\nUser: "
+        print("Length:", len(inputs.input_ids[0]))
         print(f"Search:{output_text}")
 
