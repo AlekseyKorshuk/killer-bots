@@ -113,10 +113,16 @@ if __name__ == "__main__":
     tokenizer.padding_side = "left"
     tokenizer.truncation_side = "left"
 
+    model.config.eos_token_id = 198
+    model.config.exponential_decay_length_penalty = None
+    model.eos_token_id = 198
+
     while True:
         query = input("User: ")
         if query == "exit":
             break
+
+        print(prompt + query + "\nSearch:")
         inputs = tokenizer(prompt + query + "\nSearch:", return_tensors="pt", padding=False).to(device)
         output_ids = model.generate(
             **inputs, **params
