@@ -125,7 +125,7 @@ class Pipeline:
         # docs = get_documents(doc_dir)
         docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
         docs = preprocess_docs(docs)
-        self.num_docs = len(docs)
+        self.num_docs = 20
         self.document_store.write_documents(docs)
         self.retriever = get_retriever(self.document_store)
         self.document_store.update_embeddings(self.retriever)
