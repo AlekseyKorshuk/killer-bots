@@ -79,7 +79,7 @@ def load_tokenizer(model_id):
     return AutoTokenizer.from_pretrained(MODEL)
 
 
-prompt = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Search Engine to find needed information.
+PROMPT = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Search Engine to find needed information.
 
 User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
 Search: none
@@ -113,7 +113,10 @@ Bot: I would recommend reading Head First Design Patterns by Eric Freeman and El
 User: I heard about SOLID principles. What are they?
 Search: solid, what are solid principles
 Bot: SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin. They are a set of rules and best practices for writing software code. SOLID principles are a subset of many principles promoted by agile software development.
-User: Thanks Guru, I will try to learn this stuff.
+User: Can you tell me more about this?
+Search: solid, what are solid principles, how to use solid principles, why we need solid principles
+Bot: SOLID principles are: Single Responsibility Principle, Open-Closed Principle, Liskov Substitution Principle, Interface Segregation Principle, and Dependency Inversion Principle. Each of these principles is explained in detail in the book Clean Code by Robert C. Martin. Or you can ask me here about any of them.
+User: Thanks Guru, I will try to learn this stuff by reading the book!
 Search: none
 Bot: You are welcome. I am happy to help.
 
@@ -135,16 +138,18 @@ if __name__ == "__main__":
     model.config.exponential_decay_length_penalty = None
     # model.eos_token_id = 198
 
+    prompt = PROMPT
     while True:
         query = input("User: ")
         if query == "exit":
             break
 
-        print(prompt + query + "\nSearch:")
+        # prompt += query + "\nSearch:"
         inputs = tokenizer(prompt + query + "\nSearch:", return_tensors="pt", padding=False).to(device)
         output_ids = model.generate(
             **inputs, **params
         )
         output_text = tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
+        # prompt += output_text + "\nBot: " + output_text + "\nUser: "
         print(f"Search:{output_text}")
 
