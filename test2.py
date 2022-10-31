@@ -29,7 +29,7 @@ def get_score(text1, text2):
     # Compute cosine-similarits
     cosine_scores = util.pytorch_cos_sim(embeddings1, embeddings2)
 
-    return cosine_scores
+    return cosine_scores[0][0]
 
 
 threshold = 0.3
