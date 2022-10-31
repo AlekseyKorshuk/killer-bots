@@ -1,4 +1,5 @@
 transformers
 datasets
 wandb
-git+https://github.com/deepset-ai/haystack.git#egg=farm-haystack[colab,faiss]
+git+https://github.com/deepset-ai/haystack.git#egg=farm-haystack[all-gpu]
+setfit
