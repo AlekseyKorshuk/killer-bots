@@ -65,7 +65,7 @@ params = {
     # "top_p": 1,
     # "top_k": 20,
     # "temperature": 1.0,
-    "repetition_penalty": 1.1,
+    "repetition_penalty": 1.2,
     # "length_penalty": -0.1,
     "eos_token_id": 50118,  # 50118
     # "pad_token_id": 50256,  # 50118
