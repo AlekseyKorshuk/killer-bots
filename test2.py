@@ -23,8 +23,8 @@ def get_score(text1, text2):
     # Compute embedding for both lists
     text1 = clean_wiki_text(text1)
     text2 = clean_wiki_text(text2)
-    embeddings1 = model.encode([text1], convert_to_tensor=True)
-    embeddings2 = model.encode([text2], convert_to_tensor=True)
+    embeddings1 = model.encode(text1, convert_to_tensor=True)
+    embeddings2 = model.encode(text2, convert_to_tensor=True)
 
     # Compute cosine-similarits
     cosine_scores = util.pytorch_cos_sim(embeddings1, embeddings2)
