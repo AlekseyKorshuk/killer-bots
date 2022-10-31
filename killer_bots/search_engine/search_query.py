@@ -12,7 +12,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 MODEL = 'facebook/opt-30b'
 # MODEL = 'facebook/opt-125m'
-MODEL = 'EleutherAI/gpt-j-6B'
+# MODEL = 'EleutherAI/gpt-j-6B'
 
 REWARD_MODEL = "ChaiML/roberta-base-dalio-reg-v1"
 # REWARD_MODEL = '/models/dalio_reward_models/checkpoint-2700'
@@ -66,8 +66,8 @@ params = {
     # "top_k": 20,
     # "temperature": 1.0,
     # "repetition_penalty": 1.0,
-    "eos_token_id": 198,  # 50118
-    "pad_token_id": 50256,  # 50118
+    "eos_token_id": 50118,  # 50118
+    # "pad_token_id": 50256,  # 50118
     "device": device,
     "do_sample": False,
     "max_new_tokens": 256,
@@ -109,13 +109,13 @@ User: """
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
-    tokenizer.pad_token_id = 50256
+    # tokenizer.pad_token_id = 50256
     tokenizer.padding_side = "left"
     tokenizer.truncation_side = "left"
 
-    model.config.eos_token_id = 198
+    # model.config.eos_token_id = 198
     model.config.exponential_decay_length_penalty = None
-    model.eos_token_id = 198
+    # model.eos_token_id = 198
 
     while True:
         query = input("User: ")
