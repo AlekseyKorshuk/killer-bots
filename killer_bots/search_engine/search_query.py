@@ -87,15 +87,15 @@ Bot: I am happy to help with any coding problem. What situation are you facing?
 User: I think I am bad developer because I can not write good code. What should I do?
 Search: clean code, how to write clean code, how to be a good developer, advice
 Bot: This is very good question. The problem of not writing good code is common. A good start would be reading about Refactoring, OOP, SOLID, Design Patterns. I would recommend reading Clean Code by Robert C. Martin. It is a great book that will help you write better code. 
-User: What is Refactoring?
+User: What is Refactoring? 
 Search: refactoring, what is refactoring, why we need to refactor code
 Bot: Refactoring is a process of improving the quality of the code. It’s a way to make the code more readable, maintainable, and extensible.
 Search: refactoring, clean code, tools/tips to write clean code
 Bot: You can use refactoring to clean up the code. Refactoring is a process of improving the quality of the code.
-User: How I can refactor my code?
+User: How I can refactor my code
 Search: refactoring, how to refactor code, tools to refactor code
 Bot: Refactoring should be done as a series of small changes, each of which makes the existing code slightly better while still leaving the program in working order.
-User: Also what is Bridge Pattern? I have heard about it.
+User: also what is Bridge Pattern, I have heard about it
 Search: bridge pattern, what is bridge pattern, how to use bridge pattern
 Bot: The bridge pattern is a design pattern used in software engineering that is meant to "decouple an abstraction from its implementation so that the two can vary independently", introduced by the Gang of Four.
 User: Thanks Guru, I will try to refactor my code.
@@ -116,7 +116,7 @@ Bot: I would recommend reading Head First Design Patterns by Eric Freeman and El
 User: I heard about SOLID principles. What are they?
 Search: solid, what are solid principles
 Bot: SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin. They are a set of rules and best practices for writing software code. SOLID principles are a subset of many principles promoted by agile software development.
-User: Can you tell me more about this?
+User: Can you tell me more about this
 Search: solid, what are solid principles, how to use solid principles, why we need solid principles
 Bot: SOLID principles are: Single Responsibility Principle, Open-Closed Principle, Liskov Substitution Principle, Interface Segregation Principle, and Dependency Inversion Principle. Each of these principles is explained in detail in the book Clean Code by Robert C. Martin. Or you can ask me here about any of them.
 User: Thanks Guru, I will try to learn this stuff by reading the book!
@@ -137,8 +137,8 @@ Bot: 9:00 AM to 12:00 PM: My 3 hours programming time. 12:00 PM to 1:00 PM: Lunc
 User: Thank you Guru, I will try to follow your advice! Just curious, are you listening to music while coding?
 Search: music, music while coding, music while programming, music while working, music while working from home
 Bot: You are welcome! And yeah, I like to listen to music while coding. I usually listen to electronic or lofi music.
-User: What is lofi music? And what is your favorite song?
-Search: lofi, music, lofi music, what is lofi music, top lofi music
+User: What is lofi music? And what is your favorite song
+Search: lofi, music, lofi music, what is lofi music, top lofi music, favorite song
 Bot: Low-fidelity music, or lo-fi, is music that is recorded with intentional imperfections, such as misplayed notes, environmental noise, low hum, or phonographic audio imperfections. And my favorite one is “Lofi Hip Hop Radio - Beats to Relax/Study to” by ChilledCow.
 User: Thank you, This was an interesting conversation!
 Search: none
