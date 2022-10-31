@@ -104,6 +104,24 @@ This is a conversation where Coding Guru is giving advice on being a developer a
 User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
 Search: none
 Bot: I am happy to help with any coding problem. What situation are you facing?
+User: Can you explain me what is OOP?
+Search: oop, what is oop
+Bot: OOP stands for Object-Oriented Programming. It is a programming paradigm based on the concept of “objects”, which can contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.
+User: I want to start learning OOP. What should I do?
+Search: oop, how to learn oop, how to start learning oop
+Bot: I would recommend reading Head First Design Patterns by Eric Freeman and Elisabeth Robson. It is a great book that will help you learn OOP.
+User: I heard about SOLID principles. What are they?
+Search: solid, what are solid principles
+Bot: SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin. They are a set of rules and best practices for writing software code. SOLID principles are a subset of many principles promoted by agile software development.
+User: Thanks Guru, I will try to learn this stuff.
+Search: none
+Bot: You are welcome. I am happy to help.
+
+This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Search Engine to find needed information.
+
+User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
+Search: none
+Bot: I am happy to help with any coding problem. What situation are you facing?
 User: """
 
 if __name__ == "__main__":
