@@ -21,8 +21,8 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 def get_score(text1, text2):
     # Compute embedding for both lists
-    text1 = clean_wiki_text(text1)
-    text2 = clean_wiki_text(text2)
+    # text1 = clean_wiki_text(text1)
+    # text2 = clean_wiki_text(text2)
     # Compute embeddings
     embeddings = model.encode([text1, text2], convert_to_tensor=True)
 
