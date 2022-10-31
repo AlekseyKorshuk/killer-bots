@@ -153,8 +153,13 @@ class Pipeline:
 
     def __call__(self, query, top_k=5, verbose=False):
         documents = self.get_relevant_docs(query)
+        temp = documents[:top_k]
+        ans = "\n".join([doc.content for doc in temp])
+        self.print_logs(query, temp, ans)
+        print(ans)
         stats = get_file_scores(documents)
         top_docs = get_top_docs(documents, stats, top_k)
+        # self.print_logs(query, top_docs, answer)
         top_docs = postprocess_top_docs(top_docs)
         answer = postprocess_answer(top_docs)
         if verbose:
