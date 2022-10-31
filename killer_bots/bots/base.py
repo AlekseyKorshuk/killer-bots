@@ -62,7 +62,7 @@ class Bot(object):
         # print(inputs[0])
         # print('***')
 
-        # self._print_num_tokens(inputs, padding)
+        self._print_num_tokens(inputs, padding)
 
         max_length = 1900
         tokenized_inputs = self.tokenizer(
