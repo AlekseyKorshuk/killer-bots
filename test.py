@@ -11,7 +11,7 @@ def get_score(text1, text2):
     # Compute cosine-similarities for each sentence with each other sentence
     cosine_scores = util.cos_sim(embeddings, embeddings)
 
-    print(cosine_scores)
+    return cosine_scores[0][1]
 
 
 # Single list of sentences
