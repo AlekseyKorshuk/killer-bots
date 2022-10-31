@@ -3,6 +3,7 @@ from transformers import StoppingCriteria, StoppingCriteriaList
 
 from killer_bots.bots.base import Bot
 from killer_bots.bots.code_guru import prompts
+from killer_bots.search_engine.custom_pipeline import Pipeline
 from killer_bots.search_engine.search_summarization import SearchSummarization
 from killer_bots.search_engine.lfqa import LFQA
 
@@ -86,7 +87,7 @@ class CodeGuruBotWithDialogue(Bot):
             first_message="I am happy to help with any coding problem. What situation are you facing?",
             **params,
         )
-        self.pipeline = LFQA("/app/killer-bots/killer_bots/bots/code_guru/database")
+        self.pipeline = Pipeline("/app/killer-bots/killer_bots/bots/code_guru/database")
         self.stop_words = ["User:", "Guru:", "Context:"]
         stopping_criterias = []
         for word in self.stop_words:
@@ -95,7 +96,7 @@ class CodeGuruBotWithDialogue(Bot):
                 StoppingCriteriaSub(stops=input_ids)
             )
         self.stopping_criteria = StoppingCriteriaList(stopping_criterias)
-        self.previous_context_size = 2
+        self.previous_context_size = 1
         self.previous_context = []
 
     def get_context(self):
