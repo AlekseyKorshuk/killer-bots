@@ -33,7 +33,7 @@ def get_score(text1, text2):
 
 
 
-threshold = 0.3
+threshold = 0.2
 final_docs = []
 current_doc = docs[0]
 for doc in tqdm.tqdm(docs[1:]):
