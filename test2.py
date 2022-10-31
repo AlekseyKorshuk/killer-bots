@@ -92,23 +92,3 @@ input("Press Enter to continue...")
 for doc in final_docs:
     print(doc)
     print("#" * 100)
-
-# pairs = []
-# for i in range(len(sentences) - 1):
-#     pairs.append((i, i + 1))
-#
-# embeddings = model.encode(sentences, convert_to_tensor=True)
-# cosine_scores = util.cos_sim(embeddings, embeddings)
-# print(cosine_scores)
-#
-# for i, sentence in enumerate(sentences):
-#     print("Sentence {}:".format(i))
-#     print(sentence)
-#     print("")
-#
-# for pair in pairs:
-#     print("Sentence {}: {}".format(pair[0], sentences[pair[0]]))
-#     print("Sentence {}: {}".format(pair[1], sentences[pair[1]]))
-#     print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1],
-#                                                                              cosine_scores[pair[0], pair[1]]))
-#     print("")
