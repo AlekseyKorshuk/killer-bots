@@ -46,6 +46,7 @@ def get_docs_text(docs):
 
 small_threshold = 0.1
 threshold = 0.35
+next_threshold = 0.4
 final_docs = []
 current_docs = [docs[0]]
 for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
@@ -56,13 +57,13 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
         add_flag = True
     elif is_title(get_docs_text(current_docs)) and score > small_threshold:
         add_flag = True
-    # else:
-    #     next_score = get_score(
-    #         current_doc.content + '\n' + doc.content,
-    #         docs[i + 1].content
-    #     )
-    #     if next_score > threshold and current_doc.meta['name'] == docs[i + 1].meta['name']:
-    #         add_flag = True
+    else:
+        next_score = get_score(
+            get_docs_text(current_docs) + '\n' + doc.content,
+            docs[i + 1].content
+        )
+        if next_score > next_threshold and current_docs[-1].meta['name'] == docs[i + 1].meta['name']:
+            add_flag = True
     if add_flag:
         current_docs.append(doc)
         if i == len(docs) - 2:
