@@ -70,6 +70,7 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
     else:
         if len(current_docs) == 1:
             print(current_docs[0].content)
+            print("is title:", is_title(current_docs[0].content))
             print()
         is_last_title = is_title(current_docs[-1].content)
         if is_last_title:
