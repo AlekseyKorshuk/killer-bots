@@ -65,7 +65,7 @@ params = {
     "top_p": 1,
     # "top_k": 20,
     # "temperature": 1.0,
-    "repetition_penalty": 1.1,
+    "repetition_penalty": 1.3,
     # "length_penalty": 1.2,
     "eos_token_id": 50118,  # 50118
     # "pad_token_id": 50256,  # 50118
@@ -73,7 +73,6 @@ params = {
     "do_sample": False,
     "max_new_tokens": 64,
 }
-
 
 
 def load_tokenizer(model_id):
@@ -160,6 +159,8 @@ User: I heard about it
 Search: design patterns, observer pattern, what is observer pattern, how to use observer pattern
 Bot: The Observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.
 User: """
+
+
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
@@ -186,4 +187,3 @@ if __name__ == "__main__":
         # prompt += output_text + "\nBot: " + output_text + "\nUser: "
         print("Length:", len(inputs.input_ids[0]))
         print(f"Search:{output_text}")
-
