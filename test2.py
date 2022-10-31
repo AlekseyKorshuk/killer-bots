@@ -37,15 +37,19 @@ final_docs = []
 current_doc = docs[0]
 for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
     score = get_score(current_doc.content, doc.content)
-    # print("Text1: ", current_doc.content)
-    # print("Text2: ", doc.content)
-    # print("Score: ", score)
-    next_score = get_score(
-        current_doc.content + '\n' + doc.content,
-        docs[i + 1].content
-    )
-    if score > threshold or (next_score > threshold and current_doc.meta['name'] == docs[i + 1].meta['name']) and \
-            current_doc.meta['name'] == doc.meta['name']:
+
+    add_flag = False
+    if score > threshold and current_doc.meta['name'] == doc.meta['name']:
+        add_flag = True
+
+    else:
+        next_score = get_score(
+            current_doc.content + '\n' + doc.content,
+            docs[i + 1].content
+        )
+        if next_score > threshold and current_doc.meta['name'] == docs[i + 1].meta['name']:
+            add_flag = True
+    if add_flag:
         current_doc.content += "\n" + doc.content
         if i == len(docs) - 2:
             final_docs.append(current_doc)
