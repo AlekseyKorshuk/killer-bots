@@ -32,7 +32,6 @@ def get_score(text1, text2):
     return cosine_scores[0][1]
 
 
-
 threshold = 0.3
 final_docs = []
 current_doc = docs[0]
@@ -41,7 +40,12 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
     # print("Text1: ", current_doc.content)
     # print("Text2: ", doc.content)
     # print("Score: ", score)
-    if score > threshold and current_doc.meta['name'] == doc.meta['name']:
+    next_score = get_score(
+        current_doc.content + '\n' + doc.content,
+        docs[i + 1].content
+    )
+    if score > threshold or (next_score > threshold and current_doc.meta['name'] == docs[i + 1].meta['name']) and \
+            current_doc.meta['name'] == doc.meta['name']:
         current_doc.content += "\n" + doc.content
         if i == len(docs) - 2:
             final_docs.append(current_doc)
