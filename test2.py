@@ -74,9 +74,10 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
             print()
         is_last_title = is_title(current_docs[-1].content)
         if is_last_title:
-            current_docs = [current_docs[-1], doc]
             if len(current_docs) > 1:
                 final_docs.append(get_docs_text(current_docs[:-1]))
+            current_docs = [current_docs[-1], doc]
+
         else:
             final_docs.append(get_docs_text(current_docs))
             current_docs = [doc]
