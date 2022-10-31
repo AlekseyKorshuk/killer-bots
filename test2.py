@@ -5,7 +5,7 @@ import torch
 import torch.nn.functional as F
 from nltk import sent_tokenize
 from sentence_transformers import SentenceTransformer, util
-
+from setfit import SetFitModel
 # Sentences we want sentence embeddings for
 from killer_bots.search_engine.custom_pipeline import clean_wiki_text
 from killer_bots.search_engine.utils import change_extentions_to_txt
@@ -31,6 +31,12 @@ def get_score(text1, text2):
 
     return cosine_scores[0][1]
 
+
+# Download from Hub and run inference
+is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit")
+# Run inference
+preds = model(["i loved the spiderman movie!", "pineapple on pizza is the worst 🤮"])
+print(preds)
 
 def is_title(text):
     return len(clean_wiki_text(text)) <= 55
