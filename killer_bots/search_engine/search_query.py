@@ -70,7 +70,7 @@ params = {
     # "pad_token_id": 50256,  # 50118
     "device": device,
     "do_sample": False,
-    "max_new_tokens": 256,
+    "max_new_tokens": 64,
 }
 
 
@@ -129,13 +129,13 @@ User: i do not know what to do... i am to tired with programming
 Search: tired with programming, how to not be tired with programming, tired with work, how to not be tired with work
 Bot: My advice is to take a break. Go for a walk, do some exercise, or just relax. You will feel better after that.
 User: How to structure my day to be more productive?
-Search: productivity, day plan, day structure, how to structure day, how to be more productive, how to be more productive with coding, how to be more productive with programming
+Search: productivity, day structure, how to structure day, how to be more productive, how to be more productive with coding
 Bot: 9:00 AM to 12:00 PM: My 3 hours programming time. 12:00 PM to 1:00 PM: Lunch and go out walking for 15–20 minutes. 1:00 PM to 6:00/7:00/8:00 PM: My Next hours for coding. 8:00 to 9:00 PM: Family Time, Watch a movie or something.
 User: Thank you Guru, I will try to follow your advice! Just curious, are you listening to music while coding?
 Search: music, music while coding, music while programming, music while working, music while working from home
 Bot: You are welcome! And yeah, I like to listen to music while coding. I usually listen to electronic or lofi music.
 User: What is lofi music? And what is your favorite song?
-Search: lofi, music, lofi music, what is lofi music, top lofi music, favorite song, favorite lofi song, top songs, top lofi songs
+Search: lofi, music, lofi music, what is lofi music, top lofi music
 Bot: Low-fidelity music, or lo-fi, is music that is recorded with intentional imperfections, such as misplayed notes, environmental noise, low hum, or phonographic audio imperfections. And my favorite one is “Lofi Hip Hop Radio - Beats to Relax/Study to” by ChilledCow.
 User: Thank you, This was an interesting conversation!
 Search: none
