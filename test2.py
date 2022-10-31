@@ -34,15 +34,18 @@ final_docs = []
 current_doc = docs[0]
 for doc in tqdm.tqdm(docs[1:]):
     score = get_score(current_doc.content, doc.content)
+    print("Text1: ", current_doc.content)
+    print("Text2: ", doc.content)
+    print("Score: ", score)
     if score > threshold and current_doc.meta['name'] == doc.meta['name']:
         current_doc.content += "\n" + doc.content
     else:
         final_docs.append(current_doc)
         current_doc = doc
 
-for doc in final_docs:
-    print(doc.content)
-    print("#" * 100)
+# for doc in final_docs:
+#     print(doc.content)
+#     print("#" * 100)
 
 # pairs = []
 # for i in range(len(sentences) - 1):
