@@ -19,4 +19,4 @@ sentences = ['#### During a code review',
              'The code review may be the last chance to tidy up the code before it becomes available to the public.',
              ]
 
-get_score(sentences[0], sentences[1])
+print(get_score(sentences[0], sentences[1]))
