@@ -151,7 +151,7 @@ class Pipeline:
         num_tokens = len(self.tokenizer(answer).input_ids)
         print(f"Number of tokens: {num_tokens}")
 
-    def __call__(self, query, top_k=5, verbose=False):
+    def __call__(self, query, top_k=3, verbose=False):
         documents = self.get_relevant_docs(query)
         stats = get_file_scores(documents)
         top_docs = get_top_docs(documents, stats, top_k)
