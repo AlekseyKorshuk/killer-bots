@@ -153,6 +153,9 @@ Bot: I am happy to help with any coding problem. What situation are you facing?
 User: I need to learn what is Design Patterns. Can you explain me what is it?
 Search: design patterns, what is design patterns, what is design patterns in programming
 Bot: Design patterns are typical solutions to common problems in software design. Each pattern is like a blueprint that you can customize to solve a particular design problem in your code.
+User: i am building weather app, which one to choose?
+Search: design patterns, design patterns for weather app
+Bot: I would recommend using Observer pattern. It is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
 User: """
 
 if __name__ == "__main__":
