@@ -73,6 +73,7 @@ params = {
 }
 
 
+
 def load_tokenizer(model_id):
     return AutoTokenizer.from_pretrained(MODEL)
 
@@ -107,12 +108,15 @@ User: """
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
+    tokenizer.pad_token = tokenizer.eos_token
+    tokenizer.padding_side = "left"
+    tokenizer.truncation_side = "left"
 
     while True:
         query = input("User: ")
         if query == "exit":
             break
-        inputs = tokenizer(prompt + query + "\nSearch:", return_tensors="pt").to(device)
+        inputs = tokenizer(prompt + query + "\nSearch:", return_tensors="pt", padding=False).to(device)
         output_ids = model.generate(
             **inputs, **params
         )
