@@ -1,3 +1,4 @@
+from haystack.utils import convert_files_to_docs
 from transformers import AutoTokenizer, AutoModel
 import torch
 import torch.nn.functional as F
@@ -5,17 +6,13 @@ from nltk import sent_tokenize
 from sentence_transformers import SentenceTransformer, util
 
 # Sentences we want sentence embeddings for
-file_path = './killer_bots/bots/code_guru/database/handwritten.txt'
-with open(file_path, 'r') as f:
-    data = f.read()
+from killer_bots.search_engine.utils import change_extentions_to_txt
 
-## We split this article into paragraphs and then every paragraph into sentences
-sentences = []
-for paragraph in data.replace("\r\n", "\n").split("\n\n"):
-    if len(paragraph.strip()) > 0:
-        for sent in sent_tokenize(paragraph):
-            sentences.append(sent)
-        # sentences.append(sent_tokenize(paragraph.strip()))
+doc_dir = './killer_bots/bots/code_guru/database/'
+
+change_extentions_to_txt(doc_dir)
+docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+sentences = [doc.content for doc in docs]
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -32,18 +29,9 @@ for i, sentence in enumerate(sentences):
     print(sentence)
     print("")
 
-
 for pair in pairs:
     print("Sentence {}: {}".format(pair[0], sentences[pair[0]]))
     print("Sentence {}: {}".format(pair[1], sentences[pair[1]]))
-    print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1], cosine_scores[pair[0], pair[1]]))
+    print("Similarity between sentence {} and sentence {} is: {:.4f}".format(pair[0], pair[1],
+                                                                             cosine_scores[pair[0], pair[1]]))
     print("")
-
-# for pair in pairs:
-#     print(pair[0])
-#     print(pair[1])
-#     embeddings1 = model.encode(pair[0], convert_to_tensor=True)
-#     embeddings2 = model.encode(pair[1], convert_to_tensor=True)
-#     cosine_scores = util.cos_sim(embeddings1, embeddings2)
-#     print(cosine_scores)
-# split list into pairs
