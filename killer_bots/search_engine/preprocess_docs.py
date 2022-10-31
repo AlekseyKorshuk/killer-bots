@@ -104,6 +104,9 @@ class PreprocessDocs:
         return prepared_docs
 
 
+def preprocess_docs(docs):
+    return PreprocessDocs()(docs)
+
 if __name__ == "__main__":
     doc_dir = './killer_bots/bots/code_guru/database/'
     change_extentions_to_txt(doc_dir)

@@ -7,7 +7,7 @@ from haystack.utils import convert_files_to_docs
 from transformers import AutoTokenizer
 import torch
 from transformers import AutoTokenizer, AutoModel, AutoModelForSeq2SeqLM
-
+from killer_bots.search_engine.preprocess_docs import PreprocessDocs, preprocess_docs
 from killer_bots.search_engine.utils import change_extentions_to_txt
 
 import re
@@ -122,7 +122,9 @@ def postprocess_answer(top_docs):
 class Pipeline:
     def __init__(self, doc_dir):
         self.document_store = _get_document_store()
-        docs = get_documents(doc_dir)
+        # docs = get_documents(doc_dir)
+        docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+        docs = preprocess_docs(docs)
         self.num_docs = len(docs)
         self.document_store.write_documents(docs)
         self.retriever = get_retriever(self.document_store)
