@@ -6,6 +6,8 @@ from setfit import SetFitModel, SetFitTrainer
 # Load a dataset from the Hugging Face Hub
 dataset = load_dataset("AlekseyKorshuk/is_title")
 
+print(dataset)
+
 # Simulate the few-shot regime by sampling 8 examples per class
 num_classes = 2
 train_dataset = dataset["train"].shuffle(seed=42)
