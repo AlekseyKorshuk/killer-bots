@@ -169,7 +169,7 @@ if __name__ == "__main__":
     tokenizer.truncation_side = "left"
 
     # model.config.eos_token_id = 198
-    model.config.exponential_decay_length_penalty = None
+    # model.config.exponential_decay_length_penalty = None
     # model.eos_token_id = 198
 
     prompt = PROMPT
