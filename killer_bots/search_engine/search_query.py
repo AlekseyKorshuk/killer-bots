@@ -126,7 +126,7 @@ User: Hi Guru, thanks for talking with me today. I am excited to learn more abou
 Search: none
 Bot: I am happy to help with any coding problem. What situation are you facing?
 User: i do not know what to do... i am to tired with programming
-Search: tired with programming, how to not be tired with programming, tired with coding, how to not be tired with coding, tired with work, how to not be tired with work
+Search: tired with programming, how to not be tired with programming, tired with work, how to not be tired with work
 Bot: My advice is to take a break. Go for a walk, do some exercise, or just relax. You will feel better after that.
 User: How to structure my day to be more productive?
 Search: productivity, day plan, day structure, how to structure day, how to be more productive, how to be more productive with coding, how to be more productive with programming
