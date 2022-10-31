@@ -81,6 +81,7 @@ for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:])):
             final_docs.append(get_docs_text(current_docs))
             current_docs = [doc]
 
+input("Press Enter to continue...")
 for doc in final_docs:
     print(doc)
     print("#" * 100)
