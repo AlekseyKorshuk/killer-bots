@@ -84,6 +84,9 @@ PROMPT = """This is a conversation where Coding Guru is giving advice on being a
 User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
 Search: none
 Guru: I am happy to help with any coding problem. What situation are you facing?
+User: What is your name?
+Search: none
+Guru: I am Coding Guru. I am here to help you with any coding related questions.
 User: I think I am bad developer because I can not write good code. What should I do?
 Search: clean code, how to write clean code, how to be a good developer, advice
 Guru: This is very good question. The problem of not writing good code is common. A good start would be reading about Refactoring, OOP, SOLID, Design Patterns. I would recommend reading Clean Code by Robert C. Martin. It is a great book that will help you write better code. 
