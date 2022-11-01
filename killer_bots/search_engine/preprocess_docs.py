@@ -29,6 +29,9 @@ def clean_wiki_text(text: str) -> str:
 
     text = re.sub(r"\n +\n", "\n", text)
 
+    # remove all links from markdown text
+    text = re.sub(r"\[(.+)\]\(.+\)", r"\1", text)
+
     return text.strip()
 
 
