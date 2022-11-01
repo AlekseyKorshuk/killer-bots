@@ -1,6 +1,7 @@
 import logging
 import os
 
+from haystack.utils import convert_files_to_docs
 from sentence_transformers import SentenceTransformer, util
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from datasets import load_dataset
@@ -9,16 +10,15 @@ from haystack.document_stores import FAISSDocumentStore
 from haystack.nodes.question_generator import QuestionGenerator
 from haystack.nodes.label_generator import PseudoLabelGenerator
 
+from killer_bots.search_engine.preprocess_docs import preprocess_docs
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 logging.getLogger("haystack").setLevel(logging.INFO)
 
 # We load the TAS-B model, a state-of-the-art model trained on MS MARCO
-max_seq_length = 200
-model_name = "msmarco-distilbert-base-tas-b"
+model_name = "multi-qa-mpnet-base-dot-v1"
 
 org_model = SentenceTransformer(model_name)
-org_model.max_seq_length = max_seq_length
 
 # We define a simple query and some documents how diseases are transmitted
 # As TAS-B was trained on rather out-dated data (2018 and older), it has now idea about COVID-19
@@ -48,23 +48,11 @@ def show_examples(model):
 print("Original Model")
 show_examples(org_model)
 
-dataset = load_dataset("nreimers/trec-covid", split="train")
-num_documents = 10000
-corpus = []
-for row in dataset:
-    if len(row["title"]) > 20 and len(row["text"]) > 100:
-        text = row["title"] + " " + row["text"]
+doc_dir = "/app/killer-bots/killer_bots/bots/code_guru/database"
+docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
+docs = preprocess_docs(docs)
 
-        text_lower = text.lower()
-
-        # The dataset also contains many papers on other diseases. To make the training in this demo
-        # more efficient, we focus on papers that talk about COVID.
-        if "covid" in text_lower or "corona" in text_lower or "sars-cov-2" in text_lower:
-            corpus.append(text)
-
-        if len(corpus) >= num_documents:
-            break
-
+corpus = [doc.content for doc in docs]
 print("Len Corpus:", len(corpus))
 
 try:
