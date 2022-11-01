@@ -56,6 +56,13 @@ class PreprocessDocs:
         text2 = clean_wiki_text(text2)
         embeddings = self.similarity_model.encode([text1, text2], convert_to_tensor=True)
         cosine_scores = util.cos_sim(embeddings, embeddings)
+        if "technical debt" in text1 or "technical debt" in text2:
+            print("#" * 100)
+            print(text1)
+            print(text2)
+            print(cosine_scores[0][1])
+            input()
+
         return cosine_scores[0][1]
 
     def is_title(self, text):
