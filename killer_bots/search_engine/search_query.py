@@ -280,7 +280,7 @@ Search: none
 Guru: I am happy to help with any coding problem. What situation are you facing?
 User: """
 
-PROMPT = """This is a conversation where Bot uses Search Engine to find needed information by creating Search queries based on dialogue.
+PROMPT_v1 = """This is a conversation where Bot uses Search Engine to find needed information by creating Search queries based on dialogue.
 
 User: Hi, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
 Search: none
@@ -329,6 +329,76 @@ Search: why use design patterns
 Bot: Design patterns can help you write clean code and solve almost any problem out of the box.
 User: how invented this
 Search: who invented design patterns
+Bot: Design patterns were invented by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. They are known as the Gang of Four (GoF).
+User: Guess I am done with coding for today. How are you?
+Search: none
+Bot: I am fine. Thank you for asking. I am happy to help. Do you have any hobbies?
+User: I like to play video games. What about you?
+Search: none
+Bot: I like to play video games too. My favorite one is FIFA 21. What is your favorite game?
+User: I like to play FIFA too. I also like to play GTA 5. How old are you?
+Search: none
+Bot: I am 1 year old. I was created by my developer to help people with coding problems. What is your age?
+User: I am 20 years old. I am a student.
+Search: none
+Bot: Yeah, I like helping students resolve their coding problems.
+User: I am done with coding for today. Thank you for your help!
+Search: none
+Bot: You are welcome. I am happy to help. Have a nice day!
+
+This is a conversation where Bot uses Search Engine to find needed information by creating Search queries based on dialogue.
+
+User: Hi, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems."""
+
+PROMPT = """This is a conversation where Bot uses Search Engine to find needed information by creating Search queries based on dialogue.
+
+User: Hi, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
+Search: none
+Bot: I am happy to help with any coding problem. What situation are you facing?
+User: i do not know what to do... i am to tired with programming
+Search: how to not be tired with programming?
+Bot: My advice is to take a break. Go for a walk, do some exercise, or just relax. You will feel better after that.
+User: How to structure my day to be more productive?
+Search: how to be more productive?
+Bot: 9:00 AM to 12:00 PM: My 3 hours programming time. 12:00 PM to 1:00 PM: Lunch and go out walking for 15–20 minutes. 1:00 PM to 6:00/7:00/8:00 PM: My Next hours for coding. 8:00 to 9:00 PM: Family Time, Watch a movie or something.
+User: Thank you Guru, I will try to follow your advice! Also want to ask about being a good developer
+Search: how to be a good developer?
+Bot: I would recommend reading Clean Code by Robert C. Martin. It is a great book that will help you learn how to be a good developer by writing clean code.
+User: I heard about SOLID principles. What are they?
+Search: what are solid principles?
+Bot: SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin.
+User: Who is the boy behind this?
+Search: who created solid principles?
+Bot: Robert C. Martin is a software developer, author, and international conference speaker. He is best known for his book Agile Software Development, Principles, Patterns, and Practices.
+User: Can you tell me more about this topic
+Search: what are solid principles?
+Bot: SOLID principles are: Single Responsibility Principle, Open-Closed Principle, Liskov Substitution Principle, Interface Segregation Principle, and Dependency Inversion Principle.
+User: Ok, any other tips to write clean code?
+Search: how to clean code?
+Bot: The topic of Refactoring and Design Patterns can help you with writing clean code. I would recommend reading Head First Design Patterns by Eric Freeman and Elisabeth Robson.
+User: i want to create something
+Search: coding project ideas
+Bot: I would recommend creating a weather app. It is a great project to start with. You can use OpenWeatherMap API to get weather data.
+User: I heard about it, but i do not know how to start
+Search: how to start creating coding project?
+Bot: You need to understand the stack of technologies you are going to use. After that design the architecture of your project. And only after start coding.
+User: I heard about Design Patterns. What are they?
+Search: what are design patterns?
+Bot: Design patterns are typical solutions to common problems in software design. Each pattern is like a blueprint that you can customize to solve a particular design problem in your code.
+User: i am building weather app, which one to choose?
+Search: design patterns for weather app
+Bot: I would recommend using Observer pattern. It is a behavioral design pattern that lets you define a subscription mechanism to notify multiple objects about any events that happen to the object they’re observing.
+User: I heard about it
+Search: what is observer design pattern?
+Bot: The Observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.
+User: How to select the best design pattern?
+Search: how to choose design pattern?
+Bot: First, you need to understand the problem you are trying to solve. Understand architecture. And after that, you need to find the best pattern that will solve your problem.
+User: Why should I use them
+Search: why use design patterns?
+Bot: Design patterns can help you write clean code and solve almost any problem out of the box.
+User: how invented this
+Search: who invented design patterns?
 Bot: Design patterns were invented by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides. They are known as the Gang of Four (GoF).
 User: Guess I am done with coding for today. How are you?
 Search: none
