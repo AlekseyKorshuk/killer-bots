@@ -4,8 +4,10 @@ from transformers import StoppingCriteria, StoppingCriteriaList
 from killer_bots.bots.base import Bot
 from killer_bots.bots.code_guru import prompts
 from killer_bots.search_engine.custom_pipeline import Pipeline
+from killer_bots.search_engine.search_query import SearchQueryGenerator
 from killer_bots.search_engine.search_summarization import SearchSummarization
 from killer_bots.search_engine.lfqa import LFQA
+
 
 
 class CodeGuruBot(Bot):
@@ -96,9 +98,14 @@ class CodeGuruBotWithDialogue(Bot):
                 StoppingCriteriaSub(stops=input_ids)
             )
         self.stopping_criteria = StoppingCriteriaList(stopping_criterias)
-        self.previous_context_size = 6
+        self.previous_context_size = 3
         self.top_k = 3
         self.previous_context = []
+        self.search_history = ["none"]
+        self.search_query_generator = SearchQueryGenerator(
+            model=model,
+            tokenizer=tokenizer,
+        )
 
     def get_context(self):
         self.previous_context = self.previous_context[-self.previous_context_size:]
@@ -108,7 +115,9 @@ class CodeGuruBotWithDialogue(Bot):
         return context
 
     def _format_model_inputs(self, text):
-        current_contexts = self.pipeline(text, top_k=self.top_k)
+        search_query = self.search_query_generator(self.chat_history, self.search_history)
+        self.search_history.append(search_query)
+        current_contexts = self.pipeline(search_query, top_k=self.top_k)
         for context in current_contexts:
             if context in self.previous_context:
                 self.previous_context.remove(context)

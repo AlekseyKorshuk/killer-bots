@@ -403,8 +403,10 @@ class SearchQueryGenerator:
         }
         self.prompt = PROMPT
 
-    def __call__(self, chat_history, search_history, query):
-        pass
+    def __call__(self, chat_history, search_history):
+        model_input = self._format_model_inputs(chat_history, search_history)
+        output_text = self.generate_search_query(model_input)
+        return output_text
 
     def generate_search_query(self, prompt):
         inputs = self.tokenizer(prompt + "\nSearch: ", return_tensors="pt", padding=False, truncation="max_length",
