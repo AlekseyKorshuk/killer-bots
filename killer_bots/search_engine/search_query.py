@@ -348,10 +348,7 @@ Bot: You are welcome. I am happy to help. Have a nice day!
 
 This is a conversation where Bot uses Search Engine to find needed information by creating Search queries based on dialogue.
 
-User: Hi, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
-Search: none
-Bot: I am happy to help with any coding problem. What situation are you facing?
-User: """
+User: Hi, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems."""
 
 # if __name__ == "__main__":
 #     model = load_huggingface_model(MODEL)
@@ -434,11 +431,11 @@ class SearchQueryGenerator:
 if __name__ == "__main__":
     search_query_generator = SearchQueryGenerator(None, None)
     chat_history = [
-        "Guru: How are you?",
-        "User: I am fine, thanks. How are you?",
+        "Guru: I am happy to help with any coding problem. What situation are you facing?",
+        "User: What is coding?",
     ]
     search_history = [
-
+        "none"
     ]
 
     model_input = search_query_generator._format_model_inputs(chat_history, search_history)
