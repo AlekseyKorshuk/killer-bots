@@ -423,11 +423,11 @@ class SearchQueryGenerator:
         prompt = self.prompt
         search_history.append("")
 
-        for i, (chat, search) in enumerate(zip(chat_history, search_history)):
+        for i, chat in enumerate(chat_history):
             chat = chat.replace(bot_name, "Bot") if chat.startswith(bot_name) else chat
             prompt += chat + "\n"
             if i % 2 == 0:
-                prompt += "Search: " + search + "\n"
+                prompt += "Search: " + search_history[i % 2] + "\n"
         return prompt
 
 
