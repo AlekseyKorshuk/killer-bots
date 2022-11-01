@@ -356,8 +356,8 @@ User: """
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
-    pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device=0,
-                         model_kwargs={"torch_dtype": torch.bfloat16})
+    # pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device=0,
+    #                      model_kwargs={"torch_dtype": torch.bfloat16})
     # tokenizer.pad_token_id = 50256
     tokenizer.padding_side = "left"
     tokenizer.truncation_side = "left"
@@ -381,8 +381,8 @@ if __name__ == "__main__":
         # prompt += output_text + "\nGuru: " + output_text + "\nUser: "
         print("Length:", len(inputs.input_ids[0]))
         print(f"Search:{output_text}")
-        output_flan = pipe_flan(prompt + query + "\nSearch:", max_length=2048)[0]["generated_text"]
-        print(f"Flan: {output_flan}")
+        # output_flan = pipe_flan(prompt + query + "\nSearch:", max_length=2048)[0]["generated_text"]
+        # print(f"Flan: {output_flan}")
 
 '''
 User: hmmm, I will try to use it. Thanks Guru! How are you?
