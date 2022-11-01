@@ -109,10 +109,18 @@ class PreprocessDocs:
             if add_flag:
                 current_docs.append(doc)
                 if i == len(docs) - 2:
+                    if "technical debt" in get_docs_text(current_docs):
+                        print("!" * 100)
+                        print(get_docs_text(current_docs))
+                        print("!" * 100)
                     prepared_docs.append(join_docs(current_docs))
             else:
                 current_docs, last_docs = self.split_last_titles(current_docs)
                 if len(current_docs) > 0:
+                    if "technical debt" in get_docs_text(current_docs):
+                        print("!" * 100)
+                        print(get_docs_text(current_docs))
+                        print("!" * 100)
                     prepared_docs.append(join_docs(current_docs))
                 current_docs = last_docs + [doc]
         return prepared_docs
