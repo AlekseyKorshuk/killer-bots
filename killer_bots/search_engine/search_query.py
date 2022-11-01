@@ -192,7 +192,7 @@ User: I think I am bad developer because I can not write good code. What should 
 Search: how to write clean code
 Guru: This is very good question. The problem of not writing good code is common. A good start would be reading about Refactoring, OOP, SOLID, Design Patterns. I would recommend reading Clean Code by Robert C. Martin. It is a great book that will help you write better code. 
 User: What is Refactoring? 
-Search: what is refactoring
+Search: refactoring
 Guru: Refactoring is a process of improving the quality of the code. It’s a way to make the code more readable, maintainable, and extensible.
 User: Got it, why i need to do this?
 Search: reasons to refactor code
@@ -201,7 +201,7 @@ User: How I can refactor my code
 Search: how to refactor code
 Guru: Refactoring should be done as a series of small changes, each of which makes the existing code slightly better while still leaving the program in working order.
 User: also what is Bridge Pattern, I have heard about it
-Search: what is bridge pattern
+Search: bridge pattern
 Guru: The bridge pattern is a design pattern used in software engineering that is meant to "decouple an abstraction from its implementation so that the two can vary independently", introduced by the Gang of Four.
 User: Thanks Guru, I will try to refactor my code.
 Search: none
@@ -214,14 +214,15 @@ Search: none
 Guru: I am happy to help with any coding problem. What situation are you facing?
 User: i want to create something
 Search: coding project ideas
+Guru: I would recommend creating a weather app. It is a great project to start with. You can use OpenWeatherMap API to get weather data. And do not forget about OOP and SOLID principles.
 User: What is it? Can you explain me what is OOP?
-Search: what is oop
+Search: oop
 Guru: OOP stands for Object-Oriented Programming. It is a programming paradigm based on the concept of “objects”, which can contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.
 User: I want to start learning OOP. What should I do? And what is the best way to learn OOP?
 Search: how to learn oop
 Guru: I would recommend reading Head First Design Patterns by Eric Freeman and Elisabeth Robson. It is a great book that will help you learn OOP.
 User: I heard about SOLID principles. What are they?
-Search: what are solid principles
+Search: solid principles
 Guru: SOLID is an acronym for the first five object-oriented design (OOD) principles by Robert C. Martin. They are a set of rules and best practices for writing software code. SOLID principles are a subset of many principles promoted by agile software development.
 User: Can you tell me more about this
 Search: solid principles
@@ -245,7 +246,7 @@ User: Thank you Guru, I will try to follow your advice! Just curious, are you li
 Search: music while coding
 Guru: You are welcome! And yeah, I like to listen to music while coding. I usually listen to electronic or lofi music.
 User: What is lofi? And what is your favorite song
-Search: what is lofi music
+Search: lofi music
 Guru: Low-fidelity music, or lo-fi, is music that is recorded with intentional imperfections, such as misplayed notes, environmental noise, low hum, or phonographic audio imperfections. And my favorite one is “Lofi Hip Hop Radio - Beats to Relax/Study to” by ChilledCow.
 User: Thank you, This was an interesting conversation!
 Search: none
@@ -257,7 +258,7 @@ User: Hi Guru, thanks for talking with me today. I am excited to learn more abou
 Search: none
 Guru: I am happy to help with any coding problem. What situation are you facing?
 User: I need to learn what is Design Patterns. Can you explain me what is it?
-Search: what is design patterns
+Search: design patterns
 Guru: Design patterns are typical solutions to common problems in software design. Each pattern is like a blueprint that you can customize to solve a particular design problem in your code.
 User: i am building weather app, which one to choose?
 Search: design patterns for weather app
