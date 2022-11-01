@@ -450,4 +450,5 @@ if __name__ == "__main__":
 
     model_input = search_query_generator._format_model_inputs(chat_history, search_history)
     print(model_input)
-    search_query_generator(chat_history, search_history)
+    output = search_query_generator(chat_history, search_history)
+    print(output)
