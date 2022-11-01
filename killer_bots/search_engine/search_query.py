@@ -166,9 +166,6 @@ Guru: I would recommend using Observer pattern. It is a behavioral design patter
 User: I heard about it
 Search query: design patterns, observer pattern, what is observer pattern, how to use observer pattern
 Guru: The Observer pattern is a software design pattern in which an object, called the subject, maintains a list of its dependents, called observers, and notifies them automatically of any state changes, usually by calling one of their methods.
-User: hmmm, I will try to use it. Thanks Guru! How are you?
-Search query: none
-Guru: I am fine, thanks. How are you?
 User: Awesome, you helped me a lot! 
 Search query: none
 Guru: You are welcome. I am happy to help.
