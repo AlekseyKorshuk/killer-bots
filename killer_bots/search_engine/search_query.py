@@ -353,39 +353,91 @@ Search: none
 Bot: I am happy to help with any coding problem. What situation are you facing?
 User: """
 
-if __name__ == "__main__":
-    model = load_huggingface_model(MODEL)
-    tokenizer = load_tokenizer(MODEL)
-    # pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device=0,
-    #                      model_kwargs={"torch_dtype": torch.bfloat16})
-    # tokenizer.pad_token_id = 50256
-    tokenizer.padding_side = "left"
-    tokenizer.truncation_side = "left"
-
-    # model.config.eos_token_id = 198
-    # model.config.exponential_decay_length_penalty = None
-    # model.eos_token_id = 198
-
-    prompt = PROMPT
-    while True:
-        query = input("User: ")
-        if query == "exit":
-            break
-
-        # prompt += query + "\nSearch:"
-        inputs = tokenizer(prompt + query + "\nSearch:", return_tensors="pt", padding=False).to(device)
-        output_ids = model.generate(
-            **inputs, **params
-        )
-        output_text = tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
-        # prompt += output_text + "\nGuru: " + output_text + "\nUser: "
-        print("Length:", len(inputs.input_ids[0]))
-        print(f"Search:{output_text}")
-        # output_flan = pipe_flan(prompt + query + "\nSearch:", max_length=2048)[0]["generated_text"]
-        # print(f"Flan: {output_flan}")
+# if __name__ == "__main__":
+#     model = load_huggingface_model(MODEL)
+#     tokenizer = load_tokenizer(MODEL)
+#     # pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device=0,
+#     #                      model_kwargs={"torch_dtype": torch.bfloat16})
+#     # tokenizer.pad_token_id = 50256
+#     tokenizer.padding_side = "left"
+#     tokenizer.truncation_side = "left"
+#
+#     # model.config.eos_token_id = 198
+#     # model.config.exponential_decay_length_penalty = None
+#     # model.eos_token_id = 198
+#
+#     prompt = PROMPT
+#     while True:
+#         query = input("User: ")
+#         if query == "exit":
+#             break
+#
+#         # prompt += query + "\nSearch:"
+#         inputs = tokenizer(prompt + query + "\nSearch:", return_tensors="pt", padding=False).to(device)
+#         output_ids = model.generate(
+#             **inputs, **params
+#         )
+#         output_text = tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
+#         print("Length:", len(inputs.input_ids[0]))
+#         print(f"Search:{output_text}")
 
 '''
 User: hmmm, I will try to use it. Thanks Guru! How are you?
 Search: none
 Guru: I am fine, thanks. How are you?
 '''
+
+
+class SearchQueryGenerator:
+    def __init__(self, model, tokenizer):
+        self.model = model
+        self.tokenizer = tokenizer
+        self.device = 0
+        self.params = {
+            # "top_p": 1,
+            # "top_k": 20,
+            # "temperature": 1.0,
+            # "repetition_penalty": 1.15,
+            # "length_penalty": -0.1,
+            "eos_token_id": 50118,  # 50118
+            "device": 0,
+            "do_sample": False,
+            "max_new_tokens": 32,
+        }
+        self.prompt = PROMPT
+
+    def __call__(self, chat_history, search_history, query):
+        pass
+
+    def generate_search_query(self, prompt):
+        inputs = self.tokenizer(prompt + "\nSearch: ", return_tensors="pt", padding=False, truncation="max_length",
+                                max_length=2048 - 65).to(self.device)
+        output_ids = self.model.generate(
+            **inputs, **self.params
+        )
+        output_text = self.tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
+        return output_text.strip()
+
+    def _format_model_inputs(self, chat_history, search_history):
+        bot_name = chat_history[-1].split(":")[0]
+        prompt = self.prompt
+        for i, (chat, search) in enumerate(zip(chat_history, search_history)):
+            chat = chat.replace(bot_name, "Bot") if chat.startswith(bot_name) else chat
+            prompt += chat + "\n"
+            if i % 2 == 0:
+                prompt += "Search: " + search + "\n"
+        return prompt
+
+
+if __name__ == "__main__":
+    search_query_generator = SearchQueryGenerator(None, None)
+    chat_history = [
+        "Guru: How are you?",
+        "User: I am fine, thanks. How are you?",
+    ]
+    search_history = [
+        "none"
+    ]
+
+    model_input = search_query_generator._format_model_inputs(chat_history, search_history)
+    print(model_input)
