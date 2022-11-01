@@ -308,7 +308,7 @@ if __name__ == "__main__":
         # prompt += output_text + "\nGuru: " + output_text + "\nUser: "
         print("Length:", len(inputs.input_ids[0]))
         print(f"Search:{output_text}")
-        output_flan = pipe_flan(prompt + query + "\nSearch:", max_length=100)[0]["generated_text"]
+        output_flan = pipe_flan(prompt + query + "\nSearch:", max_length=2048)[0]["generated_text"]
         print(f"Flan: {output_flan}")
 
 '''
