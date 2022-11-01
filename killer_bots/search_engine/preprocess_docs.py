@@ -75,7 +75,10 @@ class PreprocessDocs:
         while self.is_title(doc.content):
             last_docs.append(doc)
             docs.pop()
-            doc = docs[-1]
+            try:
+                doc = docs[-1]
+            except:
+                break
         last_docs.reverse()
         return docs, last_docs
 
