@@ -51,7 +51,7 @@ show_examples(org_model)
 
 doc_dir = "/app/killer-bots/killer_bots/bots/code_guru/database"
 docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
-# docs = preprocess_docs(docs)
+docs = preprocess_docs(docs)
 
 corpus = [clean_wiki_text(doc.content) for doc in docs]
 print("Len Corpus:", len(corpus))
