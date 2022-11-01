@@ -437,17 +437,17 @@ class SearchQueryGenerator:
 
 
 if __name__ == "__main__":
-    search_query_generator = SearchQueryGenerator(None, None)
+    model = load_huggingface_model(MODEL)
+    tokenizer = load_tokenizer(MODEL)
+    search_query_generator = SearchQueryGenerator(model, tokenizer)
     chat_history = [
         "Guru: I am happy to help with any coding problem. What situation are you facing?",
-        "User: What is coding?",
-        "Guru: Coding is the process of writing instructions for a computer to follow. It is a way of communicating with a computer.",
-        "User: What is a computer?",
+        "User: What is refactoring?",
     ]
     search_history = [
         "none",
-        "what is coding",
     ]
 
     model_input = search_query_generator._format_model_inputs(chat_history, search_history)
     print(model_input)
+    search_query_generator(chat_history, search_history)
