@@ -218,6 +218,9 @@ Guru: I would recommend creating a weather app. It is a great project to start w
 User: What is it? Can you explain me what is OOP?
 Search: oop
 Guru: OOP stands for Object-Oriented Programming. It is a programming paradigm based on the concept of “objects”, which can contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods.
+User: i do not understand why i need to write code in this way
+Search: oop advantages
+Guru: OOP helps to write code that is easy to understand and maintain. It is also easy to reuse and extend the code.
 User: I want to start learning OOP. What should I do? And what is the best way to learn OOP?
 Search: how to learn oop
 Guru: I would recommend reading Head First Design Patterns by Eric Freeman and Elisabeth Robson. It is a great book that will help you learn OOP.
