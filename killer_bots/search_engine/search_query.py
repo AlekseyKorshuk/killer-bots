@@ -409,7 +409,7 @@ class SearchQueryGenerator:
         return output_text
 
     def generate_search_query(self, prompt):
-        inputs = self.tokenizer(prompt + "\nSearch: ", return_tensors="pt", padding=False, truncation=True,
+        inputs = self.tokenizer(prompt, return_tensors="pt", padding=False, truncation=True,
                                 max_length=2048 - 65).to(self.device)
         print("Length:", len(inputs.input_ids[0]))
         output_ids = self.model.generate(
