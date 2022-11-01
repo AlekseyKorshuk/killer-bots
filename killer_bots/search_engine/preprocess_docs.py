@@ -70,6 +70,7 @@ class PreprocessDocs:
 
     def split_last_titles(self, docs):
         last_docs = []
+        docs = docs.copy()
         doc = docs[-1]
         while self.is_title(doc.content):
             last_docs.append(doc)
