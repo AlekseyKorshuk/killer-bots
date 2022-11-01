@@ -96,9 +96,9 @@ class PreprocessDocs:
             else:
                 next_score = self.get_score(
                     get_docs_text(current_docs) + '\n' + doc.content,
-                    docs[i + 1].content
+                    docs[i + 2].content
                 )
-                if next_score > self.next_threshold and current_docs[-1].meta['name'] == docs[i + 1].meta['name']:
+                if next_score > self.next_threshold and current_docs[-1].meta['name'] == docs[i + 2].meta['name']:
                     add_flag = True
             if add_flag:
                 current_docs.append(doc)
