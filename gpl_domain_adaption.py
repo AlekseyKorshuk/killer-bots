@@ -10,7 +10,7 @@ from haystack.document_stores import FAISSDocumentStore
 from haystack.nodes.question_generator import QuestionGenerator
 from haystack.nodes.label_generator import PseudoLabelGenerator
 
-from killer_bots.search_engine.preprocess_docs import preprocess_docs
+from killer_bots.search_engine.preprocess_docs import preprocess_docs, clean_wiki_text
 
 logging.basicConfig(format="%(levelname)s - %(name)s -  %(message)s", level=logging.WARNING)
 logging.getLogger("haystack").setLevel(logging.INFO)
@@ -51,9 +51,9 @@ show_examples(org_model)
 
 doc_dir = "/app/killer-bots/killer_bots/bots/code_guru/database"
 docs = convert_files_to_docs(dir_path=doc_dir, clean_func=None, split_paragraphs=True)
-docs = preprocess_docs(docs)
+# docs = preprocess_docs(docs)
 
-corpus = [doc.content for doc in docs]
+corpus = [clean_wiki_text(doc.content) for doc in docs]
 print("Len Corpus:", len(corpus))
 
 try:
