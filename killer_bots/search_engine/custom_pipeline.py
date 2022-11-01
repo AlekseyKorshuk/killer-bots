@@ -74,7 +74,7 @@ def get_documents(doc_dir):
 def get_retriever(document_store):
     retriever = EmbeddingRetriever(
         document_store=document_store,
-        embedding_model="sentence-transformers/multi-qa-mpnet-base-dot-v1",
+        embedding_model="AlekseyKorshuk/retriever-coding-guru-adapted",
         model_format="sentence_transformers"
     )
     return retriever
