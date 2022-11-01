@@ -115,6 +115,8 @@ class CodeGuruBotWithDialogue(Bot):
         return context
 
     def _format_model_inputs(self, text):
+        print(self.chat_history)
+        print(self.previous_context)
         search_query = self.search_query_generator(self.chat_history, self.search_history)
         self.search_history.append(search_query)
         print("SEARCH QUERY:", search_query)
