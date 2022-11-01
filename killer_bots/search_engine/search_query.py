@@ -283,7 +283,7 @@ User: """
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
-    pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device="cuda:0",
+    pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device=0,
                          model_kwargs={"torch_dtype": torch.bfloat16})
     # tokenizer.pad_token_id = 50256
     tokenizer.padding_side = "left"
