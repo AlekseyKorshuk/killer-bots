@@ -99,13 +99,13 @@ class PreprocessDocs:
                 add_flag = True
             elif self.is_title(get_docs_text(current_docs)) and score > self.small_threshold:
                 add_flag = True
-            else:
-                next_score = self.get_score(
-                    get_docs_text(current_docs) + '\n' + doc.content,
-                    docs[i + 2].content
-                )
-                if next_score > self.next_threshold and current_docs[-1].meta['name'] == docs[i + 2].meta['name']:
-                    add_flag = True
+            # else:
+            #     next_score = self.get_score(
+            #         get_docs_text(current_docs) + '\n' + doc.content,
+            #         docs[i + 2].content
+            #     )
+            #     if next_score > self.next_threshold and current_docs[-1].meta['name'] == docs[i + 2].meta['name']:
+            #         add_flag = True
             if add_flag:
                 current_docs.append(doc)
                 if i == len(docs) - 2:
