@@ -429,7 +429,7 @@ class SearchQueryGenerator:
                 prompt += "\nSearch: " + search_history[i // 2]
             chat = chat.replace(bot_name, "Bot") if chat.startswith(bot_name) else chat
             prompt += "\n" + chat
-        prompt += "\nSearch: "
+        prompt += "\nSearch:"
         print("SEARCH PROMPT:")
         print(prompt)
         print("END SEARCH PROMPT")
