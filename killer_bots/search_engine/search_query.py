@@ -417,7 +417,7 @@ class SearchQueryGenerator:
 
     def _format_model_inputs(self, chat_history, search_history):
         bot_name = chat_history[-1].split(":")[0]
-        prompt = self.prompt +
+        prompt = self.prompt
         search_history.append("")
 
         for i, chat in enumerate(chat_history):
