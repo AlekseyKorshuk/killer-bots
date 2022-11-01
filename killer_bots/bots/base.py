@@ -134,6 +134,7 @@ class Bot(object):
         encoded = self._tokenize(inputs)
         outputs = self._generate(encoded, request_params)
 
+        print("Output length:", len(outputs[0][len(encoded.input_ids[0]):]))
         decoded = self._decode(outputs[0][len(encoded.input_ids[0]):])
         response = self._truncate_incomplete_sentence(decoded.rstrip())
 

@@ -9,7 +9,6 @@ from killer_bots.search_engine.search_summarization import SearchSummarization
 from killer_bots.search_engine.lfqa import LFQA
 
 
-
 class CodeGuruBot(Bot):
     def __init__(self, model, tokenizer, description, **params):
         super().__init__(
@@ -115,11 +114,11 @@ class CodeGuruBotWithDialogue(Bot):
         return context
 
     def _format_model_inputs(self, text):
+        self.search_history = self.search_history[:len(self.chat_history) // 2]
         print(self.chat_history)
         print(self.search_history)
         search_query = self.search_query_generator(self.chat_history, self.search_history)
         self.search_history.append(search_query)
-        print("SEARCH QUERY:", search_query)
         current_contexts = self.pipeline(search_query, top_k=self.top_k)
         for context in current_contexts:
             if context in self.previous_context:
@@ -134,6 +133,7 @@ class CodeGuruBotWithDialogue(Bot):
         print("PROMPT:")
         print(lines)
         print("END PROMPT")
+        print("SEARCH QUERY:", search_query)
         # print("CHAT HISTORY:")
         # print(self.chat_history)
         # print("END CHAT HISTORY")
