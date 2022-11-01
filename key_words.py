@@ -5,7 +5,7 @@ hyperparameters = {
     "num_keywords": 10,
     # "merge_threshold": 1.1,
     # "alpha": 0.3,
-    # "token_prune_len": 3
+    "token_prune_len": 3
 }
 
 keyword_detector = RakunKeyphraseDetector(hyperparameters)
