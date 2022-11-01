@@ -78,6 +78,7 @@ class PreprocessDocs:
             try:
                 doc = docs[-1]
             except:
+                print(last_docs)
                 break
         last_docs.reverse()
         return docs, last_docs
