@@ -97,8 +97,8 @@ class CodeGuruBotWithDialogue(Bot):
                 StoppingCriteriaSub(stops=input_ids)
             )
         self.stopping_criteria = StoppingCriteriaList(stopping_criterias)
-        self.previous_context_size = 1
-        self.top_k = 1
+        self.previous_context_size = 2
+        self.top_k = 2
         self.previous_context = []
         self.search_history = ["none"]
         self.search_query_generator = SearchQueryGenerator(
