@@ -117,6 +117,7 @@ class CodeGuruBotWithDialogue(Bot):
     def _format_model_inputs(self, text):
         search_query = self.search_query_generator(self.chat_history, self.search_history)
         self.search_history.append(search_query)
+        print("SEARCH QUERY:", search_query)
         current_contexts = self.pipeline(search_query, top_k=self.top_k)
         for context in current_contexts:
             if context in self.previous_context:
