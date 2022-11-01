@@ -66,16 +66,16 @@ params = {
     "max_new_tokens": 256,
 }
 
-params = {
-    "top_p": 1,
-    "top_k": 20,
-    "temperature": 1.0,
-    "repetition_penalty": 1.0,
-    # "eos_token_id": 50118,  # 50118
-    "device": device,
-    "do_sample": True,
-    "max_new_tokens": 256,
-}
+# params = {
+#     "top_p": 1,
+#     "top_k": 20,
+#     "temperature": 1.0,
+#     "repetition_penalty": 1.0,
+#     # "eos_token_id": 50118,  # 50118
+#     "device": device,
+#     "do_sample": True,
+#     "max_new_tokens": 256,
+# }
 
 
 def load_tokenizer(model_id):
