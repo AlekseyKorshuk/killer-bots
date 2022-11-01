@@ -86,7 +86,8 @@ class PreprocessDocs:
                 prepared_docs.append(join_docs(current_docs))
                 current_docs = [doc]
                 continue
-
+            if len(current_docs) == 0:
+                import pdb; pdb.set_trace()
             score = self.get_score(get_docs_text(current_docs), doc.content)
             add_flag = False
             if score > self.threshold and current_docs[-1].meta['name'] == doc.meta['name']:
