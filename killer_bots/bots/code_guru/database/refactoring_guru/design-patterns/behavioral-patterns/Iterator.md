@@ -2,13 +2,9 @@
 
 **Iterator** is a behavioral design pattern that lets you traverse elements of a collection without exposing its underlying representation (list, stack, tree, etc.).
 
-![Iterator design pattern](https://refactoring.guru/images/patterns/content/iterator/iterator-en.png)
-
 ## Problem
 
 Collections are one of the most used data types in programming. Nonetheless, a collection is just a container for a group of objects.
-
-![Various types of collections](https://refactoring.guru/images/patterns/diagrams/iterator/problem1.png)
 
 Various types of collections.
 
@@ -17,8 +13,6 @@ Most collections store their elements in simple lists. However, some of them are
 But no matter how a collection is structured, it must provide some way of accessing its elements so that other code can use these elements. There should be a way to go through each element of the collection without accessing the same elements over and over.
 
 This may sound like an easy job if you have a collection based on a list. You just loop over all of the elements. But how do you sequentially traverse elements of a complex data structure, such as a tree? For example, one day you might be just fine with depth-first traversal of a tree. Yet the next day you might require breadth-first traversal. And the next week, you might need something else, like random access to the tree elements.
-
-![Various traversal algorithms](https://refactoring.guru/images/patterns/diagrams/iterator/problem2.png)
 
 The same collection can be traversed in several different ways.
 
@@ -30,8 +24,6 @@ On the other hand, the client code that’s supposed to work with various collec
 
 The main idea of the Iterator pattern is to extract the traversal behavior of a collection into a separate object called an _iterator_.
 
-![Iterators implement various traversal algorithms](https://refactoring.guru/images/patterns/diagrams/iterator/solution1.png)
-
 Iterators implement various traversal algorithms. Several iterator objects can traverse the same collection at the same time.
 
 In addition to implementing the algorithm itself, an iterator object encapsulates all of the traversal details, such as the current position and how many elements are left till the end. Because of this, several iterators can go through the same collection at the same time, independently of each other.
@@ -41,8 +33,6 @@ Usually, iterators provide one primary method for fetching elements of the colle
 All iterators must implement the same interface. This makes the client code compatible with any collection type or any traversal algorithm as long as there’s a proper iterator. If you need a special way to traverse a collection, you just create a new iterator class, without having to change the collection or the client.
 
 ## Real-World Analogy
-
-![Various ways to walk around Rome](https://refactoring.guru/images/patterns/content/iterator/iterator-comic-1-en.png)
 
 Various ways to walk around Rome.
 
@@ -72,8 +62,6 @@ All of these options—the random directions born in your head, the smartphone n
 ## Pseudocode
 
 In this example, the **Iterator** pattern is used to walk through a special kind of collection which encapsulates access to Facebook’s social graph. The collection provides several iterators that can traverse profiles in various ways.
-
-![Structure of the Iterator pattern example](https://refactoring.guru/images/patterns/diagrams/iterator/example.png)
 
 Example of iterating over social profiles.
 

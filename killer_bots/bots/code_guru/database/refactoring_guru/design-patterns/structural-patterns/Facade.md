@@ -2,8 +2,6 @@
 
 **Facade** is a structural design pattern that provides a simplified interface to a library, a framework, or any other complex set of classes.
 
-![Facade design pattern](https://refactoring.guru/images/patterns/content/facade/facade.png)
-
 ## Problem
 
 Imagine that you must make your code work with a broad set of objects that belong to a sophisticated library or framework. Ordinarily, you’d need to initialize all of those objects, keep track of dependencies, execute methods in the correct order, and so on.
@@ -19,8 +17,6 @@ Having a facade is handy when you need to integrate your app with a sophisticate
 For instance, an app that uploads short funny videos with cats to social media could potentially use a professional video conversion library. However, all that it really needs is a class with the single method `encode(filename, format)`. After creating such a class and connecting it with the video conversion library, you’ll have your first facade.
 
 ## Real-World Analogy
-
-![An example of taking a phone order](https://refactoring.guru/images/patterns/diagrams/facade/live-example-en.png)
 
 Placing orders by phone.
 
@@ -42,8 +38,6 @@ When you call a shop to place a phone order, an operator is your facade to all s
 ## Pseudocode
 
 In this example, the **Facade** pattern simplifies interaction with a complex video conversion framework.
-
-![The structure of the Facade pattern example](https://refactoring.guru/images/patterns/diagrams/facade/example.png)
 
 An example of isolating multiple dependencies within a single facade class.
 

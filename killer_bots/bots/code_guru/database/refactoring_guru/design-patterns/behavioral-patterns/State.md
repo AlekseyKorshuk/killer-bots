@@ -2,13 +2,9 @@
 
 **State** is a behavioral design pattern that lets an object alter its behavior when its internal state changes. It appears as if the object changed its class.
 
-![State Design Pattern](https://refactoring.guru/images/patterns/content/state/state-en.png)
-
 ## Problem
 
 The State pattern is closely related to the concept of a _Finite-State Machine_ .
-
-![Finite-State Machine](https://refactoring.guru/images/patterns/diagrams/state/problem1.png)
 
 Finite-State Machine.
 
@@ -20,31 +16,9 @@ You can also apply this approach to objects. Imagine that we have a `Document` c
 -   In `Moderation`, it makes the document public, but only if the current user is an administrator.
 -   In `Published`, it doesn’t do anything at all.
 
-![Possible states of a document object](https://refactoring.guru/images/patterns/diagrams/state/problem2-en.png)
-
 Possible states and transitions of a document object.
 
 State machines are usually implemented with lots of conditional statements (`if` or `switch`) that select the appropriate behavior depending on the current state of the object. Usually, this “state” is just a set of values of the object’s fields. Even if you’ve never heard about finite-state machines before, you’ve probably implemented a state at least once. Does the following code structure ring a bell?
-
-```
-class Document is
-    field state: string
-    
-    method publish() is
-        switch (state)
-            "draft":
-                state = "moderation"
-                break
-            "moderation":
-                if (currentUser.role == "admin")
-                    state = "published"
-                break
-            "published":
-                // Do nothing.
-                break
-    
-
-```
 
 The biggest weakness of a state machine based on conditionals reveals itself once we start adding more and more states and state-dependent behaviors to the `Document` class. Most methods will contain monstrous conditionals that pick the proper behavior of a method according to the current state. Code like this is very difficult to maintain because any change to the transition logic may require changing state conditionals in every method.
 
@@ -55,8 +29,6 @@ The problem tends to get bigger as a project evolves. It’s quite difficult to 
 The State pattern suggests that you create new classes for all possible states of an object and extract all state-specific behaviors into these classes.
 
 Instead of implementing all behaviors on its own, the original object, called _context_, stores a reference to one of the state objects that represents its current state, and delegates all the state-related work to that object.
-
-![Document delegates the work to a state object](https://refactoring.guru/images/patterns/diagrams/state/solution-en.png)
 
 Document delegates the work to a state object.
 
@@ -88,8 +60,6 @@ The buttons and switches in your smartphone behave differently depending on the 
 ## Pseudocode
 
 In this example, the **State** pattern lets the same controls of the media player behave differently, depending on the current playback state.
-
-![Structure of the State pattern example](https://refactoring.guru/images/patterns/diagrams/state/example.png)
 
 Example of changing object behavior with state objects.
 

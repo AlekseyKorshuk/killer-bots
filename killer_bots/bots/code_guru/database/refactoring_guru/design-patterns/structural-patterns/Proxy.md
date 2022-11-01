@@ -2,13 +2,9 @@
 
 **Proxy** is a structural design pattern that lets you provide a substitute or placeholder for another object. A proxy controls access to the original object, allowing you to perform something either before or after the request gets through to the original object.
 
-![Proxy design pattern](https://refactoring.guru/images/patterns/content/proxy/proxy.png)
-
 ## Problem
 
 Why would you want to control access to an object? Here is an example: you have a massive object that consumes a vast amount of system resources. You need it from time to time, but not always.
-
-![Problem solved by Proxy pattern](https://refactoring.guru/images/patterns/diagrams/proxy/problem-en.png)
 
 Database queries can be really slow.
 
@@ -20,15 +16,11 @@ In an ideal world, we’d want to put this code directly into our object’s cla
 
 The Proxy pattern suggests that you create a new proxy class with the same interface as an original service object. Then you update your app so that it passes the proxy object to all of the original object’s clients. Upon receiving a request from a client, the proxy creates a real service object and delegates all the work to it.
 
-![Solution with the Proxy pattern](https://refactoring.guru/images/patterns/diagrams/proxy/solution-en.png)
-
 The proxy disguises itself as a database object. It can handle lazy initialization and result caching without the client or the real database object even knowing.
 
 But what’s the benefit? If you need to execute something either before or after the primary logic of the class, the proxy lets you do this without changing that class. Since the proxy implements the same interface as the original class, it can be passed to any client that expects a real service object.
 
 ## Real-World Analogy
-
-![A credit card is a proxy for a bundle of cash](https://refactoring.guru/images/patterns/diagrams/proxy/live-example.png)
 
 Credit cards can be used for payments just the same as cash.
 
@@ -50,8 +42,6 @@ A credit card is a proxy for a bank account, which is a proxy for a bundle of ca
 ## Pseudocode
 
 This example illustrates how the **Proxy** pattern can help to introduce lazy initialization and caching to a 3rd-party YouTube integration library.
-
-![Structure of the Proxy pattern example](https://refactoring.guru/images/patterns/diagrams/proxy/example.png)
 
 Caching results of a service with a proxy.
 

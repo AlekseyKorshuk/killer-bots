@@ -11,8 +11,6 @@ Say you have an object, and you want to create an exact copy of it. How would yo
 
 Nice! But there’s a catch. Not all objects can be copied that way because some of the object’s fields may be private and not visible from outside of the object itself.
 
-![What can go wrong when copying things “from the outside"?” width=](https://refactoring.guru/images/patterns/content/prototype/prototype-comic-1-en.png)
-
 Copying an object “from the outside” [isn’t](https://refactoring.guru/cargo-cult) always possible.
 
 There’s one more problem with the direct approach. Since you have to know the object’s class to create a duplicate, your code becomes dependent on that class. If the extra dependency doesn’t scare you, there’s another catch. Sometimes you only know the interface that the object follows, but not its concrete class, when, for example, a parameter in a method accepts any objects that follow some interface.
@@ -25,8 +23,6 @@ The implementation of the `clone` method is very similar in all classes. The met
 
 An object that supports cloning is called a _prototype_. When your objects have dozens of fields and hundreds of possible configurations, cloning them might serve as an alternative to subclassing.
 
-![Pre-built prototypes](https://refactoring.guru/images/patterns/content/prototype/prototype-comic-2-en.png)
-
 Pre-built prototypes can be an alternative to subclassing.
 
 Here’s how it works: you create a set of objects, configured in various ways. When you need an object like the one you’ve configured, you just clone a prototype instead of constructing a new object from scratch.
@@ -34,8 +30,6 @@ Here’s how it works: you create a set of objects, configured in various ways. 
 ## Real-World Analogy
 
 In real life, prototypes are used for performing various tests before starting mass production of a product. However, in this case, prototypes don’t participate in any actual production, playing a passive role instead.
-
-![The cell division](https://refactoring.guru/images/patterns/content/prototype/prototype-comic-3-en.png)
 
 The division of a cell.
 
@@ -60,8 +54,6 @@ Since industrial prototypes don’t really copy themselves, a much closer analog
 ## Pseudocode
 
 In this example, the **Prototype** pattern lets you produce exact copies of geometric objects, without coupling the code to their classes.
-
-![The structure of the Prototype pattern example](https://refactoring.guru/images/patterns/diagrams/prototype/example.png)
 
 Cloning a set of objects that belong to a class hierarchy.
 

@@ -4,8 +4,6 @@ _Abstraction?_ _Implementation?_ Sound scary? Stay calm and let’s consider a s
 
 Say you have a geometric `Shape` class with a pair of subclasses: `Circle` and `Square`. You want to extend this class hierarchy to incorporate colors, so you plan to create `Red` and `Blue` shape subclasses. However, since you already have two subclasses, you’ll need to create four class combinations such as `BlueCircle` and `RedSquare`.
 
-![Bridge pattern problem](https://refactoring.guru/images/patterns/diagrams/bridge/problem-en.png)
-
 Number of class combinations grows in geometric progression.
 
 Adding new shape types and colors to the hierarchy will grow it exponentially. For example, to add a triangle shape you’d need to introduce two subclasses, one for each color. And after that, adding a new color would require creating three subclasses, one for each shape type. The further we go, the worse it becomes.
@@ -15,8 +13,6 @@ Adding new shape types and colors to the hierarchy will grow it exponentially. F
 This problem occurs because we’re trying to extend the shape classes in two independent dimensions: by form and by color. That’s a very common issue with class inheritance.
 
 The Bridge pattern attempts to solve this problem by switching from inheritance to the object composition. What this means is that you extract one of the dimensions into a separate class hierarchy, so that the original classes will reference an object of the new hierarchy, instead of having all of its state and behaviors within one class.
-
-![Solution suggested by the Bridge pattern](https://refactoring.guru/images/patterns/diagrams/bridge/solution-en.png)
 
 You can prevent the explosion of a class hierarchy by transforming it into several related hierarchies.
 
@@ -39,8 +35,6 @@ Generally speaking, you can extend such an app in two independent directions:
 
 In a worst-case scenario, this app might look like a giant spaghetti bowl, where hundreds of conditionals connect different types of GUI with various APIs all over the code.
 
-![Managing changes is much easier in modular code](https://refactoring.guru/images/patterns/content/bridge/bridge-3-en.png)
-
 Making even a simple change to a monolithic codebase is pretty hard because you must understand the _entire thing_ very well. Making changes to smaller, well-defined modules is much easier.
 
 You can bring order to this chaos by extracting the code related to specific interface-platform combinations into separate classes. However, soon you’ll discover that there are _lots_ of these classes. The class hierarchy will grow exponentially because adding a new GUI or supporting a different API would require creating more and more classes.
@@ -49,8 +43,6 @@ Let’s try to solve this issue with the Bridge pattern. It suggests that we div
 
 -   Abstraction: the GUI layer of the app.
 -   Implementation: the operating systems’ APIs.
-
-![Cross-platform architecture](https://refactoring.guru/images/patterns/content/bridge/bridge-2-en.png)
 
 One of the ways to structure a cross-platform application.
 
@@ -61,8 +53,6 @@ As a result, you can change the GUI classes without touching the API-related cla
 ## Pseudocode
 
 This example illustrates how the **Bridge** pattern can help divide the monolithic code of an app that manages devices and their remote controls. The `Device` classes act as the implementation, whereas the `Remote`s act as the abstraction.
-
-![Structure of the Bridge pattern example](https://refactoring.guru/images/patterns/diagrams/bridge/example-en.png)
 
 The original class hierarchy is divided into two parts: devices and remote controls.
 

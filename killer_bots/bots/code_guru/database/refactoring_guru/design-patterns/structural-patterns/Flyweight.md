@@ -6,21 +6,16 @@ Upon its completion, you pushed the last commit, built the game and sent it to y
 
 The actual problem was related to your particle system. Each particle, such as a bullet, a missile or a piece of shrapnel was represented by a separate object containing plenty of data. At some point, when the carnage on a player’s screen reached its climax, newly created particles no longer fit into the remaining RAM, so the program crashed.
 
-![Flyweight pattern problem](https://refactoring.guru/images/patterns/diagrams/flyweight/problem-en.png)
-
 ## Solution
 
 On closer inspection of the `Particle` class, you may notice that the color and sprite fields consume a lot more memory than other fields. What’s worse is that these two fields store almost identical data across all particles. For example, all bullets have the same color and sprite.
 
-![Flyweight pattern solution](https://refactoring.guru/images/patterns/diagrams/flyweight/solution1-en.png)
 
 Other parts of a particle’s state, such as coordinates, movement vector and speed, are unique to each particle. After all, the values of these fields change over time. This data represents the always changing context in which the particle exists, while the color and sprite remain constant for each particle.
 
 This constant data of an object is usually called the _intrinsic state_. It lives within the object; other objects can only read it, not change it. The rest of the object’s state, often altered “from the outside” by other objects, is called the _extrinsic state_.
 
 The Flyweight pattern suggests that you stop storing the extrinsic state inside the object. Instead, you should pass this state to specific methods which rely on it. Only the intrinsic state stays within the object, letting you reuse it in different contexts. As a result, you’d need fewer of these objects since they only differ in the intrinsic state, which has much fewer variations than the extrinsic.
-
-![Flyweight pattern solution](https://refactoring.guru/images/patterns/diagrams/flyweight/solution3-en.png)
 
 Let’s return to our game. Assuming that we had extracted the extrinsic state from our particle class, only three different objects would suffice to represent all particles in the game: a bullet, a missile, and a piece of shrapnel. As you’ve probably guessed by now, an object that only stores the intrinsic state is called a flyweight.
 
@@ -29,8 +24,6 @@ Let’s return to our game. Assuming that we had extracted the extrinsic state f
 Where does the extrinsic state move to? Some class should still store it, right? In most cases, it gets moved to the container object, which aggregates objects before we apply the pattern.
 
 In our case, that’s the main `Game` object that stores all particles in the `particles` field. To move the extrinsic state into this class, you need to create several array fields for storing coordinates, vectors, and speed of each individual particle. But that’s not all. You need another array for storing references to a specific flyweight that represents a particle. These arrays must be in sync so that you can access all data of a particle using the same index.
-
-![Flyweight pattern solution](https://refactoring.guru/images/patterns/diagrams/flyweight/solution2-en.png)
 
 A more elegant solution is to create a separate context class that would store the extrinsic state along with reference to the flyweight object. This approach would require having just a single array in the container class.
 
@@ -49,8 +42,6 @@ There are several options where this method could be placed. The most obvious pl
 ## Pseudocode
 
 In this example, the **Flyweight** pattern helps to reduce memory usage when rendering millions of tree objects on a canvas.
-
-![Flyweight pattern example](https://refactoring.guru/images/patterns/diagrams/flyweight/example.png)
 
 The pattern extracts the repeating intrinsic state from a main `Tree` class and moves it into the flyweight class `TreeType`.
 

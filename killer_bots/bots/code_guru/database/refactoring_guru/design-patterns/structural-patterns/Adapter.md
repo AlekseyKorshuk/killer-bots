@@ -4,15 +4,11 @@ Also known as: Wrapper
 
 **Adapter** is a structural design pattern that allows objects with incompatible interfaces to collaborate.
 
-![Adapter design pattern](https://refactoring.guru/images/patterns/content/adapter/adapter-en.png)
-
 ## Problem
 
 Imagine that you’re creating a stock market monitoring app. The app downloads the stock data from multiple sources in XML format and then displays nice-looking charts and diagrams for the user.
 
 At some point, you decide to improve the app by integrating a smart 3rd-party analytics library. But there’s a catch: the analytics library only works with data in JSON format.
-
-![The structure of the app before integration with the analytics library](https://refactoring.guru/images/patterns/diagrams/adapter/problem-en.png)
 
 You can’t use the analytics library “as is” because it expects the data in a format that’s incompatible with your app.
 
@@ -32,13 +28,9 @@ Adapters can not only convert data into various formats but can also help object
 
 Sometimes it’s even possible to create a two-way adapter that can convert the calls in both directions.
 
-![Adapter’s solution](https://refactoring.guru/images/patterns/diagrams/adapter/solution-en.png)
-
 Let’s get back to our stock market app. To solve the dilemma of incompatible formats, you can create XML-to-JSON adapters for every class of the analytics library that your code works with directly. Then you adjust your code to communicate with the library only via these adapters. When an adapter receives a call, it translates the incoming XML data into a JSON structure and passes the call to the appropriate methods of a wrapped analytics object.
 
 ## Real-World Analogy
-
-![The Adapter pattern example](https://refactoring.guru/images/patterns/content/adapter/adapter-comic-1-en.png)
 
 A suitcase before and after a trip abroad.
 
@@ -71,8 +63,6 @@ This implementation uses inheritance: the adapter inherits interfaces from both 
 ## Pseudocode
 
 This example of the **Adapter** pattern is based on the classic conflict between square pegs and round holes.
-
-![Structure of the Adapter pattern example](https://refactoring.guru/images/patterns/diagrams/adapter/example.png)
 
 Adapting square pegs to round holes.
 

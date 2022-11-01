@@ -4,25 +4,17 @@ Also known as: Action, Transaction
 
 **Command** is a behavioral design pattern that turns a request into a stand-alone object that contains all information about the request. This transformation lets you pass requests as a method arguments, delay or queue a request’s execution, and support undoable operations.
 
-![Command design pattern](https://refactoring.guru/images/patterns/content/command/command-en.png)
-
 ## Problem
 
 Imagine that you’re working on a new text-editor app. Your current task is to create a toolbar with a bunch of buttons for various operations of the editor. You created a very neat `Button` class that can be used for buttons on the toolbar, as well as for generic buttons in various dialogs.
-
-![Problem solved by the Command pattern](https://refactoring.guru/images/patterns/diagrams/command/problem1.png)
 
 All buttons of the app are derived from the same class.
 
 While all of these buttons look similar, they’re all supposed to do different things. Where would you put the code for the various click handlers of these buttons? The simplest solution is to create tons of subclasses for each place where the button is used. These subclasses would contain the code that would have to be executed on a button click.
 
-![Lots of button subclasses](https://refactoring.guru/images/patterns/diagrams/command/problem2.png)
-
 Lots of button subclasses. What can go wrong?
 
 Before long, you realize that this approach is deeply flawed. First, you have an enormous number of subclasses, and that would be okay if you weren’t risking breaking the code in these subclasses each time you modify the base `Button` class. Put simply, your GUI code has become awkwardly dependent on the volatile code of the business logic.
-
-![Several classes implement the same functionality](https://refactoring.guru/images/patterns/diagrams/command/problem3-en.png)
 
 Several classes implement the same functionality.
 
@@ -36,23 +28,17 @@ Good software design is often based on the _principle of separation of concerns_
 
 In the code it might look like this: a GUI object calls a method of a business logic object, passing it some arguments. This process is usually described as one object sending another a _request_.
 
-![The GUI layer may access the business logic layer directly](https://refactoring.guru/images/patterns/diagrams/command/solution1-en.png)
-
 The GUI objects may access the business logic objects directly.
 
 The Command pattern suggests that GUI objects shouldn’t send these requests directly. Instead, you should extract all of the request details, such as the object being called, the name of the method and the list of arguments into a separate _command_ class with a single method that triggers this request.
 
 Command objects serve as links between various GUI and business logic objects. From now on, the GUI object doesn’t need to know what business logic object will receive the request and how it’ll be processed. The GUI object just triggers the command, which handles all the details.
 
-![Accessing the business logic layer via a command.](https://refactoring.guru/images/patterns/diagrams/command/solution2-en.png)
-
 Accessing the business logic layer via a command.
 
 The next step is to make your commands implement the same interface. Usually it has just a single execution method that takes no parameters. This interface lets you use various commands with the same request sender, without coupling it to concrete classes of commands. As a bonus, now you can switch command objects linked to the sender, effectively changing the sender’s behavior at runtime.
 
 You might have noticed one missing piece of the puzzle, which is the request parameters. A GUI object might have supplied the business-layer object with some parameters. Since the command execution method doesn’t have any parameters, how would we pass the request details to the receiver? It turns out the command should be either pre-configured with this data, or capable of getting it on its own.
-
-![The GUI objects delegate the work to commands](https://refactoring.guru/images/patterns/diagrams/command/solution3-en.png)
 
 The GUI objects delegate the work to commands.
 
@@ -65,8 +51,6 @@ Other GUI elements, such as menus, shortcuts or entire dialogs, can be implement
 As a result, commands become a convenient middle layer that reduces coupling between the GUI and business logic layers. And that’s only a fraction of the benefits that the Command pattern can offer!
 
 ## Real-World Analogy
-
-![Making an order in a restaurant](https://refactoring.guru/images/patterns/content/command/command-comic-1.png)
 
 Making an order in a restaurant.
 
@@ -92,8 +76,6 @@ The paper order serves as a command. It remains in a queue until the chef is rea
 ## Pseudocode
 
 In this example, the **Command** pattern helps to track the history of executed operations and makes it possible to revert an operation if needed.
-
-![Structure of the Command pattern example](https://refactoring.guru/images/patterns/diagrams/command/example.png)
 
 Undoable operations in a text editor.
 

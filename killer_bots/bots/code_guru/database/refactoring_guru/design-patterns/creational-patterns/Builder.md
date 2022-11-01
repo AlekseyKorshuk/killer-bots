@@ -2,13 +2,9 @@
 
 **Builder** is a creational design pattern that lets you construct complex objects step by step. The pattern allows you to produce different types and representations of an object using the same construction code.
 
-![Builder design pattern](https://refactoring.guru/images/patterns/content/builder/builder-en.png)
-
 ## Problem
 
 Imagine a complex object that requires laborious, step-by-step initialization of many fields and nested objects. Such initialization code is usually buried inside a monstrous constructor with lots of parameters. Or even worse: scattered all over the client code.
-
-![Lots of subclasses create another problem](https://refactoring.guru/images/patterns/diagrams/builder/problem1.png)
 
 You might make the program too complex by creating a subclass for every possible configuration of an object.
 
@@ -18,8 +14,6 @@ The simplest solution is to extend the base `House` class and create a set of su
 
 There’s another approach that doesn’t involve breeding subclasses. You can create a giant constructor right in the base `House` class with all possible parameters that control the house object. While this approach indeed eliminates the need for subclasses, it creates another problem.
 
-![The telescoping constructor](https://refactoring.guru/images/patterns/diagrams/builder/problem2.png)
-
 The constructor with lots of parameters has its downside: not all the parameters are needed at all times.
 
 In most cases most of the parameters will be unused, making [the constructor calls pretty ugly](https://refactoring.guru/smells/long-parameter-list). For instance, only a fraction of houses have swimming pools, so the parameters related to swimming pools will be useless nine times out of ten.
@@ -27,8 +21,6 @@ In most cases most of the parameters will be unused, making [the constructor cal
 ## Solution
 
 The Builder pattern suggests that you extract the object construction code out of its own class and move it to separate objects called _builders_.
-
-![Applying the Builder pattern](https://refactoring.guru/images/patterns/diagrams/builder/solution1.png)
 
 The Builder pattern lets you construct complex objects step by step. The Builder doesn’t allow other objects to access the product while it’s being built.
 
@@ -38,8 +30,6 @@ Some of the construction steps might require different implementation when you n
 
 In this case, you can create several different builder classes that implement the same set of building steps, but in a different manner. Then you can use these builders in the construction process (i.e., an ordered set of calls to the building steps) to produce different kinds of objects.
 
-![](https://refactoring.guru/images/patterns/content/builder/builder-comic-1-en.png)
-
 Different builders execute the same task in various ways.
 
 For example, imagine a builder that builds everything from wood and glass, a second one that builds everything with stone and iron and a third one that uses gold and diamonds. By calling the same set of steps, you get a regular house from the first builder, a small castle from the second and a palace from the third. However, this would only work if the client code that calls the building steps is able to interact with builders using a common interface.
@@ -47,8 +37,6 @@ For example, imagine a builder that builds everything from wood and glass, a sec
 #### Director
 
 You can go further and extract a series of calls to the builder steps you use to construct a product into a separate class called _director_. The director class defines the order in which to execute the building steps, while the builder provides the implementation for those steps.
-
-![](https://refactoring.guru/images/patterns/content/builder/builder-comic-2-en.png)
 
 The director knows which building steps to execute to get a working product.
 
@@ -72,8 +60,6 @@ In addition, the director class completely hides the details of product construc
 ## Pseudocode
 
 This example of the **Builder** pattern illustrates how you can reuse the same object construction code when building different types of products, such as cars, and create the corresponding manuals for them.
-
-![The structure of the Builder pattern example](https://refactoring.guru/images/patterns/diagrams/builder/example-en.png)
 
 The example of step-by-step construction of cars and the user guides that fit those car models.
 

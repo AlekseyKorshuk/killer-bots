@@ -4,19 +4,13 @@ Also known as: Intermediary, Controller
 
 **Mediator** is a behavioral design pattern that lets you reduce chaotic dependencies between objects. The pattern restricts direct communications between the objects and forces them to collaborate only via a mediator object.
 
-![Mediator design pattern](https://refactoring.guru/images/patterns/content/mediator/mediator.png)
-
 ## Problem
 
 Say you have a dialog for creating and editing customer profiles. It consists of various form controls such as text fields, checkboxes, buttons, etc.
 
-![Chaotic relations between elements of the user interface](https://refactoring.guru/images/patterns/diagrams/mediator/problem1-en.png)
-
 Relations between elements of the user interface can become chaotic as the application evolves.
 
 Some of the form elements may interact with others. For instance, selecting the “I have a dog” checkbox may reveal a hidden text field for entering the dog’s name. Another example is the submit button that has to validate values of all fields before saving the data.
-
-![Elements of the UI are interdependent](https://refactoring.guru/images/patterns/diagrams/mediator/problem2.png)
 
 Elements can have lots of relations with other elements. Hence, changes to some elements may affect the others.
 
@@ -28,8 +22,6 @@ The Mediator pattern suggests that you should cease all direct communication bet
 
 In our example with the profile editing form, the dialog class itself may act as the mediator. Most likely, the dialog class is already aware of all of its sub-elements, so you won’t even need to introduce new dependencies into this class.
 
-![UI elements should communicate via the mediator.](https://refactoring.guru/images/patterns/diagrams/mediator/solution1-en.png)
-
 UI elements should communicate indirectly, via the mediator object.
 
 The most significant change happens to the actual form elements. Let’s consider the submit button. Previously, each time a user clicked the button, it had to validate the values of all individual form elements. Now its single job is to notify the dialog about the click. Upon receiving this notification, the dialog itself performs the validations or passes the task to the individual elements. Thus, instead of being tied to a dozen form elements, the button is only dependent on the dialog class.
@@ -39,8 +31,6 @@ You can go further and make the dependency even looser by extracting the common 
 This way, the Mediator pattern lets you encapsulate a complex web of relations between various objects inside a single mediator object. The fewer dependencies a class has, the easier it becomes to modify, extend or reuse that class.
 
 ## Real-World Analogy
-
-![Air traffic control tower](https://refactoring.guru/images/patterns/diagrams/mediator/live-example.png)
 
 Aircraft pilots don’t talk to each other directly when deciding who gets to land their plane next. All communication goes through the control tower.
 
@@ -64,8 +54,6 @@ The tower doesn’t need to control the whole flight. It exists only to enforce 
 ## Pseudocode
 
 In this example, the **Mediator** pattern helps you eliminate mutual dependencies between various UI classes: buttons, checkboxes and text labels.
-
-![Structure of the Mediator pattern example](https://refactoring.guru/images/patterns/diagrams/mediator/example.png)
 
 Structure of the UI dialog classes.
 
