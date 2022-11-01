@@ -421,6 +421,8 @@ class SearchQueryGenerator:
     def _format_model_inputs(self, chat_history, search_history):
         bot_name = chat_history[-1].split(":")[0]
         prompt = self.prompt
+        search_history.append("")
+
         for i, (chat, search) in enumerate(zip(chat_history, search_history)):
             chat = chat.replace(bot_name, "Bot") if chat.startswith(bot_name) else chat
             prompt += chat + "\n"
@@ -436,7 +438,7 @@ if __name__ == "__main__":
         "User: I am fine, thanks. How are you?",
     ]
     search_history = [
-        "none"
+
     ]
 
     model_input = search_query_generator._format_model_inputs(chat_history, search_history)
