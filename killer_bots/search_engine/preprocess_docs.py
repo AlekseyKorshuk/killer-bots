@@ -56,12 +56,12 @@ class PreprocessDocs:
         text2 = clean_wiki_text(text2)
         embeddings = self.similarity_model.encode([text1, text2], convert_to_tensor=True)
         cosine_scores = util.cos_sim(embeddings, embeddings)
-        if "technical debt" in text1 or "technical debt" in text2:
-            print("#" * 100)
-            print(text1)
-            print(text2)
-            print(cosine_scores[0][1])
-            input()
+        # if "technical debt" in text1 or "technical debt" in text2:
+        #     print("#" * 100)
+        #     print(text1)
+        #     print(text2)
+        #     print(cosine_scores[0][1])
+        #     input()
 
         return cosine_scores[0][1]
 
@@ -109,18 +109,18 @@ class PreprocessDocs:
             if add_flag:
                 current_docs.append(doc)
                 if i == len(docs) - 2:
-                    if "technical debt" in get_docs_text(current_docs):
-                        print("!" * 100)
-                        print(get_docs_text(current_docs))
-                        print("!" * 100)
+                    # if "technical debt" in get_docs_text(current_docs):
+                    #     print("!" * 100)
+                    #     print(get_docs_text(current_docs))
+                    #     print("!" * 100)
                     prepared_docs.append(join_docs(current_docs))
             else:
                 current_docs, last_docs = self.split_last_titles(current_docs)
                 if len(current_docs) > 0:
-                    if "technical debt" in get_docs_text(current_docs):
-                        print("!" * 100)
-                        print(get_docs_text(current_docs))
-                        print("!" * 100)
+                    # if "technical debt" in get_docs_text(current_docs):
+                    #     print("!" * 100)
+                    #     print(get_docs_text(current_docs))
+                    #     print("!" * 100)
                     prepared_docs.append(join_docs(current_docs))
                 current_docs = last_docs + [doc]
         return prepared_docs
