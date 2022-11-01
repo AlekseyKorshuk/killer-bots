@@ -75,7 +75,8 @@ def get_retriever(document_store):
     retriever = EmbeddingRetriever(
         document_store=document_store,
         embedding_model="AlekseyKorshuk/retriever-coding-guru-adapted",
-        model_format="sentence_transformers"
+        model_format="sentence_transformers",
+        scale_score=False
     )
     return retriever
 
