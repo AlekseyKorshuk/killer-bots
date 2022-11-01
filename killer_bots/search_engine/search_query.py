@@ -4,7 +4,7 @@ import torch
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
-    AutoModelForSequenceClassification,
+    AutoModelForSequenceClassification, pipeline,
 )
 import time
 
@@ -65,7 +65,7 @@ params = {
     # "top_p": 1,
     # "top_k": 20,
     # "temperature": 1.0,
-    "repetition_penalty": 1.15,
+    # "repetition_penalty": 1.15,
     # "length_penalty": -0.1,
     "eos_token_id": 50118,  # 50118
     # "pad_token_id": 50256,  # 50118
@@ -283,6 +283,8 @@ User: """
 if __name__ == "__main__":
     model = load_huggingface_model(MODEL)
     tokenizer = load_tokenizer(MODEL)
+    pipe_flan = pipeline("text2text-generation", model="google/flan-t5-xl", device="cuda:0",
+                         model_kwargs={"torch_dtype": torch.bfloat16})
     # tokenizer.pad_token_id = 50256
     tokenizer.padding_side = "left"
     tokenizer.truncation_side = "left"
