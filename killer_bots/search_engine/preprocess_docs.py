@@ -112,7 +112,8 @@ class PreprocessDocs:
                     prepared_docs.append(join_docs(current_docs))
             else:
                 current_docs, last_docs = self.split_last_titles(current_docs)
-                prepared_docs.append(join_docs(current_docs))
+                if len(current_docs) > 0:
+                    prepared_docs.append(join_docs(current_docs))
                 current_docs = last_docs + [doc]
         return prepared_docs
 
