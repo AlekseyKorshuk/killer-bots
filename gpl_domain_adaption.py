@@ -1,4 +1,6 @@
 import logging
+import os
+
 from sentence_transformers import SentenceTransformer, util
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from datasets import load_dataset
@@ -65,9 +67,16 @@ for row in dataset:
 
 print("Len Corpus:", len(corpus))
 
+try:
+    os.remove("faiss_document_store_gpl.db")
+except:
+    pass
 
-
-document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", similarity="cosine")
+document_store = FAISSDocumentStore(
+    sql_url="sqlite:///faiss_document_store_gpl.db",
+    faiss_index_factory_str="Flat",
+    similarity="cosine"
+)
 document_store.write_documents([{"content": t} for t in corpus])
 
 
