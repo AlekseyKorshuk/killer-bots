@@ -105,3 +105,6 @@ print("\n\nAdapted Model")
 show_examples(retriever.embedding_encoder.embedding_model)
 
 retriever.save("adapted_retriever")
+
+model = SentenceTransformer("./adapted_retriever")
+model.save_to_hub("AlekseyKorshuk/retriever-coding-guru-adapted")
