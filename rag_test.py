@@ -2,7 +2,7 @@ from haystack import Document
 from haystack.document_stores import FAISSDocumentStore
 from haystack.nodes import RAGenerator, DensePassageRetriever
 
-# document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
+document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
 
 # Initialize DPR Retriever to encode documents, encode question and query documents
 retriever = DensePassageRetriever(
@@ -13,12 +13,10 @@ retriever = DensePassageRetriever(
     embed_title=True,
 )
 
-generator = RAGenerator(
-    model_name_or_path="facebook/rag-sequence-nq",
-    retriever=retriever,
-    top_k=1,
-    min_length=2
-)
+from haystack.nodes import Seq2SeqGenerator
+
+
+generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
 
 docs = [
     """![Unosquare Blog](https://blog.unosquare.com/hubfs/Claudia%20Blog%20Post.001.jpeg)
