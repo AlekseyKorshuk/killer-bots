@@ -28,6 +28,12 @@ warnings.filterwarnings("ignore")
 nlp = spacy.load("en_core_web_lg")
 
 
+from markdownify import MarkdownConverter
+
+# Create shorthand method for conversion
+def md(soup, **options):
+    return MarkdownConverter(**options).convert_soup(soup)
+
 def article_text_extractor(url: str):
     '''Extract text from url and divide text into chunks if length of text is more than 500 words'''
 
@@ -38,6 +44,9 @@ def article_text_extractor(url: str):
     r = requests.get(url, headers=headers)
 
     soup = BeautifulSoup(r.text, "html.parser")
+    text = md(soup)
+    print(text)
+    input()
     title_text = soup.find_all(["h1"])
     para_text = soup.find_all(["p"])
     article_text = "\n".join([result.text for result in para_text])
@@ -82,8 +91,9 @@ print(len(chunks))
 for chunk in chunks:
     print(chunk)
     print()
-print("#" * 100)
-print(article)
+
+# print("#" * 100)
+# print(article)
 # print("#" * 100)
 #
 # article = nlp(content)
