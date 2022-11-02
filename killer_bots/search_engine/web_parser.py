@@ -33,7 +33,7 @@ para_text = soup.find_all(["p"])
 
 content = "\n".join([result.text for result in para_text])
 # print(content)
-content = clean_wiki_text(content)
+# content = clean_wiki_text(content)
 
 docs = content.split("\n")
 docs = [doc.strip() for doc in docs]
