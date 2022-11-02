@@ -1,21 +1,37 @@
 import article_parser
+import requests
 
 from killer_bots.search_engine.preprocess_docs import clean_wiki_text
 from haystack.nodes import TransformersSummarizer
 from haystack import Document
 from summarizer import Summarizer
+from fake_useragent import UserAgent
+from bs4 import BeautifulSoup
 
 model = Summarizer()
 # summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
 
 url = "https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language"
 
-title, content = article_parser.parse(
-    url=url,
-    output="markdown",
-    timeout=5
-)
+# title, content = article_parser.parse(
+#     url=url,
+#     output="markdown",
+#     timeout=5
+# )
 
+ua = UserAgent()
+
+headers = {'User-Agent': str(ua.chrome)}
+
+r = requests.get(url, headers=headers)
+
+soup = BeautifulSoup(r.text, "html.parser")
+
+# input()
+title_text = soup.find_all(["h1"])
+para_text = soup.find_all(["p"])
+
+content = "\n".join([result.text for result in para_text])
 # print(content)
 content = clean_wiki_text(content)
 
