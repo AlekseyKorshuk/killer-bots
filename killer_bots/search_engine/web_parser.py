@@ -1,3 +1,5 @@
+import time
+
 import article_parser
 import requests
 
@@ -23,6 +25,7 @@ ua = UserAgent()
 
 headers = {'User-Agent': str(ua.chrome)}
 
+start = time.time()
 r = requests.get(url, headers=headers)
 
 soup = BeautifulSoup(r.text, "html.parser")
@@ -50,3 +53,4 @@ print(summary)
 
 # summary = summarizer.predict(documents=docs, generate_single_summary=False)
 # print(summary)
+print("Time taken:", time.time() - start)
