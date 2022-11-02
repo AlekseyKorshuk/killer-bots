@@ -14,7 +14,7 @@ print(content)
 content = clean_wiki_text(content)
 
 docs = content.split("\n")
-docs = [clean_wiki_text(doc.strip()) for doc in docs]
+docs = [doc.strip() for doc in docs]
 docs = [doc for doc in docs if len(doc) > 0]
 
 print(len(docs))
