@@ -112,4 +112,4 @@ class GoogleSearchEngine:
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine()
     summaries = search_engine("best way to learn python", num_results=1)
-    print(summaries)
+    print(summaries[0])
