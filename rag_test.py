@@ -48,7 +48,7 @@ def article_text_extractor(url: str):
 
         article_header = ''
 
-    article = nlp(" ".join(article_text))
+    article = nlp("\n".join(article_text))
     sentences = [i.text for i in list(article.sents)]
 
     current_chunk = 0
