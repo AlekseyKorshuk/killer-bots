@@ -39,10 +39,10 @@ docs = content.split("\n")
 docs = [doc.strip() for doc in docs]
 docs = [Document(doc) for doc in docs if len(doc) > 0]
 
-print(len(docs))
+# print(len(docs))
 
-print("\n".join([doc.content for doc in docs]))
-input()
+# print("\n".join([doc.content for doc in docs]))
+# input()
 summary = model("\n".join([doc.content for doc in docs]))
 # summary = summarizer.predict(documents=docs, generate_single_summary=True)
 print(summary)
