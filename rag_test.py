@@ -25,15 +25,15 @@ warnings.filterwarnings("ignore")
 
 nlp = spacy.load("en_core_web_sm")
 
-def article_text_extractor(url: str):
 
+def article_text_extractor(url: str):
     '''Extract text from url and divide text into chunks if length of text is more than 500 words'''
 
     ua = UserAgent()
 
-    headers = {'User-Agent' :str(ua.chrome)}
+    headers = {'User-Agent': str(ua.chrome)}
 
-    r = requests.get(url ,headers=headers)
+    r = requests.get(url, headers=headers)
 
     soup = BeautifulSoup(r.text, "html.parser")
     title_text = soup.find_all(["h1"])
@@ -70,7 +70,8 @@ def article_text_extractor(url: str):
     return article_header, chunks, article_text
 
 
-article_header, chunks, article = article_text_extractor("https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language")
+article_header, chunks, article = article_text_extractor(
+    "https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language")
 
 print(len(chunks))
 
@@ -79,3 +80,12 @@ print(len(chunks))
 #     print()
 
 print(article)
+print("#" * 100)
+import article_parser
+
+title, content = article_parser.parse(
+    url="https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language", output='markdown',
+    timeout=5)
+
+print(title)
+print(content)
