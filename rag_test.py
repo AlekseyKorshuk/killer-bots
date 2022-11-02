@@ -87,5 +87,7 @@ title, content = article_parser.parse(
     url="https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language", output='markdown',
     timeout=5)
 
+article = nlp(content)
+
 print(title)
-print(content)
+print(article)
