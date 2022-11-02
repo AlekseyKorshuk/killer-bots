@@ -10,6 +10,7 @@ title, content = article_parser.parse(
     timeout=5
 )
 
+print(content)
 content = clean_wiki_text(content)
 
 docs = content.split("\n")
