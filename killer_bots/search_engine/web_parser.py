@@ -83,6 +83,7 @@ class GoogleSearchEngine:
         headers = {'User-Agent': str(ua.chrome)}
         r = requests.get(url, headers=headers)
         soup = BeautifulSoup(r.text, "html.parser")
+        soup = soup.find("body")
         para_text = soup.find_all(["p"])
         content = "\n".join([result.text for result in para_text])
         return content
