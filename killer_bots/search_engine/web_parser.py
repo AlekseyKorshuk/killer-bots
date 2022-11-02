@@ -100,6 +100,7 @@ class GoogleSearchEngine:
 
     def _get_targen_summary_ratio(self, content):
         summary_tokens = self.tokenizer(content)["input_ids"]
+        print(len(summary_tokens))
         return min(self.target_num_tokens / len(summary_tokens), 1)
 
 
