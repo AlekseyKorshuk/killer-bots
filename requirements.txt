@@ -3,3 +3,5 @@ datasets
 wandb
 git+https://github.com/deepset-ai/haystack.git#egg=farm-haystack[all-gpu]
 setfit
+fake-useragent
+spacy
