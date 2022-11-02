@@ -102,11 +102,10 @@ class GoogleSearchEngine:
 
     def _get_targen_summary_ratio(self, content):
         summary_tokens = self.tokenizer(content)["input_ids"]
-        print(len(summary_tokens))
         return min(self.target_num_tokens / len(summary_tokens), 1)
 
 
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine()
-    summaries = search_engine("What is the best way to learn Python?", num_results=1)
+    summaries = search_engine("best way to learn python", num_results=1)
     print(summaries)
