@@ -2,7 +2,7 @@ from haystack import Document
 from haystack.document_stores import FAISSDocumentStore
 from haystack.nodes import RAGenerator, DensePassageRetriever
 
-document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
+# document_store = FAISSDocumentStore(faiss_index_factory_str="Flat", return_embedding=True)
 
 # Initialize DPR Retriever to encode documents, encode question and query documents
 retriever = DensePassageRetriever(
