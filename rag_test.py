@@ -47,8 +47,9 @@ def article_text_extractor(url: str):
         output='markdown',
         timeout=5
     )
-    article_text = re.sub('s/\!\{0,1\}\[[^]]*\]([^)]*)//g', '', article_text)
-    article_text = re.sub('s/!\?\[.*\](.*)//g', '', article_text)
+    # article_text = re.sub('s/\!\{0,1\}\[[^]]*\]([^)]*)//g', '', article_text)
+    article_text = re.sub(r"\[(.+)\]\(.+\)", r"\1", article_text)
+    article_text = re.sub(r"!\[(.+)\]\(.+\)", "", article_text)
 
     article = nlp(article_text)
     sentences = [i.text for i in list(article.sents)]
