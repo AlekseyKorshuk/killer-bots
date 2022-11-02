@@ -107,7 +107,7 @@ Unosquare is ready to help. We focus on finding the best talent globally and put
 result = generator.predict(
     query='how to write clean code?',
     documents=[Document(doc) for doc in docs],
-    top_k=5
+    top_k=1
 )
 
 print(result)
