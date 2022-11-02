@@ -70,4 +70,7 @@ def article_text_extractor(url: str):
     return article_header, chunks
 
 
-print(article_text_extractor("https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language"))
+article_header, chunks = article_text_extractor("https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language")
+
+print(len(chunks))
+print(chunks)
