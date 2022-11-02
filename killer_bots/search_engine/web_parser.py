@@ -29,5 +29,5 @@ summary = summarizer.predict(documents=docs, generate_single_summary=True)
 print(summary)
 
 
-summary = summarizer.predict(documents=docs[:1], generate_single_summary=True)
+summary = summarizer.predict(documents=docs, generate_single_summary=False)
 print(summary)
