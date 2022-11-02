@@ -9,9 +9,13 @@ from haystack.nodes import TransformersSummarizer
 from haystack import Document
 from summarizer import Summarizer
 from summarizer.sbert import SBertSummarizer
-
+from newspaper import Article
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
+import spacy
+from spacy.lang.en.stop_words import STOP_WORDS
+from string import punctuation
+from heapq import nlargest
 
 # model = Summarizer()
 # # summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
@@ -60,12 +64,15 @@ from bs4 import BeautifulSoup
 # print("Time taken:", time.time() - start)
 
 
+
+
 class GoogleSearchEngine:
     def __init__(self):
         # self.summarizer = Summarizer()
         self.summarizer = SBertSummarizer('paraphrase-MiniLM-L6-v2')
         self.target_num_tokens = 512
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
+        self.nlp = spacy.load('en_core_web_lg')
 
     def __call__(self, query, num_results=1):
         links = self._get_links(query, num_results)
@@ -82,27 +89,54 @@ class GoogleSearchEngine:
         return search(query, num_results=num_results)
 
     def _get_article_text(self, url):
-        ua = UserAgent()
-        headers = {'User-Agent': str(ua.chrome)}
-        r = requests.get(url, headers=headers)
-        soup = BeautifulSoup(r.text, "html.parser")
-        soup = soup.find("body")
-        para_text = soup.find_all(["p"])
-        # content = "\n".join([result.text for result in para_text])
-        return [result.text for result in para_text]
+        article = Article(url)
+        article.download()
+        article.parse()
+        return article.text
+        # ua = UserAgent()
+        # headers = {'User-Agent': str(ua.chrome)}
+        # r = requests.get(url, headers=headers)
+        # soup = BeautifulSoup(r.text, "html.parser")
+        # soup = soup.find("body")
+        # para_text = soup.find_all(["p"])
+        # # content = "\n".join([result.text for result in para_text])
+        # return [result.text for result in para_text]
 
-    def _get_article_summary(self, docs):
+    def _get_article_summary(self, content):
+        docs = content.split("\n")
         docs = [doc.strip() for doc in docs]
         docs = [doc for doc in docs if len(doc) > 0]
         docs = [clean_wiki_text(doc) for doc in docs]
         body = "\n".join([doc for doc in docs])
 
-        ratio = self._get_targen_summary_ratio(body)
-        if ratio == 1:
-            return body
-        summary = ""
-        for doc in docs:
-            summary += self.summarizer(doc, ratio=ratio / 2)
+        per = self._get_targen_summary_ratio(body)
+
+        doc = self.nlp(body)
+        tokens = [token.text for token in doc]
+        word_frequencies = {}
+        for word in doc:
+            if word.text.lower() not in list(STOP_WORDS):
+                if word.text.lower() not in punctuation:
+                    if word.text not in word_frequencies.keys():
+                        word_frequencies[word.text] = 1
+                    else:
+                        word_frequencies[word.text] += 1
+        max_frequency = max(word_frequencies.values())
+        for word in word_frequencies.keys():
+            word_frequencies[word] = word_frequencies[word] / max_frequency
+        sentence_tokens = [sent for sent in doc.sents]
+        sentence_scores = {}
+        for sent in sentence_tokens:
+            for word in sent:
+                if word.text.lower() in word_frequencies.keys():
+                    if sent not in sentence_scores.keys():
+                        sentence_scores[sent] = word_frequencies[word.text.lower()]
+                    else:
+                        sentence_scores[sent] += word_frequencies[word.text.lower()]
+        select_length = int(len(sentence_tokens) * per)
+        summary = nlargest(select_length, sentence_scores, key=sentence_scores.get)
+        final_summary = [word.text for word in summary]
+        summary = ''.join(final_summary)
         return summary
 
     def _get_targen_summary_ratio(self, content):

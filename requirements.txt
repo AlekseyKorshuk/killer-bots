@@ -5,3 +5,4 @@ farm-haystack[all-gpu]
 setfit
 fake-useragent
 spacy
+newspaper3k
