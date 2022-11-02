@@ -1,5 +1,5 @@
 import time
-
+from googlesearch import search
 import article_parser
 import requests
 
@@ -46,7 +46,9 @@ docs = [Document(doc) for doc in docs if len(doc) > 0]
 
 # print("\n".join([doc.content for doc in docs]))
 # input()
-summary = model("\n".join([doc.content for doc in docs]), ratio=0.5)
+body = "\n".join([doc.content for doc in docs])
+optimal_k = model.calculate_optimal_k(body, k_max=20)
+summary = model(body, num_sentences=optimal_k)
 # summary = summarizer.predict(documents=docs, generate_single_summary=True)
 print(summary)
 
@@ -54,3 +56,14 @@ print(summary)
 # summary = summarizer.predict(documents=docs, generate_single_summary=False)
 # print(summary)
 print("Time taken:", time.time() - start)
+
+
+class GoogleSearchEngine:
+    def __init__(self):
+        self.summarizer = Summarizer()
+        self.target_num_tokens = 512
+
+
+    def _get_links(self, query, num_results):
+        return search(query, num_results=num_results)
+
