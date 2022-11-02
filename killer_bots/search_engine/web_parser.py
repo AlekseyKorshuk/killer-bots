@@ -102,7 +102,7 @@ class GoogleSearchEngine:
             return body
         summary = ""
         for doc in docs:
-            summary += self.summarizer(doc, ratio=ratio)
+            summary += self.summarizer(doc, ratio=ratio / 2)
         return summary
 
     def _get_targen_summary_ratio(self, content):
