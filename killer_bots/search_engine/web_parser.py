@@ -6,7 +6,7 @@ url = "https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-progra
 
 title, content = article_parser.parse(
     url=url,
-    output="markwodn",
+    output="markdown",
     timeout=5
 )
 
