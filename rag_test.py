@@ -65,15 +65,17 @@ def article_text_extractor(url: str):
             chunks.append(sentence.split(" "))
 
     for chunk_id in range(len(chunks)):
-        chunks[chunk_id] = "\n".join(chunks[chunk_id])
+        chunks[chunk_id] = " ".join(chunks[chunk_id])
 
-    return article_header, chunks
+    return article_header, chunks, article
 
 
-article_header, chunks = article_text_extractor("https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language")
+article_header, chunks, article = article_text_extractor("https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language")
 
 print(len(chunks))
 
-for chunk in chunks:
-    print(chunk)
-    print()
+# for chunk in chunks:
+#     print(chunk)
+#     print()
+
+print(article)
