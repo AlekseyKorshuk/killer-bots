@@ -16,7 +16,7 @@ retriever = DensePassageRetriever(
 from haystack.nodes import Seq2SeqGenerator
 
 
-generator = Seq2SeqGenerator(model_name_or_path="vblagoje/bart_lfqa")
+generator = Seq2SeqGenerator(model_name_or_path="facebook/bart-large-cnn")
 
 docs = [
     """![Unosquare Blog](https://blog.unosquare.com/hubfs/Claudia%20Blog%20Post.001.jpeg)
