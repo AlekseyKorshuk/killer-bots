@@ -88,11 +88,10 @@ class GoogleSearchEngine:
         soup = BeautifulSoup(r.text, "html.parser")
         soup = soup.find("body")
         para_text = soup.find_all(["p"])
-        content = "\n".join([result.text for result in para_text])
-        return content
+        # content = "\n".join([result.text for result in para_text])
+        return [result.text for result in para_text]
 
-    def _get_article_summary(self, content):
-        docs = content.split("\n")
+    def _get_article_summary(self, docs):
         docs = [doc.strip() for doc in docs]
         docs = [doc for doc in docs if len(doc) > 0]
         docs = [clean_wiki_text(doc) for doc in docs]
@@ -101,7 +100,9 @@ class GoogleSearchEngine:
         ratio = self._get_targen_summary_ratio(body)
         if ratio == 1:
             return body
-        summary = self.summarizer(body, ratio=ratio)
+        summary = ""
+        for doc in docs:
+            summary += self.summarizer(doc, ratio=ratio)
         return summary
 
     def _get_targen_summary_ratio(self, content):
