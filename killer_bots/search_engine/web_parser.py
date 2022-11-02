@@ -72,7 +72,7 @@ class GoogleSearchEngine:
         self.summarizer = SBertSummarizer('paraphrase-MiniLM-L6-v2')
         self.target_num_tokens = 512
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
-        self.nlp = spacy.load('en_core_web_lg')
+        self.nlp = spacy.load('en_core_web_sm')
 
     def __call__(self, query, num_results=1):
         links = self._get_links(query, num_results)
