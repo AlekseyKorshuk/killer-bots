@@ -16,6 +16,7 @@ import warnings
 import nltk
 import itertools
 import numpy as np
+import article_parser
 
 nltk.download('punkt')
 
@@ -23,32 +24,30 @@ from nltk import sent_tokenize
 
 warnings.filterwarnings("ignore")
 
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 
 
 def article_text_extractor(url: str):
     '''Extract text from url and divide text into chunks if length of text is more than 500 words'''
 
-    ua = UserAgent()
+    # ua = UserAgent()
+    #
+    # headers = {'User-Agent': str(ua.chrome)}
+    #
+    # r = requests.get(url, headers=headers)
+    #
+    # soup = BeautifulSoup(r.text, "html.parser")
+    # title_text = soup.find_all(["h1"])
+    # para_text = soup.find_all(["p"])
+    # article_text = [result.text for result in para_text]
 
-    headers = {'User-Agent': str(ua.chrome)}
+    article_header, article_text = article_parser.parse(
+        url=url,
+        output='markdown',
+        timeout=5
+    )
 
-    r = requests.get(url, headers=headers)
-
-    soup = BeautifulSoup(r.text, "html.parser")
-    title_text = soup.find_all(["h1"])
-    para_text = soup.find_all(["p"])
-    article_text = [result.text for result in para_text]
-
-    try:
-
-        article_header = [result.text for result in title_text][0]
-
-    except:
-
-        article_header = ''
-
-    article = nlp("\n".join(article_text))
+    article = nlp(article_text)
     sentences = [i.text for i in list(article.sents)]
 
     current_chunk = 0
@@ -75,19 +74,14 @@ article_header, chunks, article = article_text_extractor(
 
 print(len(chunks))
 
-# for chunk in chunks:
-#     print(chunk)
-#     print()
-
-print(article)
+for chunk in chunks:
+    print(chunk)
+    print()
 print("#" * 100)
-import article_parser
-
-title, content = article_parser.parse(
-    url="https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language", output='markdown',
-    timeout=5)
-
-article = nlp(content)
-
-print(title)
 print(article)
+# print("#" * 100)
+#
+# article = nlp(content)
+#
+# print(title)
+# print(article)
