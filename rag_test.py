@@ -31,25 +31,26 @@ nlp = spacy.load("en_core_web_lg")
 def article_text_extractor(url: str):
     '''Extract text from url and divide text into chunks if length of text is more than 500 words'''
 
-    # ua = UserAgent()
-    #
-    # headers = {'User-Agent': str(ua.chrome)}
-    #
-    # r = requests.get(url, headers=headers)
-    #
-    # soup = BeautifulSoup(r.text, "html.parser")
-    # title_text = soup.find_all(["h1"])
-    # para_text = soup.find_all(["p"])
-    # article_text = [result.text for result in para_text]
+    ua = UserAgent()
 
-    article_header, article_text = article_parser.parse(
-        url=url,
-        output='markdown',
-        timeout=5
-    )
-    # article_text = re.sub('s/\!\{0,1\}\[[^]]*\]([^)]*)//g', '', article_text)
-    article_text = re.sub(r"\[(.+)\]\(.+\)", r"\1", article_text)
-    article_text = re.sub(r"!\[(.+)\]\(.+\)", "", article_text)
+    headers = {'User-Agent': str(ua.chrome)}
+
+    r = requests.get(url, headers=headers)
+
+    soup = BeautifulSoup(r.text, "html.parser")
+    title_text = soup.find_all(["h1"])
+    para_text = soup.find_all(["p"])
+    article_text = "\n".join([result.text for result in para_text])
+    article_header = ""
+
+    # article_header, article_text = article_parser.parse(
+    #     url=url,
+    #     output='markdown',
+    #     timeout=5
+    # )
+    # # article_text = re.sub('s/\!\{0,1\}\[[^]]*\]([^)]*)//g', '', article_text)
+    # article_text = re.sub(r"\[(.+)\]\(.+\)", r"\1", article_text)
+    # article_text = re.sub(r"!\[(.+)\]\(.+\)", "", article_text)
 
     article = nlp(article_text)
     sentences = [i.text for i in list(article.sents)]
