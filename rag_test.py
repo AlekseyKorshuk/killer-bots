@@ -67,7 +67,7 @@ def article_text_extractor(url: str):
     for chunk_id in range(len(chunks)):
         chunks[chunk_id] = " ".join(chunks[chunk_id])
 
-    return article_header, chunks, article
+    return article_header, chunks, article_text
 
 
 article_header, chunks, article = article_text_extractor("https://blog.unosquare.com/10-tips-for-writing-cleaner-code-in-any-programming-language")
