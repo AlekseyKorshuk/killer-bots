@@ -67,7 +67,9 @@ class GoogleSearchEngine:
     def __call__(self, query, num_results=1):
         links = self._get_links(query, num_results)
         summaries = []
-        for link in links:
+        for i in range(num_results):
+            link = next(links)
+            print(link)
             content = self._get_article_text(link)
             summary = self._get_article_summary(content)
             summaries.append(summary)
