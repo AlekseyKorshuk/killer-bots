@@ -25,7 +25,7 @@ docs = [Document(doc) for doc in docs if len(doc) > 0]
 
 print(len(docs))
 
-summary = model(" ".join([doc.content for doc in docs]))
+summary = model("\n".join([doc.content for doc in docs]))
 # summary = summarizer.predict(documents=docs, generate_single_summary=True)
 print(summary)
 
