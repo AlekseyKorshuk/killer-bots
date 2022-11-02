@@ -65,7 +65,7 @@ def article_text_extractor(url: str):
             chunks.append(sentence.split(" "))
 
     for chunk_id in range(len(chunks)):
-        chunks[chunk_id] = " ".join(chunks[chunk_id])
+        chunks[chunk_id] = "\n".join(chunks[chunk_id])
 
     return article_header, chunks
 
