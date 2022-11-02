@@ -8,6 +8,8 @@ from killer_bots.search_engine.preprocess_docs import clean_wiki_text
 from haystack.nodes import TransformersSummarizer
 from haystack import Document
 from summarizer import Summarizer
+from summarizer.sbert import SBertSummarizer
+
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
 
@@ -60,7 +62,8 @@ from bs4 import BeautifulSoup
 
 class GoogleSearchEngine:
     def __init__(self):
-        self.summarizer = Summarizer()
+        # self.summarizer = Summarizer()
+        self.summarizer = SBertSummarizer('paraphrase-MiniLM-L6-v2')
         self.target_num_tokens = 512
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
 
