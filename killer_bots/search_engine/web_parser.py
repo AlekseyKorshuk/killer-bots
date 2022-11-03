@@ -1,11 +1,13 @@
 import time
+
+import torch
 from googlesearch import search
 import article_parser
 import requests
 from transformers import AutoTokenizer
 
 from killer_bots.search_engine.preprocess_docs import clean_wiki_text, PreprocessDocs
-from haystack.nodes import TransformersSummarizer
+from haystack.nodes import TransformersSummarizer, EmbeddingRetriever
 from haystack import Document
 from summarizer import Summarizer
 from summarizer.sbert import SBertSummarizer
@@ -16,6 +18,7 @@ import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
 from heapq import nlargest
+from sentence_transformers import util
 
 # model = Summarizer()
 # # summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
@@ -64,8 +67,6 @@ from heapq import nlargest
 # print("Time taken:", time.time() - start)
 
 
-
-
 class GoogleSearchEngine:
     def __init__(self):
         # self.summarizer = Summarizer()
@@ -74,7 +75,12 @@ class GoogleSearchEngine:
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
         self.nlp = spacy.load('en_core_web_sm')
         self.preprocessor = PreprocessDocs()
-
+        self.retriever = EmbeddingRetriever(
+            document_store=None,
+            embedding_model="AlekseyKorshuk/retriever-coding-guru-adapted",
+            model_format="sentence_transformers",
+            scale_score=False
+        )
 
     def __call__(self, query, num_results=1):
         links = self._get_links(query, num_results)
@@ -83,9 +89,20 @@ class GoogleSearchEngine:
             link = next(links)
             print(link)
             content = self._get_article_text(link)
-            summary = self._get_article_summary(content)
+            docs = self._get_docs(content)
+            summary = self._get_needed_content(query, docs)
+            # summary = self._get_article_summary(content)
             summaries.append(summary)
         return summaries
+
+    def _get_needed_content(self, query, docs):
+        query_embeddings = self.retriever.embed_queries(queries=[query])
+        query_embeddings = torch.from_numpy(query_embeddings)
+        doc_embeddings = self.retriever.embed_documents(documents=docs)
+        doc_embeddings = torch.from_numpy(doc_embeddings)
+        cosine_scores = util.cos_sim(query_embeddings, doc_embeddings)
+        print(cosine_scores)
+        return ""
 
     def _get_links(self, query, num_results):
         return search(query, num_results=num_results)
@@ -104,13 +121,17 @@ class GoogleSearchEngine:
         # # content = "\n".join([result.text for result in para_text])
         # return [result.text for result in para_text]
 
-    def _get_article_summary(self, content):
+    def _get_docs(self, content):
         docs = content.split("\n")
         docs = [doc.strip() for doc in docs]
         docs = [doc for doc in docs if len(doc) > 0]
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc) for doc in docs]
         docs = self.preprocessor(docs)
+        return docs
+
+    def _get_article_summary(self, docs):
+
         body = "\n".join([doc.content for doc in docs])
 
         per = self._get_targen_summary_ratio(body)
