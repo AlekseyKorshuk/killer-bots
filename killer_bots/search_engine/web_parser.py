@@ -127,7 +127,7 @@ class GoogleSearchEngine:
         docs = [doc.strip() for doc in docs]
         docs = [doc for doc in docs if len(doc) > 0]
         docs = [clean_wiki_text(doc) for doc in docs]
-        docs = [Document(doc) for doc in docs]
+        docs = [Document(doc, meta={"name": None}) for doc in docs]
         docs = self.preprocessor(docs)
         return docs
 
