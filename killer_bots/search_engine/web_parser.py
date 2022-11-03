@@ -145,6 +145,8 @@ class GoogleSearchEngine:
         print("From:", len(docs))
         soup = BeautifulSoup(html, "html.parser")
         headers = soup.find_all(re.compile('^h[1-6]$'))
+        headers = [header.text for header in headers]
+        headers = [clean_wiki_text(header) for header in headers]
         docs = self.preprocessor(docs, headers)
         print("To:", len(docs))
         return docs
