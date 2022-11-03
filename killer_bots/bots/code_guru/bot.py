@@ -175,7 +175,7 @@ class CodeGuruBotGoogleSearch(Bot):
         context = "\n".join(context)
         lines = [prompts.START_TEMPLATE.format(context)]
         lines += self._get_cropped_history()
-        lines += [f"{self.bot_name}:"]
+        lines += [f"{self.bot_name}[answers in details]:"]
         lines = "\n".join(lines)
         print("PROMPT:")
         print(lines)
