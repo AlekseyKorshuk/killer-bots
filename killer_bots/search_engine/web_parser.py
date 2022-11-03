@@ -138,7 +138,7 @@ class GoogleSearchEngine:
     def _get_docs(self, content):
         docs = content.split("\n")
         docs = [doc.strip() for doc in docs]
-        docs = [doc for doc in docs if len(doc) > 30]
+        docs = [doc for doc in docs if len(doc) > 50]
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         print(len(docs))
