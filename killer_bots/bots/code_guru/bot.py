@@ -7,6 +7,7 @@ from killer_bots.search_engine.custom_pipeline import Pipeline
 from killer_bots.search_engine.search_query import SearchQueryGenerator
 from killer_bots.search_engine.search_summarization import SearchSummarization
 from killer_bots.search_engine.lfqa import LFQA
+from killer_bots.search_engine.web_parser import GoogleSearchEngine
 
 
 class CodeGuruBot(Bot):
@@ -126,6 +127,50 @@ class CodeGuruBotWithDialogue(Bot):
             self.previous_context.append(context)
         # self.previous_context.append(current_context)
         context = self.get_context()
+        lines = [prompts.START_TEMPLATE.format(context)]
+        lines += self._get_cropped_history()
+        lines += [f"{self.bot_name}:"]
+        lines = "\n".join(lines)
+        print("PROMPT:")
+        print(lines)
+        print("END PROMPT")
+        print("SEARCH QUERY:", search_query)
+        # print("CHAT HISTORY:")
+        # print(self.chat_history)
+        # print("END CHAT HISTORY")
+        return lines
+
+class CodeGuruBotGoogleSearch(Bot):
+    def __init__(self, model, tokenizer, description, **params):
+        super().__init__(
+            model=model,
+            tokenizer=tokenizer,
+            description=description,
+            bot_name="Guru",
+            first_message="I am happy to help with any coding problem. What situation are you facing?",
+            **params,
+        )
+        self.pipeline = GoogleSearchEngine()
+        self.stop_words = ["User:", "Guru:", "Context:"]
+        stopping_criterias = []
+        for word in self.stop_words:
+            input_ids = self.tokenizer(word).input_ids[1:]
+            stopping_criterias.append(
+                StoppingCriteriaSub(stops=input_ids)
+            )
+        self.stopping_criteria = StoppingCriteriaList(stopping_criterias)
+        self.top_k = 1
+        self.search_history = ["none"]
+        self.search_query_generator = SearchQueryGenerator(
+            model=model,
+            tokenizer=tokenizer,
+        )
+
+    def _format_model_inputs(self, text):
+        self.search_history = self.search_history[:len(self.chat_history) // 2]
+        search_query = self.search_query_generator(self.chat_history, self.search_history)
+        self.search_history.append(search_query)
+        context = self.pipeline(search_query, top_k=self.top_k)
         lines = [prompts.START_TEMPLATE.format(context)]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]

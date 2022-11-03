@@ -9,7 +9,8 @@ from transformers import (
 
 from killer_bots.bots.code_guru import prompts
 from killer_bots.evaluation.utils import run_score
-from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA, CodeGuruBotWithDialogue
+from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA, \
+    CodeGuruBotWithDialogue, CodeGuruBotGoogleSearch
 
 import time
 
@@ -88,7 +89,7 @@ if __name__ == "__main__":
 
     run_score(
         [
-            CodeGuruBotWithDialogue(
+            CodeGuruBotGoogleSearch(
                 model=model,
                 tokenizer=tokenizer,
                 description={'model': MODEL, 'reward_model': None},

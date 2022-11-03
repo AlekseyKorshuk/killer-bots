@@ -94,10 +94,10 @@ class GoogleSearchEngine:
         self.context_retriever = SentenceTransformer("all-MiniLM-L6-v2")
 
     @timeit
-    def __call__(self, query, num_results=1):
-        links = self._get_links(query, num_results)
+    def __call__(self, query, top_k=1):
+        links = self._get_links(query, top_k)
         summaries = []
-        for i in range(num_results):
+        for i in range(top_k):
             link = next(links)
             print(link)
             content, html = self._get_article_text(link)
@@ -128,14 +128,6 @@ class GoogleSearchEngine:
         article.download()
         article.parse()
         return article.text, article.html
-        # ua = UserAgent()
-        # headers = {'User-Agent': str(ua.chrome)}
-        # r = requests.get(url, headers=headers)
-        # soup = BeautifulSoup(r.text, "html.parser")
-        # soup = soup.find("body")
-        # para_text = soup.find_all(["p"])
-        # # content = "\n".join([result.text for result in para_text])
-        # return [result.text for result in para_text]
 
     def _get_docs(self, content, html):
         docs = content.split("\n")
@@ -168,7 +160,7 @@ class GoogleSearchEngine:
 
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine()
-    summaries = search_engine("best way to learn python", num_results=3)
+    summaries = search_engine("best way to learn python", num_results=1)
     for summary in summaries:
         print("#" * 100)
         print(summary)
