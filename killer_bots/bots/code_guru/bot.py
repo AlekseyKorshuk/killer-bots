@@ -170,6 +170,7 @@ class CodeGuruBotGoogleSearch(Bot):
         self.search_history = self.search_history[:len(self.chat_history) // 2]
         search_query = self.search_query_generator(self.chat_history, self.search_history)
         self.search_history.append(search_query)
+        search_query = f"coding, {search_query}"
         context = self.pipeline(search_query, top_k=self.top_k)
         context = "\n".join(context)
         lines = [prompts.START_TEMPLATE.format(context)]
