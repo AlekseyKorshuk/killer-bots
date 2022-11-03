@@ -186,5 +186,7 @@ class GoogleSearchEngine:
 
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine()
-    summaries = search_engine("best way to learn python", num_results=1)
-    print(summaries[0])
+    summaries = search_engine("best way to learn python", num_results=3)
+    for summary in summaries:
+        print("#" * 100)
+        print(summary)
