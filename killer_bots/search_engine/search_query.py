@@ -481,11 +481,11 @@ class SearchQueryGenerator:
     def generate_search_query(self, prompt):
         inputs = self.tokenizer(prompt, return_tensors="pt", padding=False, truncation=True,
                                 max_length=2048 - 65).to(self.device)
-        print("Length:", len(inputs.input_ids[0]))
+        # print("Length:", len(inputs.input_ids[0]))
         output_ids = self.model.generate(
             **inputs, **self.params
         )
-        print("Output length:", len(output_ids[0]))
+        # print("Output length:", len(output_ids[0]))
         output_text = self.tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
         return output_text.strip()
 
@@ -502,9 +502,9 @@ class SearchQueryGenerator:
             chat = chat.replace(bot_name, "Bot") if chat.startswith(bot_name) else chat
             prompt += "\n" + chat
         prompt += "\nSearch:"
-        print("SEARCH PROMPT:")
-        print(prompt)
-        print("END SEARCH PROMPT")
+        # print("SEARCH PROMPT:")
+        # print(prompt)
+        # print("END SEARCH PROMPT")
         return prompt
 
 
