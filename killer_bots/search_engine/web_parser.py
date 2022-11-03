@@ -1,4 +1,5 @@
 import time
+from functools import wraps
 
 import torch
 from googlesearch import search
@@ -21,6 +22,17 @@ from string import punctuation
 from heapq import nlargest
 from sentence_transformers import util, SentenceTransformer
 
+
+def timeit(func):
+    @wraps(func)
+    def timeit_wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        total_time = end_time - start_time
+        print(f'Function {func.__name__}{args} {kwargs} Took {total_time:.4f} seconds')
+        return result
+    return timeit_wrapper
 
 # model = Summarizer()
 # # summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
@@ -86,6 +98,7 @@ class GoogleSearchEngine:
             scale_score=False
         )
 
+    @timeit
     def __call__(self, query, num_results=1):
         links = self._get_links(query, num_results)
         summaries = []
