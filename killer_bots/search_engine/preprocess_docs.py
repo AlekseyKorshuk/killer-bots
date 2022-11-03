@@ -141,7 +141,7 @@ class PreprocessDocsFast:
 
     def is_title(self, text, titles):
         for title in titles:
-            if text in title:
+            if text.strip().replace(" ", "") in title.strip().replace(" ", ""):
                 return True
         return False
 
