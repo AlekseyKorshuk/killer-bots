@@ -116,7 +116,8 @@ class GoogleSearchEngine:
         top_k = 5
         _, ids = torch.topk(cosine_scores[0], top_k)
         needed_docs = [docs[i] for i in ids]
-        content = "\n".join([doc.content for doc in needed_docs])
+        # content = "\n".join([doc.content for doc in needed_docs])
+        content = self._get_article_summary(needed_docs)
         return content
 
     def _get_links(self, query, num_results):
