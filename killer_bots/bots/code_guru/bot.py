@@ -173,7 +173,7 @@ class CodeGuruBotGoogleSearch(Bot):
         search_query = f"coding, {search_query}"
         context = self.pipeline(search_query, top_k=self.top_k)
         context = "\n".join(context)
-        lines = [prompts.START_TEMPLATE.format(context)]
+        lines = [prompts.CONTEXT_PROMPT.format(context)]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
