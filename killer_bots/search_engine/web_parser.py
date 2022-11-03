@@ -17,8 +17,6 @@ from summarizer.sbert import SBertSummarizer
 from newspaper import Article
 from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
-import spacy
-from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
 from heapq import nlargest
 from sentence_transformers import util, SentenceTransformer
@@ -88,7 +86,6 @@ class GoogleSearchEngine:
         self.summarizer = SBertSummarizer('paraphrase-MiniLM-L6-v2')
         self.target_num_tokens = 512
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
-        self.nlp = spacy.load('en_core_web_sm')
         self.preprocessor = PreprocessDocsFast()
         self.query_retriever = SentenceTransformer("all-MiniLM-L6-v2")
         self.context_retriever = SentenceTransformer("all-MiniLM-L6-v2")
