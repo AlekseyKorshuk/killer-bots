@@ -99,8 +99,8 @@ class GoogleSearchEngine:
         for i in range(num_results):
             link = next(links)
             print(link)
-            content = self._get_article_text(link)
-            docs = self._get_docs(content)
+            content, html = self._get_article_text(link)
+            docs = self._get_docs(content, html)
             summary = self._get_needed_content(query, docs)
             # summary = self._get_article_summary(content)
             summaries.append(summary)
@@ -125,7 +125,7 @@ class GoogleSearchEngine:
         article = Article(url)
         article.download()
         article.parse()
-        return article.text
+        return article.text, article.html
         # ua = UserAgent()
         # headers = {'User-Agent': str(ua.chrome)}
         # r = requests.get(url, headers=headers)
@@ -135,14 +135,14 @@ class GoogleSearchEngine:
         # # content = "\n".join([result.text for result in para_text])
         # return [result.text for result in para_text]
 
-    def _get_docs(self, content):
+    def _get_docs(self, content, html):
         docs = content.split("\n")
         docs = [doc.strip() for doc in docs]
         docs = [doc for doc in docs if len(doc) > 50]
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         print("From:", len(docs))
-        docs = self.preprocessor(docs)
+        docs = self.preprocessor(docs, html)
         print("To:", len(docs))
         return docs
 
