@@ -4,7 +4,7 @@ import article_parser
 import requests
 from transformers import AutoTokenizer
 
-from killer_bots.search_engine.preprocess_docs import clean_wiki_text
+from killer_bots.search_engine.preprocess_docs import clean_wiki_text, PreprocessDocs
 from haystack.nodes import TransformersSummarizer
 from haystack import Document
 from summarizer import Summarizer
@@ -73,6 +73,8 @@ class GoogleSearchEngine:
         self.target_num_tokens = 512
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
         self.nlp = spacy.load('en_core_web_sm')
+        self.preprocessor = PreprocessDocs()
+
 
     def __call__(self, query, num_results=1):
         links = self._get_links(query, num_results)
@@ -107,7 +109,9 @@ class GoogleSearchEngine:
         docs = [doc.strip() for doc in docs]
         docs = [doc for doc in docs if len(doc) > 0]
         docs = [clean_wiki_text(doc) for doc in docs]
-        body = "\n".join([doc for doc in docs])
+        docs = [Document(doc) for doc in docs]
+        docs = self.preprocessor(docs)
+        body = "\n".join([doc.content for doc in docs])
 
         per = self._get_targen_summary_ratio(body)
 
