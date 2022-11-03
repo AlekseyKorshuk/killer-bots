@@ -138,10 +138,11 @@ class GoogleSearchEngine:
     def _get_docs(self, content):
         docs = content.split("\n")
         docs = [doc.strip() for doc in docs]
-        docs = [doc for doc in docs if len(doc) > 10]
+        docs = [doc for doc in docs if len(doc) > 30]
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
-        docs = self.preprocessor(docs)
+        print(len(docs))
+        # docs = self.preprocessor(docs)
         return docs
 
     def _get_article_summary(self, docs):
