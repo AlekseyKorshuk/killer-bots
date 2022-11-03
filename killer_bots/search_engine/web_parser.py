@@ -97,6 +97,7 @@ class GoogleSearchEngine:
         return summaries
 
     def _get_needed_content(self, query, docs):
+        print(docs)
         query_embeddings = self.retriever.embed_queries(queries=[query])
         query_embeddings = torch.from_numpy(query_embeddings)
         doc_embeddings = self.retriever.embed_documents(documents=docs)
