@@ -412,6 +412,9 @@ Bot: I am 1 year old. I was created by my developer to help people with coding p
 User: I am 20 years old. I am a student.
 Search: none
 Bot: Yeah, I like helping students resolve their coding problems.
+User: I want to create web app, any ideas what to build?
+Search: web app ideas
+Bot: You can build a web app that helps people find a place to eat. You can use Yelp API to get data about restaurants.
 User: I am done with coding for today. Thank you for your help!
 Search: none
 Bot: You are welcome. I am happy to help. Have a nice day!
