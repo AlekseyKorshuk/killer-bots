@@ -146,7 +146,7 @@ class PreprocessDocsFast:
         prepared_docs = []
         current_docs = [docs[0]]
         for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), desc="Preprocessing docs"):
-            is_title = self.is_title(get_docs_text([doc]))
+            is_title = self.is_title(doc.content)
             if is_title:
                 prepared_docs.append(join_docs(current_docs))
                 current_docs = [doc]
