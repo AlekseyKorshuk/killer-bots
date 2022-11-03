@@ -2,6 +2,7 @@ import re
 import time
 from functools import wraps
 
+import markdownify
 import torch
 from googlesearch import search
 import article_parser
@@ -79,6 +80,20 @@ def timeit(func):
 # # print(summary)
 # print("Time taken:", time.time() - start)
 
+def get_markdown_website(url):
+    ua = UserAgent()
+    headers = {'User-Agent': str(ua.chrome)}
+    r = requests.get(url, headers=headers)
+    soup = BeautifulSoup(r.text, "html.parser")
+    soup = soup.find("body")
+    soup = soup.find_all(["p", "h1", "h2", "h3", "h4", "h5", "h6"], recursive=True)
+    html = "\n".join([str(result) for result in soup])
+    text = markdownify.markdownify(html, heading_style="ATX")
+    text = re.sub(r"\[(.*?)\]\(.*?\)", r"\1", text)
+    text = re.sub("[\[].*?[\]]", "", text)
+    text = re.sub(r"!\[(.*?)\]\(.*?\)", "", text)
+    return text
+
 
 class GoogleSearchEngine:
     def __init__(self):
@@ -97,8 +112,8 @@ class GoogleSearchEngine:
         for i in range(top_k):
             link = next(links)
             print(link)
-            content, html = self._get_article_text(link)
-            docs = self._get_docs(content, html)
+            content = self._get_article_text(link)
+            docs = self._get_docs(content)
             summary = self._get_needed_content(query, docs)
             # summary = self._get_article_summary(content)
             summaries.append(summary)
@@ -121,23 +136,21 @@ class GoogleSearchEngine:
         return search(query, num_results=num_results)
 
     def _get_article_text(self, url):
-        article = Article(url)
-        article.download()
-        article.parse()
-        return article.text, article.html
+        text = get_markdown_website(url)
+        return text
+        # article = Article(url)
+        # article.download()
+        # article.parse()
+        # return article.text, article.html
 
-    def _get_docs(self, content, html):
+    def _get_docs(self, content):
         docs = content.split("\n")
         docs = [doc.strip() for doc in docs]
         docs = [doc for doc in docs if len(doc) > 0]
         # docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         print("From:", len(docs))
-        soup = BeautifulSoup(html, "html.parser")
-        headers = soup.find_all(re.compile('^h[1-6]$'))
-        headers = [header.text for header in headers]
-        headers = [clean_wiki_text(header) for header in headers]
-        docs = self.preprocessor(docs, headers)
+        docs = self.preprocessor(docs)
         print("To:", len(docs))
         return docs
 

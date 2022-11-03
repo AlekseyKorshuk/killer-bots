@@ -139,17 +139,14 @@ class PreprocessDocsFast:
     def __init__(self):
         self.is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit", device="cuda")
 
-    def is_title(self, text, titles):
-        for title in titles:
-            if text.strip().replace(" ", "") in title.strip().replace(" ", ""):
-                return True
-        return False
+    def is_title(self, text):
+        return text.startswith("#")
 
-    def __call__(self, docs, titles):
+    def __call__(self, docs):
         prepared_docs = []
         current_docs = [docs[0]]
         for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), desc="Preprocessing docs"):
-            is_title = self.is_title(doc.content, titles)
+            is_title = self.is_title(doc.content)
             if is_title:
                 prepared_docs.append(join_docs(current_docs))
                 current_docs = [doc]
