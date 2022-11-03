@@ -91,12 +91,6 @@ class GoogleSearchEngine:
         self.preprocessor = PreprocessDocs()
         self.query_retriever = SentenceTransformer("all-MiniLM-L6-v2")
         self.context_retriever = SentenceTransformer("all-MiniLM-L6-v2")
-        self.retriever = EmbeddingRetriever(
-            document_store=_get_document_store(),
-            embedding_model="AlekseyKorshuk/retriever-coding-guru-adapted",
-            model_format="sentence_transformers",
-            scale_score=False
-        )
 
     @timeit
     def __call__(self, query, num_results=1):
@@ -147,7 +141,7 @@ class GoogleSearchEngine:
         docs = [doc for doc in docs if len(doc) > 10]
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
-        # docs = self.preprocessor(docs)
+        docs = self.preprocessor(docs)
         return docs
 
     def _get_article_summary(self, docs):
