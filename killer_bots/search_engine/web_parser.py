@@ -101,10 +101,11 @@ class GoogleSearchEngine:
 
     def _get_needed_content(self, query, docs):
         print(docs)
-        embeddings = self.query_retriever.encode([query] + [doc.content for doc in docs], convert_to_tensor=True)
-        # context_embeddings = self.context_retriever.encode(, convert_to_tensor=True)
-        cosine_scores = util.cos_sim(embeddings, embeddings)
+        query_embeddings = self.query_retriever.encode([query], convert_to_tensor=True)
+        context_embeddings = self.context_retriever.encode([doc.content for doc in docs], convert_to_tensor=True)
+        cosine_scores = util.cos_sim(query_embeddings * len(docs), context_embeddings)
         print(cosine_scores)
+
         return ""
 
     def _get_links(self, query, num_results):
