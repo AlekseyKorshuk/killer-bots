@@ -135,6 +135,28 @@ class PreprocessDocs:
 def preprocess_docs(docs):
     return PreprocessDocs()(docs)
 
+class PreprocessDocsFast:
+    def __init__(self):
+        self.is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit", device="cuda")
+
+    def is_title(self, text):
+        return self.is_title_model([clean_wiki_text(text)])[0] == 1
+
+    def __call__(self, docs):
+        prepared_docs = []
+        current_docs = [docs[0]]
+        for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), desc="Preprocessing docs"):
+            is_title = self.is_title(get_docs_text(doc))
+            if is_title:
+                prepared_docs.append(join_docs(current_docs))
+                current_docs = [doc]
+        if len(current_docs) > 0:
+            prepared_docs.append(join_docs(current_docs))
+        return prepared_docs
+
+def preprocess_docs_fast(docs):
+    return PreprocessDocsFast()(docs)
+
 if __name__ == "__main__":
     doc_dir = './killer_bots/bots/code_guru/database/'
     change_extentions_to_txt(doc_dir)
