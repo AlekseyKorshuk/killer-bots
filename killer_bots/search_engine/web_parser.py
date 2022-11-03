@@ -19,7 +19,8 @@ import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 from string import punctuation
 from heapq import nlargest
-from sentence_transformers import util
+from sentence_transformers import util, SentenceTransformer
+
 
 # model = Summarizer()
 # # summarizer = TransformersSummarizer(model_name_or_path="google/pegasus-xsum")
@@ -76,6 +77,8 @@ class GoogleSearchEngine:
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
         self.nlp = spacy.load('en_core_web_sm')
         self.preprocessor = PreprocessDocs()
+        self.query_retriever = SentenceTransformer("all-MiniLM-L6-v2")
+        self.context_retriever = SentenceTransformer("all-MiniLM-L6-v2")
         self.retriever = EmbeddingRetriever(
             document_store=_get_document_store(),
             embedding_model="AlekseyKorshuk/retriever-coding-guru-adapted",
@@ -98,11 +101,9 @@ class GoogleSearchEngine:
 
     def _get_needed_content(self, query, docs):
         print(docs)
-        query_embeddings = self.retriever.embed_queries(queries=[query])
-        query_embeddings = torch.from_numpy(query_embeddings)
-        doc_embeddings = self.retriever.embed_documents(documents=docs)
-        doc_embeddings = torch.from_numpy(doc_embeddings)
-        cosine_scores = util.cos_sim(query_embeddings, doc_embeddings)
+        query_embeddings = self.query_retriever.encode([query], convert_to_tensor=True)
+        context_embeddings = self.context_retriever.encode([doc.content for doc in docs], convert_to_tensor=True)
+        cosine_scores = util.cos_sim(query_embeddings, context_embeddings)
         print(cosine_scores)
         return ""
 
@@ -126,7 +127,7 @@ class GoogleSearchEngine:
     def _get_docs(self, content):
         docs = content.split("\n")
         docs = [doc.strip() for doc in docs]
-        docs = [doc for doc in docs if len(doc) > 100]
+        docs = [doc for doc in docs if len(doc) > 10]
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         # docs = self.preprocessor(docs)
