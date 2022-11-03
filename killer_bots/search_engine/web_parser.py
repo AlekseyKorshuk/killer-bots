@@ -160,7 +160,7 @@ class GoogleSearchEngine:
 
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine()
-    summaries = search_engine("best way to learn python", num_results=1)
+    summaries = search_engine("coding, who created python?", num_results=1)
     for summary in summaries:
         print("#" * 100)
         print(summary)
