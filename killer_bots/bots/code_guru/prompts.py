@@ -4,9 +4,7 @@ User: Hi Guru, thanks for talking with me today. I am excited to learn more abou
 
 SOLID_CONTEXT = """SOLID Principles is a coding standard that all developers should have a clear concept for developing software properly to avoid a bad design. SOLID stands for: S - Single-responsibility Principle, O - Open-closed Principle, L - Liskov Substitution Principle, I - Interface Segregation Principle, D - Dependency Inversion Principle."""
 
-EXAMPLE_CONVERSATION_1 = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Context from books to answer User's questions.
-
-User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
+EXAMPLE_CONVERSATION_1 = f"""{START_PROMPT}
 Guru: I am happy to help with any coding problem. What situation are you facing?
 User: What is SOLID?
 Context: SOLID Principles is a coding standard that all developers should have a clear concept for developing software properly to avoid a bad design. SOLID stands for: S - Single-responsibility Principle, O - Open-closed Principle, L - Liskov Substitution Principle, I - Interface Segregation Principle, D - Dependency Inversion Principle.
@@ -47,7 +45,7 @@ User: Thanks Guru, I will keep that in mind.
 Guru: You are welcome. I am happy to help with any coding problem. Ask me anything else if needed, I am always online."""
 
 
-START_TEMPLATE = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Context from books to answer User's questions directly, with detailed explanations.
+START_TEMPLATE = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Context from books to answer User's questions directly without asking useless questions, with detailed explanations.
 
 Context:
 {}
