@@ -103,7 +103,7 @@ class GoogleSearchEngine:
         print(docs)
         query_embeddings = self.query_retriever.encode([query], convert_to_tensor=True)
         context_embeddings = self.context_retriever.encode([doc.content for doc in docs], convert_to_tensor=True)
-        cosine_scores = util.cos_sim(query_embeddings * len(docs), context_embeddings)
+        cosine_scores = util.cos_sim(query_embeddings, context_embeddings)
         print(cosine_scores)
 
         return ""
