@@ -8,7 +8,7 @@ import requests
 from transformers import AutoTokenizer
 
 from killer_bots.search_engine.custom_pipeline import _get_document_store
-from killer_bots.search_engine.preprocess_docs import clean_wiki_text, PreprocessDocs
+from killer_bots.search_engine.preprocess_docs import clean_wiki_text, PreprocessDocs, PreprocessDocsFast
 from haystack.nodes import TransformersSummarizer, EmbeddingRetriever
 from haystack import Document
 from summarizer import Summarizer
@@ -88,7 +88,7 @@ class GoogleSearchEngine:
         self.target_num_tokens = 512
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
         self.nlp = spacy.load('en_core_web_sm')
-        self.preprocessor = PreprocessDocs()
+        self.preprocessor = PreprocessDocsFast()
         self.query_retriever = SentenceTransformer("all-MiniLM-L6-v2")
         self.context_retriever = SentenceTransformer("all-MiniLM-L6-v2")
 
@@ -141,8 +141,9 @@ class GoogleSearchEngine:
         docs = [doc for doc in docs if len(doc) > 50]
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
-        print(len(docs))
-        # docs = self.preprocessor(docs)
+        print("From:", len(docs))
+        docs = self.preprocessor(docs)
+        print("To:", len(docs))
         return docs
 
     def _get_article_summary(self, docs):
