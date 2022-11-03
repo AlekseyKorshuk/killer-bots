@@ -6,6 +6,7 @@ import article_parser
 import requests
 from transformers import AutoTokenizer
 
+from killer_bots.search_engine.custom_pipeline import _get_document_store
 from killer_bots.search_engine.preprocess_docs import clean_wiki_text, PreprocessDocs
 from haystack.nodes import TransformersSummarizer, EmbeddingRetriever
 from haystack import Document
@@ -76,7 +77,7 @@ class GoogleSearchEngine:
         self.nlp = spacy.load('en_core_web_sm')
         self.preprocessor = PreprocessDocs()
         self.retriever = EmbeddingRetriever(
-            document_store=None,
+            document_store=_get_document_store(),
             embedding_model="AlekseyKorshuk/retriever-coding-guru-adapted",
             model_format="sentence_transformers",
             scale_score=False
