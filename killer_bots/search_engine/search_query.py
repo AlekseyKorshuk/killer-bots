@@ -514,7 +514,7 @@ if __name__ == "__main__":
     search_query_generator = SearchQueryGenerator(model, tokenizer)
     chat_history = [
         "Guru: I am happy to help with any coding problem. What situation are you facing?",
-        "User: What is refactoring?",
+        "User: I want to create web app, any ideas what to build?",
     ]
     search_history = [
         "none",
