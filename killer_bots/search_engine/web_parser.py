@@ -1,3 +1,4 @@
+import re
 import time
 from functools import wraps
 
@@ -142,7 +143,9 @@ class GoogleSearchEngine:
         docs = [clean_wiki_text(doc) for doc in docs]
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         print("From:", len(docs))
-        docs = self.preprocessor(docs, html)
+        soup = BeautifulSoup(html, "html.parser")
+        headers = soup.find_all(re.compile('^h[1-6]$'))
+        docs = self.preprocessor(docs, headers)
         print("To:", len(docs))
         return docs
 
