@@ -157,7 +157,7 @@ class GoogleSearchEngine:
 
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine()
-    summaries = search_engine("coding, who created python?", num_results=1)
+    summaries = search_engine("coding, who created python?", top_k=1)
     for summary in summaries:
         print("#" * 100)
         print(summary)
