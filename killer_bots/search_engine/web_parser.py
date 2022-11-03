@@ -100,13 +100,16 @@ class GoogleSearchEngine:
         return summaries
 
     def _get_needed_content(self, query, docs):
-        print(docs)
+        # print(docs)
         query_embeddings = self.query_retriever.encode([query], convert_to_tensor=True)
         context_embeddings = self.context_retriever.encode([doc.content for doc in docs], convert_to_tensor=True)
         cosine_scores = util.cos_sim(query_embeddings, context_embeddings)
-        print(cosine_scores)
-
-        return ""
+        # print(cosine_scores)
+        top_k = 5
+        _, ids = torch.topk(cosine_scores[0], top_k)
+        needed_docs = [docs[i] for i in ids]
+        content = "\n".join([doc.content for doc in needed_docs])
+        return content
 
     def _get_links(self, query, num_results):
         return search(query, num_results=num_results)
