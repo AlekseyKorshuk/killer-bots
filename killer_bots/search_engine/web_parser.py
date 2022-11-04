@@ -193,11 +193,12 @@ class GoogleSearchEngine2(GoogleSearchEngine):
         self.model = SBertSummarizer('msmarco-distilbert-base-tas-b')
 
     def _get_needed_content(self, query, docs):
-        data = []
-        for doc in tqdm.tqdm(docs):
-            num_sentences = self.model.calculate_optimal_k(doc.content)
-            summary = self.model(doc.content, num_sentences=num_sentences)
-            data.append(summary)
+        data = [doc.content for doc in docs]
+        # data = []
+        # for doc in tqdm.tqdm(docs):
+        #     num_sentences = self.model.calculate_optimal_k(doc.content)
+        #     summary = self.model(doc.content, num_sentences=num_sentences)
+        #     data.append(summary)
 
         sentences, embeddings = self.model.cluster_runner(
             sentences=data,
