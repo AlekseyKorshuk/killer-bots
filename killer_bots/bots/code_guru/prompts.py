@@ -31,6 +31,10 @@ User: Ohh, now I understand. Thanks Guru.
 Guru: I am happy to help with any coding problem. Hope everything was clear. Ask me anything else if needed, I am here to help you."""
 
 EXAMPLE_CONVERSATION_1 = f"""{START_PROMPT}
+
+Context:
+{SOLID_CONTEXT}
+
 Guru: I am happy to help with any coding problem. What situation are you facing?
 User: What is SOLID?
 Guru: SOLID principles are a coding standard for software developers. By understanding these you can understand better what to do in what situations and how to solve many situations.
