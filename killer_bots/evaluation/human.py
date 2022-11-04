@@ -56,27 +56,27 @@ def load_huggingface_model(model_id):
 # reward_model.config.pad_token_id = reward_tokenizer.pad_token_id
 
 
-# params = {
-#     "top_p": 0.5703324165138496,
-#     "top_k": 8,
-#     "temperature": 0.9758783896898277,
-#     "repetition_penalty": 1.0302804540995645,
-#     # "eos_token_id": 50118,  # 50118
-#     "device": device,
-#     "do_sample": True,
-#     "max_new_tokens": 256,
-# }
-
 params = {
-    "top_p": 1,
-    "top_k": 20,
-    "temperature": 1.0,
-    "repetition_penalty": 1.0,
+    "top_p": 0.5703324165138496,
+    "top_k": 8,
+    "temperature": 0.9758783896898277,
+    "repetition_penalty": 1.0302804540995645,
     # "eos_token_id": 50118,  # 50118
     "device": device,
     "do_sample": True,
     "max_new_tokens": 256,
 }
+
+# params = {
+#     "top_p": 1,
+#     "top_k": 20,
+#     "temperature": 1.0,
+#     "repetition_penalty": 1.0,
+#     # "eos_token_id": 50118,  # 50118
+#     "device": device,
+#     "do_sample": True,
+#     "max_new_tokens": 256,
+# }
 
 
 def load_tokenizer(model_id):
