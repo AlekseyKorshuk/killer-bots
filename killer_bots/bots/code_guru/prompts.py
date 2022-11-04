@@ -78,7 +78,9 @@ Context:
 """ + USER_FIRST_MESSAGE
 
 
-CONTEXT_PROMPT = f"{EXAMPLE_CONVERSATION_1}\n" \
-         f"\n" \
-         f"\n" \
-         f"{START_TEMPLATE}"
+# CONTEXT_PROMPT = f"{EXAMPLE_CONVERSATION_1}\n" \
+#          f"\n" \
+#          f"\n" \
+#          f"{START_TEMPLATE}"
+
+CONTEXT_PROMPT = START_TEMPLATE
