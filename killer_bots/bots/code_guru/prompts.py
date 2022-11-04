@@ -44,13 +44,11 @@ Guru: The SOLID principles were developed to combat these problematic design pat
 User: Ohh, now I understand. Thanks Guru.
 Guru: I am happy to help with any coding problem. Hope everything was clear. Ask me anything else if needed, I am here to help you."""
 
-
 PROMPT = f"{EXAMPLE_CONVERSATION_1}\n" \
          f"\n" \
          f"{EXAMPLE_CONVERSATION_2}\n" \
          f"\n" \
          f"{START_PROMPT}"
-
 
 DIALOGUE_TEMPLATE = """This is a conversation where Coding Guru is giving advice on being a developer and helping with any questions. Guru uses Context from books to answer User's questions.
 
@@ -61,7 +59,6 @@ Guru: {}
 User: Thanks Guru, I will keep that in mind.
 Guru: You are welcome. I am happy to help with any coding problem. Ask me anything else if needed, I am always online."""
 
-
 START_TEMPLATE = CONVERSATION_DESCRIPTION + """
 
 Context:
@@ -69,8 +66,11 @@ Context:
 
 """ + USER_FIRST_MESSAGE
 
+EXAMPLE_TITLE = "These are examples of conversations with Coding Guru. Where Guru is giving advice on being a developer and helping with any questions by answering User's requests in details with good explanations."
 
-CONTEXT_PROMPT = f"{EXAMPLE_CONVERSATION_1}\n" \
+CONTEXT_PROMPT = f"{EXAMPLE_TITLE}\n" \
+                 f"\n" \
+                 f"{EXAMPLE_CONVERSATION_1}\n" \
                  f"\n" \
                  f"{EXAMPLE_CONVERSATION_2}\n" \
                  f"\n" \
@@ -78,5 +78,3 @@ CONTEXT_PROMPT = f"{EXAMPLE_CONVERSATION_1}\n" \
 
 # CONTEXT_PROMPT = START_TEMPLATE
 
-
-PROMPT
