@@ -64,7 +64,7 @@ params = {
     # "eos_token_id": 50118,  # 50118
     "device": device,
     "do_sample": True,
-    "max_new_tokens": 64,
+    "max_new_tokens": 256,
 }
 
 # params = {
