@@ -229,7 +229,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
         pca_model = PCA(n_components=2)
         pca_components = pca_model.fit_transform(embeddings)
         distances = util.dot_score(pca_components, pca_components)[0][1:]
-        # distances = euclidean_distances(pca_components, pca_components)
+        print(euclidean_distances(pca_components, pca_components)[0][1:])
         # distances = distances[0][1:]
         print(distances)
         print([sentence.split("\n")[0] for sentence in sentences])
