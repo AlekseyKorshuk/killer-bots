@@ -136,7 +136,7 @@ class GoogleSearchEngine:
                 needed_docs.append(docs[id])
             else:
                 break
-        needed_docs = sorted(needed_docs, key=lambda x: x.meta["id"], reverse=True)
+        needed_docs = sorted(needed_docs, key=lambda x: x.meta["id"], reverse=False)
         content = "\n".join([doc.content for doc in needed_docs])
         if len(self.tokenizer(content)["input_ids"]) > self.target_num_tokens:
             content = self._get_article_summary(needed_docs)
