@@ -153,7 +153,6 @@ class PreprocessDocsFast:
             if is_title:
                 if not self.is_all_title(current_docs):
                     prepared_docs.append(join_docs(current_docs))
-                prepared_docs.append(join_docs(current_docs))
                 current_docs = [doc]
             elif len(clean_wiki_text(doc.content)) > 50:
                 current_docs.append(doc)
