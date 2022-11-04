@@ -233,7 +233,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
         # distances = distances[0][1:]
         print(distances)
         print([sentence.split("\n")[0] for sentence in sentences])
-        _, ids = torch.topk(distances, len(docs))
+        _, ids = torch.topk(torch.tensor(distances), len(docs))
         needed_docs = [docs[ids[0]]]
         for id in ids[1:]:
             context = "\n".join([doc.content for doc in needed_docs])
