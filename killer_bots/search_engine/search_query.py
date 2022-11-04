@@ -459,9 +459,7 @@ Guru: I am fine, thanks. How are you?
 
 
 class SearchQueryGenerator:
-    def __init__(self, model, tokenizer):
-        self.model = model
-        self.tokenizer = tokenizer
+    def __init__(self):
         self.device = 0
         self.params = {
             # "top_p": 1,
@@ -476,20 +474,20 @@ class SearchQueryGenerator:
         }
         self.prompt = PROMPT
 
-    def __call__(self, chat_history, search_history):
+    def __call__(self, chat_history, search_history, model, tokenizer):
         model_input = self._format_model_inputs(chat_history, search_history)
-        output_text = self.generate_search_query(model_input)
+        output_text = self.generate_search_query(model_input, model, tokenizer)
         return output_text
 
-    def generate_search_query(self, prompt):
-        inputs = self.tokenizer(prompt, return_tensors="pt", padding=False, truncation=True,
+    def generate_search_query(self, prompt, model, tokenizer):
+        inputs = tokenizer(prompt, return_tensors="pt", padding=False, truncation=True,
                                 max_length=2048 - 65).to(self.device)
         # print("Length:", len(inputs.input_ids[0]))
-        output_ids = self.model.generate(
+        output_ids = model.generate(
             **inputs, **self.params
         )
         # print("Output length:", len(output_ids[0]))
-        output_text = self.tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
+        output_text = tokenizer.decode(output_ids[0][len(inputs.input_ids[0]):], skip_special_tokens=True)
         return output_text.strip()
 
     def _format_model_inputs(self, chat_history, search_history):

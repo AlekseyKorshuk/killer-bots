@@ -162,14 +162,11 @@ class CodeGuruBotGoogleSearch(Bot):
         self.stopping_criteria = StoppingCriteriaList(stopping_criterias)
         self.top_k = 1
         self.search_history = ["none"]
-        self.search_query_generator = SearchQueryGenerator(
-            model=model,
-            tokenizer=tokenizer,
-        )
+        self.search_query_generator = SearchQueryGenerator()
 
     def _format_model_inputs(self, text):
         self.search_history = self.search_history[:len(self.chat_history) // 2]
-        search_query = self.search_query_generator(self.chat_history, self.search_history)
+        search_query = self.search_query_generator(self.chat_history, self.search_history, self.model, self.tokenizer)
         self.search_history.append(search_query)
         search_query = f"coding, {search_query}"
         context = self.pipeline(search_query, top_k=self.top_k)
