@@ -7,7 +7,7 @@ import torch
 from googlesearch import search
 import article_parser
 import requests
-from summarizer.bert import BertSummarizer
+from summarizer.sbert import SBertSummarizer
 from transformers import AutoTokenizer
 
 from killer_bots.search_engine.custom_pipeline import _get_document_store
@@ -105,7 +105,7 @@ def get_markdown_website(url):
 
 class GoogleSearchEngine:
     def __init__(self):
-        # self.summarizer = Summarizer()
+        self.summarizer = Summarizer()
         self.summarizer = SBertSummarizer('paraphrase-MiniLM-L6-v2')
         self.target_num_tokens = 512
         self.tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
@@ -189,7 +189,7 @@ class GoogleSearchEngine:
 class GoogleSearchEngine2(GoogleSearchEngine):
     def __init__(self):
         super().__init__()
-        self.model = BertSummarizer('msmarco-distilbert-base-tas-b')
+        self.model = SBertSummarizer('msmarco-distilbert-base-tas-b')
 
     def _get_needed_content(self, query, docs):
         data = []
@@ -216,11 +216,12 @@ class GoogleSearchEngine2(GoogleSearchEngine):
             groups[cluster].append(i)
         groups = {k: v for k, v in groups.items() if len(v) > 1}
 
-        docs = []
+        grouped_docs = []
         for cluster in groups.values():
-            docs.append(
+            grouped_docs.append(
                 join_docs([docs[i].content for i in cluster])
             )
+        docs = grouped_docs
         data = [doc.content for doc in docs]
         data = [query] + data
         sentences, embeddings = self.model.cluster_runner(
@@ -231,9 +232,9 @@ class GoogleSearchEngine2(GoogleSearchEngine):
 
         pca_model = PCA(n_components=2)
         pca_components = pca_model.fit_transform(embeddings)
-
-        distances = euclidean_distances(pca_components, pca_components)
-        distances = distances[0][1:]
+        distances = util.dot_score(pca_components, pca_components)[0][1:]
+        # distances = euclidean_distances(pca_components, pca_components)
+        # distances = distances[0][1:]
         _, ids = torch.topk(distances, len(docs))
         needed_docs = [docs[ids[0]]]
         for id in ids[1:]:
