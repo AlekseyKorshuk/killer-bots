@@ -93,6 +93,7 @@ class Bot(object):
 
     @torch.inference_mode()
     def _generate(self, encoded, request_params):
+        print(request_params)
         return self.model.generate(
             input_ids=encoded.input_ids,
             attention_mask=encoded.attention_mask,
