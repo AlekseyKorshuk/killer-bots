@@ -219,7 +219,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
         grouped_docs = []
         for cluster in groups.values():
             grouped_docs.append(
-                join_docs([docs[i].content for i in cluster])
+                join_docs([docs[i] for i in cluster])
             )
         docs = grouped_docs
         data = [doc.content for doc in docs]
