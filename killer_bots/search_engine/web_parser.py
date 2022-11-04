@@ -4,6 +4,7 @@ from functools import wraps
 
 import markdownify
 import torch
+import tqdm
 from googlesearch import search
 import article_parser
 import requests
@@ -193,7 +194,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
 
     def _get_needed_content(self, query, docs):
         data = []
-        for doc in docs:
+        for doc in tqdm.tqdm(docs):
             num_sentences = self.model.calculate_optimal_k(doc.content)
             summary = self.model(doc.content, num_sentences=num_sentences)
             data.append(summary)
