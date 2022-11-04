@@ -254,7 +254,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
 
 
 if __name__ == "__main__":
-    search_engine = GoogleSearchEngine()
+    search_engine = GoogleSearchEngine2()
     summaries = search_engine("coding, list types of design patterns?", top_k=1)
     for summary in summaries:
         print("#" * 100)

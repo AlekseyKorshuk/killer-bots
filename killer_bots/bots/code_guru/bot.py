@@ -7,7 +7,7 @@ from killer_bots.search_engine.custom_pipeline import Pipeline
 from killer_bots.search_engine.search_query import SearchQueryGenerator
 from killer_bots.search_engine.search_summarization import SearchSummarization
 from killer_bots.search_engine.lfqa import LFQA
-from killer_bots.search_engine.web_parser import GoogleSearchEngine
+from killer_bots.search_engine.web_parser import GoogleSearchEngine, GoogleSearchEngine2
 
 
 class CodeGuruBot(Bot):
@@ -150,7 +150,7 @@ class CodeGuruBotGoogleSearch(Bot):
             first_message="I am happy to help with any coding problem. What situation are you facing?",
             **params,
         )
-        self.pipeline = GoogleSearchEngine()
+        self.pipeline = GoogleSearchEngine2()
         self.stop_words = ["User:", "Guru:", "Context:"]
         stopping_criterias = []
         for word in self.stop_words:
