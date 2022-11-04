@@ -127,6 +127,7 @@ class GoogleSearchEngine:
         # print(cosine_scores)
         top_k = 5
         _, ids = torch.topk(cosine_scores[0], top_k)
+        print("ids", ids)
         needed_docs = [docs[i] for i in ids]
         content = "\n".join([doc.content for doc in needed_docs])
         # content = self._get_article_summary(needed_docs)
