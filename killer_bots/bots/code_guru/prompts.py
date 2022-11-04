@@ -93,9 +93,11 @@ CONTEXT_PROMPT = f"Context:\n" \
                  f"\n" \
                  f"{EXAMPLE_CONVERSATION_1}\n" \
                  f"\n" \
+                 f"\n" \
                  f"{CONVERSATION_DESCRIPTION}\n" \
                  f"\n" \
                  f"{EXAMPLE_CONVERSATION_2}\n" \
+                 f"\n" \
                  f"\n" \
                  f"{CONVERSATION_DESCRIPTION}\n" \
                  f"\n"
