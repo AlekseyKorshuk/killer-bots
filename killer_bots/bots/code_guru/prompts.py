@@ -74,6 +74,7 @@ CONTEXT_PROMPT = f"{EXAMPLE_TITLE}\n" \
                  f"\n" \
                  f"{EXAMPLE_CONVERSATION_2}\n" \
                  f"\n" \
+                 f"\n" \
                  f"{START_TEMPLATE}"
 
 # CONTEXT_PROMPT = START_TEMPLATE
