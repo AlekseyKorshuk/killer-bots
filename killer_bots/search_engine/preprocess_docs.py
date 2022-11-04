@@ -142,17 +142,22 @@ class PreprocessDocsFast:
     def is_title(self, text):
         return text.startswith("#")
 
+    def is_all_title(self, docs):
+        return all([self.is_title(doc.content) for doc in docs])
+
     def __call__(self, docs):
         prepared_docs = []
         current_docs = [docs[0]]
         for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), desc="Preprocessing docs"):
             is_title = self.is_title(doc.content)
             if is_title:
+                if not self.is_all_title(current_docs):
+                    prepared_docs.append(join_docs(current_docs))
                 prepared_docs.append(join_docs(current_docs))
                 current_docs = [doc]
             elif len(clean_wiki_text(doc.content)) > 50:
                 current_docs.append(doc)
-        if len(current_docs) > 0:
+        if len(current_docs) > 0 and not self.is_all_title(current_docs):
             prepared_docs.append(join_docs(current_docs))
 
         return prepared_docs
