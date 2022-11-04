@@ -125,8 +125,16 @@ class GoogleSearchEngine:
         context_embeddings = self.context_retriever.encode([doc.content for doc in docs], convert_to_tensor=True)
         cosine_scores = util.cos_sim(query_embeddings, context_embeddings)
         # print(cosine_scores)
-        top_k = 5
-        _, ids = torch.topk(cosine_scores[0], top_k)
+        _, ids = torch.topk(cosine_scores[0], len(docs))
+        needed_docs = [docs[ids[0]]]
+        for id in ids[1:]:
+            context = "\n".join([doc.content for doc in needed_docs])
+            num_tokens = len(self.tokenizer(context)["input_ids"])
+            new_doc_tokens = len(self.tokenizer(docs[id].content)["input_ids"])
+            if num_tokens + new_doc_tokens < self.target_num_tokens:
+                needed_docs.append(docs[id])
+            else:
+                break
         print("ids", ids)
         needed_docs = [docs[i] for i in ids]
         needed_docs = sorted(needed_docs, key=lambda x: x.meta["id"], reverse=True)
@@ -153,7 +161,7 @@ class GoogleSearchEngine:
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         print("From:", len(docs))
         docs = self.preprocessor(docs)
-        docs = [doc for doc in docs if len(doc) > 30]
+        docs = [doc for doc in docs if len(doc.content) > 30]
         print("To:", len(docs))
         return docs
 
