@@ -98,7 +98,8 @@ class PreprocessDocs:
                 current_docs = [doc]
                 continue
             if len(current_docs) == 0:
-                import pdb; pdb.set_trace()
+                import pdb;
+                pdb.set_trace()
             score = self.get_score(get_docs_text(current_docs), doc.content)
             add_flag = False
             if score > self.threshold and current_docs[-1].meta['name'] == doc.meta['name']:
@@ -135,6 +136,7 @@ class PreprocessDocs:
 def preprocess_docs(docs):
     return PreprocessDocs()(docs)
 
+
 class PreprocessDocsFast:
     def __init__(self):
         self.is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit", device="cuda")
@@ -147,6 +149,8 @@ class PreprocessDocsFast:
 
     def __call__(self, docs):
         prepared_docs = []
+        for i, doc in enumerate(docs):
+            doc.meta["id"] = i
         current_docs = [docs[0]]
         for i, doc in tqdm.tqdm(enumerate(docs[1:]), total=len(docs[1:]), desc="Preprocessing docs"):
             is_title = self.is_title(doc.content)

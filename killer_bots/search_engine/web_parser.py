@@ -129,6 +129,7 @@ class GoogleSearchEngine:
         _, ids = torch.topk(cosine_scores[0], top_k)
         print("ids", ids)
         needed_docs = [docs[i] for i in ids]
+        needed_docs = sorted(needed_docs, key=lambda x: x.meta["id"], reverse=True)
         content = "\n".join([doc.content for doc in needed_docs])
         # content = self._get_article_summary(needed_docs)
         return content
@@ -152,6 +153,7 @@ class GoogleSearchEngine:
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         print("From:", len(docs))
         docs = self.preprocessor(docs)
+        docs = [doc for doc in docs if len(doc) > 30]
         print("To:", len(docs))
         return docs
 
