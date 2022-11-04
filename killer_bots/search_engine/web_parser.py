@@ -86,7 +86,8 @@ def get_markdown_website(url):
     r = requests.get(url, headers=headers)
     soup = BeautifulSoup(r.text, "html.parser")
     soup = soup.find("body")
-    soup = soup.find_all(["p", "h1", "h2", "h3", "h4", "h5", "h6"], recursive=True)
+    tags = ["p", "h1", "h2", "h3", "h4", "h5", "h6", "li", "ul", "ol", "code", "pre"]
+    soup = soup.find_all(tags, recursive=True)
     html = "\n".join([str(result) for result in soup])
     text = markdownify.markdownify(html, heading_style="ATX", wrap=True, wrap_width=10**6)
     text = re.sub(r"!\[(.*?)\]\(.*?\)", "", text)
