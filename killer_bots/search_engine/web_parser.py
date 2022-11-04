@@ -228,6 +228,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
 
         pca_model = PCA(n_components=2)
         pca_components = pca_model.fit_transform(embeddings)
+        print(euclidean_distances(pca_components, pca_components)[0][1:])
         # distances = euclidean_distances(pca_components, pca_components)[0][1:]
         # distances = util.dot_score(torch.tensor(embeddings), torch.tensor(embeddings))[0][1:]
         distances = util.cos_sim(torch.tensor(embeddings), torch.tensor(embeddings))[0][1:]
