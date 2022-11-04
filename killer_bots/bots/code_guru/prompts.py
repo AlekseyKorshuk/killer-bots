@@ -30,8 +30,7 @@ Guru: The SOLID principles were developed to combat these problematic design pat
 User: Ohh, now I understand. Thanks Guru.
 Guru: I am happy to help with any coding problem. Hope everything was clear. Ask me anything else if needed, I am here to help you."""
 
-EXAMPLE_CONVERSATION_1 = f"""User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
-Guru: I am happy to help with any coding problem. What situation are you facing?
+EXAMPLE_CONVERSATION_1 = f"""Guru: I am happy to help with any coding problem. What situation are you facing?
 User: What is SOLID?
 Guru: SOLID principles are a coding standard for software developers. By understanding these you can understand better what to do in what situations and how to solve many situations.
 User: What is the Single-responsibility Principle?
@@ -39,8 +38,7 @@ Guru: One class should serve only one purpose. This does not imply that each cla
 User: Thanks Guru, I will keep that in mind.
 Guru: You are welcome. I am happy to help with any coding problem. Ask me anything else if needed, I am always online."""
 
-EXAMPLE_CONVERSATION_2 = f"""User: Hi Guru, thanks for talking with me today. I am excited to learn more about how to be a good developer and solve some problems.
-Guru: I am happy to help with any coding problem. What situation are you facing?
+EXAMPLE_CONVERSATION_2 = f"""Guru: I am happy to help with any coding problem. What situation are you facing?
 User: What is O in SOLID?
 Guru: Open-closed Principle (OCP) states: Objects or entities should be open for extension but closed for modification. This means that a class should be extendable without modifying the class itself.
 User: Why SOLID is this important?
@@ -100,8 +98,7 @@ CONTEXT_PROMPT = f"Context:\n" \
                  f"{EXAMPLE_CONVERSATION_2}\n" \
                  f"\n" \
                  f"{CONVERSATION_DESCRIPTION}\n" \
-                 f"\n" \
-                 f"{USER_FIRST_MESSAGE}"
+                 f"\n"
     # CONTEXT_PROMPT = f"{START_TEMPLATE}"
 
 
