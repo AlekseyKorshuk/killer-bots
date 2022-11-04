@@ -168,9 +168,11 @@ class CodeGuruBotGoogleSearch(Bot):
         self.search_history = self.search_history[:len(self.chat_history) // 2]
         search_query = self.search_query_generator(self.chat_history, self.search_history, self.model, self.tokenizer)
         self.search_history.append(search_query)
-        search_query = f"coding, {search_query}"
-        context = self.pipeline(search_query, top_k=self.top_k)
-        context = "\n".join(context)
+        context = "empty"
+        if search_query != "none":
+            search_query = f"coding, {search_query}"
+            context = self.pipeline(search_query, top_k=self.top_k)
+            context = "\n".join(context)
         lines = [prompts.CONTEXT_PROMPT.format(context)]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
