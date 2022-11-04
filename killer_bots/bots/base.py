@@ -24,6 +24,7 @@ class Bot(object):
         self.top_p = params.get("top_p", 0.725)
         self.top_k = params.get("top_k", 0)
         self.do_sample = params.get("do_sample", True)
+        self.max_new_tokens = params.get("max_new_tokens", 64)
         self.repetition_penalty = params.get("repetition_penalty", 1.13125)
         self.stopping_ids = None
         self.stopping_criteria = None
@@ -47,7 +48,7 @@ class Bot(object):
             "top_p": self.top_p,
             "top_k": self.top_k,
             "repetition_penalty": self.repetition_penalty,
-            "max_new_tokens": 64,
+            "max_new_tokens": self.max_new_tokens,
             "do_sample": self.do_sample,
             "eos_token_id": self.eos_token_id,
             "pad_token_id": self.eos_token_id,
