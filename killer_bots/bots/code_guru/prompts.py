@@ -97,7 +97,7 @@ CONTEXT_PROMPT = f"Context:\n" \
                  f"\n" \
                  f"{CONVERSATION_DESCRIPTION}\n" \
                  f"\n" \
-                 f"{START_TEMPLATE}"
+                 f"{USER_FIRST_MESSAGE}"
     # CONTEXT_PROMPT = f"{START_TEMPLATE}"
 
 
