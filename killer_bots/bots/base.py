@@ -105,6 +105,7 @@ class Bot(object):
             skip_special_tokens=True,
             clean_up_tokenization_spaces=False,
         )
+        print("DECODED:", decoded)
         decoded = decoded.rstrip()
         for stop_word in self.stop_words:
             decoded = decoded.replace(stop_word, "")

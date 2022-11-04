@@ -151,7 +151,7 @@ class CodeGuruBotGoogleSearch(Bot):
             **params,
         )
         self.pipeline = GoogleSearchEngine()
-        self.stop_words = ["User:", "Guru:", "Context:"]
+        self.stop_words = ["User:", "Context:"]
         stopping_criterias = []
         for word in self.stop_words:
             input_ids = self.tokenizer(word).input_ids[1:]
