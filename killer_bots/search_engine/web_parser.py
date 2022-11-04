@@ -194,12 +194,6 @@ class GoogleSearchEngine2(GoogleSearchEngine):
 
     def _get_needed_content(self, query, docs):
         data = [doc.content for doc in docs]
-        # data = []
-        # for doc in tqdm.tqdm(docs):
-        #     num_sentences = self.model.calculate_optimal_k(doc.content)
-        #     summary = self.model(doc.content, num_sentences=num_sentences)
-        #     data.append(summary)
-
         sentences, embeddings = self.model.cluster_runner(
             sentences=data,
             ratio=1.0,
@@ -258,7 +252,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
 
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine2()
-    summaries = search_engine("coding, types of design patterns?", top_k=1)
+    summaries = search_engine("coding, list types of design patterns?", top_k=1)
     for summary in summaries:
         print("#" * 100)
         print(summary)
