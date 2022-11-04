@@ -154,7 +154,8 @@ class CodeGuruBotGoogleSearch(Bot):
         self.stop_words = ["User:", "Guru:", "Context:"]
         stopping_criterias = []
         for word in self.stop_words:
-            input_ids = self.tokenizer(word).input_ids[1:]
+            input_ids = self.tokenizer(word, add_special_tokens=False).input_ids
+            print(word, input_ids)
             stopping_criterias.append(
                 StoppingCriteriaSub(stops=input_ids)
             )
