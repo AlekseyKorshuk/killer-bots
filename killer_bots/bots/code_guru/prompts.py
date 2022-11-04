@@ -84,22 +84,22 @@ EXAMPLE_TITLE = "These are examples of conversations with Coding Guru. Where Gur
 #                  f"\n" \
 #                  f"{START_TEMPLATE}"
 
-CONTEXT_PROMPT = f"Context:\n" \
-                 "{}\n" \
-                 "\n" \
-                 f"{CONVERSATION_DESCRIPTION}\n" \
-                 f"\n" \
-                 f"{EXAMPLE_CONVERSATION_1}\n" \
-                 f"\n" \
-                 f"\n" \
-                 f"{CONVERSATION_DESCRIPTION}\n" \
-                 f"\n" \
-                 f"{EXAMPLE_CONVERSATION_2}\n" \
-                 f"\n" \
-                 f"\n" \
-                 f"{CONVERSATION_DESCRIPTION}\n" \
-                 f"\n"
-    # CONTEXT_PROMPT = f"{START_TEMPLATE}"
+# CONTEXT_PROMPT = f"Context:\n" \
+#                  "{}\n" \
+#                  "\n" \
+#                  f"{CONVERSATION_DESCRIPTION}\n" \
+#                  f"\n" \
+#                  f"{EXAMPLE_CONVERSATION_1}\n" \
+#                  f"\n" \
+#                  f"\n" \
+#                  f"{CONVERSATION_DESCRIPTION}\n" \
+#                  f"\n" \
+#                  f"{EXAMPLE_CONVERSATION_2}\n" \
+#                  f"\n" \
+#                  f"\n" \
+#                  f"{CONVERSATION_DESCRIPTION}\n" \
+#                  f"\n"
+CONTEXT_PROMPT = f"{START_TEMPLATE}"
 
 
 # CONTEXT_PROMPT = START_TEMPLATE
