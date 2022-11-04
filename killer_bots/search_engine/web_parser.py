@@ -7,10 +7,11 @@ import torch
 from googlesearch import search
 import article_parser
 import requests
+from summarizer.bert import BertSummarizer
 from transformers import AutoTokenizer
 
 from killer_bots.search_engine.custom_pipeline import _get_document_store
-from killer_bots.search_engine.preprocess_docs import clean_wiki_text, PreprocessDocs, PreprocessDocsFast
+from killer_bots.search_engine.preprocess_docs import clean_wiki_text, PreprocessDocs, PreprocessDocsFast, join_docs
 from haystack.nodes import TransformersSummarizer, EmbeddingRetriever
 from haystack import Document
 from summarizer import Summarizer
@@ -21,7 +22,13 @@ from bs4 import BeautifulSoup
 from string import punctuation
 from heapq import nlargest
 from sentence_transformers import util, SentenceTransformer
-
+from sklearn.metrics.pairwise import euclidean_distances
+from numpy import unique
+from numpy import where
+from sklearn.datasets import make_classification
+from sklearn.cluster import AffinityPropagation
+from matplotlib import pyplot
+from sklearn.decomposition import PCA
 
 def timeit(func):
     @wraps(func)
@@ -179,9 +186,74 @@ class GoogleSearchEngine:
         return min(self.target_num_tokens / len(summary_tokens), 1)
 
 
+class GoogleSearchEngine2(GoogleSearchEngine):
+    def __init__(self):
+        super().__init__()
+        self.model = BertSummarizer('msmarco-distilbert-base-tas-b')
+
+    def _get_needed_content(self, query, docs):
+        data = []
+        for doc in docs:
+            num_sentences = self.model.calculate_optimal_k(doc.content)
+            summary = self.model(doc.content, num_sentences=num_sentences)
+            data.append(summary)
+
+        sentences, embeddings = self.model.cluster_runner(
+            sentences=data,
+            ratio=1.0,
+            num_sentences=len(data),
+        )
+
+        pca_model = PCA(n_components=2)
+        pca_components = pca_model.fit_transform(embeddings)
+
+        cluster_model = AffinityPropagation(damping=0.75)
+        cluster_model.fit(pca_components)
+        yhat = cluster_model.predict(pca_components)
+
+        groups = {x: [] for x in unique(yhat)}
+        for i, cluster in enumerate(yhat):
+            groups[cluster].append(i)
+        groups = {k: v for k, v in groups.items() if len(v) > 1}
+
+        docs = []
+        for cluster in groups.values():
+            docs.append(
+                join_docs([docs[i].content for i in cluster])
+            )
+        data = [doc.content for doc in docs]
+        data = [query] + data
+        sentences, embeddings = self.model.cluster_runner(
+            sentences=data,
+            ratio=1.0,
+            num_sentences=len(data),
+        )
+
+        pca_model = PCA(n_components=2)
+        pca_components = pca_model.fit_transform(embeddings)
+
+        distances = euclidean_distances(pca_components, pca_components)
+        distances = distances[0][1:]
+        _, ids = torch.topk(distances, len(docs))
+        needed_docs = [docs[ids[0]]]
+        for id in ids[1:]:
+            context = "\n".join([doc.content for doc in needed_docs])
+            num_tokens = len(self.tokenizer(context)["input_ids"])
+            new_doc_tokens = len(self.tokenizer(docs[id].content)["input_ids"])
+            if num_tokens + new_doc_tokens < self.target_num_tokens:
+                needed_docs.append(docs[id])
+            else:
+                break
+        needed_docs = sorted(needed_docs, key=lambda x: x.meta["id"], reverse=False)
+        content = "\n".join([doc.content for doc in needed_docs])
+        if len(self.tokenizer(content)["input_ids"]) > self.target_num_tokens:
+            content = self._get_article_summary(needed_docs)
+        return content
+
+
 if __name__ == "__main__":
-    search_engine = GoogleSearchEngine()
-    summaries = search_engine("coding, who created python?", top_k=1)
+    search_engine = GoogleSearchEngine2()
+    summaries = search_engine("coding, what are design patterns?", top_k=1)
     for summary in summaries:
         print("#" * 100)
         print(summary)

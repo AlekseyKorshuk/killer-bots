@@ -139,7 +139,7 @@ def preprocess_docs(docs):
 
 class PreprocessDocsFast:
     def __init__(self):
-        self.is_title_model = SetFitModel.from_pretrained("AlekseyKorshuk/is-title-setfit", device="cuda")
+        pass
 
     def is_title(self, text):
         return text.startswith("#")
@@ -158,7 +158,7 @@ class PreprocessDocsFast:
                 if not self.is_all_title(current_docs):
                     prepared_docs.append(join_docs(current_docs))
                 current_docs = [doc]
-            elif len(clean_wiki_text(doc.content)) > 50:
+            elif len(clean_wiki_text(doc.content)) > 0:
                 current_docs.append(doc)
         if len(current_docs) > 0 and not self.is_all_title(current_docs):
             prepared_docs.append(join_docs(current_docs))
