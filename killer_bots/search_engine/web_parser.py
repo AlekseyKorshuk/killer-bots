@@ -235,6 +235,8 @@ class GoogleSearchEngine2(GoogleSearchEngine):
         distances = util.dot_score(pca_components, pca_components)[0][1:]
         # distances = euclidean_distances(pca_components, pca_components)
         # distances = distances[0][1:]
+        print(distances)
+        print([sentence.split("\n")[0] for sentence in sentences])
         _, ids = torch.topk(distances, len(docs))
         needed_docs = [docs[ids[0]]]
         for id in ids[1:]:
@@ -254,7 +256,7 @@ class GoogleSearchEngine2(GoogleSearchEngine):
 
 if __name__ == "__main__":
     search_engine = GoogleSearchEngine2()
-    summaries = search_engine("coding, what are design patterns?", top_k=1)
+    summaries = search_engine("coding, types of design patterns?", top_k=1)
     for summary in summaries:
         print("#" * 100)
         print(summary)
