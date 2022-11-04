@@ -140,6 +140,7 @@ class GoogleSearchEngine:
             context = "\n".join([doc.content for doc in needed_docs])
             num_tokens = len(self.tokenizer(context)["input_ids"])
             new_doc_tokens = len(self.tokenizer(docs[id].content)["input_ids"])
+            print(num_tokens, new_doc_tokens, num_tokens + new_doc_tokens)
             if num_tokens + new_doc_tokens < self.target_num_tokens:
                 needed_docs.append(docs[id])
             else:
