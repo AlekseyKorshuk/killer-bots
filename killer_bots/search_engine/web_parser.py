@@ -137,7 +137,8 @@ class GoogleSearchEngine:
                 break
         needed_docs = sorted(needed_docs, key=lambda x: x.meta["id"], reverse=True)
         content = "\n".join([doc.content for doc in needed_docs])
-        # content = self._get_article_summary(needed_docs)
+        if len(self.tokenizer(content)["input_ids"]) > self.target_num_tokens:
+            content = self._get_article_summary(needed_docs)
         return content
 
     def _get_links(self, query, num_results):
