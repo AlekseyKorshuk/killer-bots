@@ -121,7 +121,7 @@ class Bot(object):
 
     def _truncate_incomplete_sentence(self, response):
         for i in reversed(range(len(response))):
-            if response[i] in [".", "!", "?", "*"]:
+            if response[i] in [".", "!", "?", "*", "\n"]:
                 break
         return response if not response or i < 1 else response[:i + 1]
 
