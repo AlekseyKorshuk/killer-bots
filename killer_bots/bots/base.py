@@ -50,8 +50,8 @@ class Bot(object):
             "repetition_penalty": self.repetition_penalty,
             "max_new_tokens": self.max_new_tokens,
             "do_sample": self.do_sample,
-            "eos_token_id": self.eos_token_id,
-            "pad_token_id": self.eos_token_id,
+            # "eos_token_id": self.eos_token_id,
+            # "pad_token_id": self.eos_token_id,
         }
 
     def _format_model_inputs(self, text):
