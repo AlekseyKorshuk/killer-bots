@@ -190,7 +190,7 @@ class GoogleSearchEngine:
 class GoogleSearchEngine2(GoogleSearchEngine):
     def __init__(self):
         super().__init__()
-        self.model = SBertSummarizer('all-MiniLM-L6-v2')
+        self.model = SBertSummarizer('msmarco-distilbert-base-v4')
 
     def _get_needed_content(self, query, docs):
         data = [doc.content for doc in docs]
