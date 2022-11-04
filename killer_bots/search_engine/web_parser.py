@@ -135,8 +135,6 @@ class GoogleSearchEngine:
                 needed_docs.append(docs[id])
             else:
                 break
-        print("ids", ids)
-        needed_docs = [docs[i] for i in ids]
         needed_docs = sorted(needed_docs, key=lambda x: x.meta["id"], reverse=True)
         content = "\n".join([doc.content for doc in needed_docs])
         # content = self._get_article_summary(needed_docs)
