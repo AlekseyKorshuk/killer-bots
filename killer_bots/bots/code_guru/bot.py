@@ -150,7 +150,7 @@ class CodeGuruBotGoogleSearch(Bot):
             first_message="I am happy to help with any coding problem. What situation are you facing?",
             **params,
         )
-        self.pipeline = GoogleSearchEngine2()
+        self.pipeline = GoogleSearchEngine()
         self.stop_words = ["User:", "Guru:", "Context:"]
         stopping_criterias = []
         for word in self.stop_words:
