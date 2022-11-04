@@ -65,7 +65,6 @@ START_TEMPLATE = CONVERSATION_DESCRIPTION + """
 
 Context:
 {}
-
 """
 
 EXAMPLE_TITLE = "These are examples of conversations with Coding Guru. Where Guru is giving advice on being a developer and helping with any questions by answering User's requests in details with good explanations."
