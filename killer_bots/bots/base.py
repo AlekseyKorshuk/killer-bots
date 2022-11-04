@@ -46,7 +46,7 @@ class Bot(object):
         return {
             "temperature": self.temperature,
             "top_p": self.top_p,
-            "top_k": self.top_k,
+            # "top_k": self.top_k,
             "repetition_penalty": self.repetition_penalty,
             "max_new_tokens": self.max_new_tokens,
             "do_sample": self.do_sample,
