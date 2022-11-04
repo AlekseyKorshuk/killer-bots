@@ -57,9 +57,9 @@ def load_huggingface_model(model_id):
 
 
 params = {
-    "top_p": 0.75,
+    "top_p": 0.85,
     # "top_k": 8,
-    "temperature": 0.725,
+    "temperature": 1.0,
     "repetition_penalty": 1.1,
     # "eos_token_id": 50118,  # 50118
     "device": device,
