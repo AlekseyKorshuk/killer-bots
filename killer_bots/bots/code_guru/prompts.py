@@ -68,14 +68,13 @@ Context:
 
 EXAMPLE_TITLE = "These are examples of conversations with Coding Guru. Where Guru is giving advice on being a developer and helping with any questions by answering User's requests in details with good explanations."
 
-# CONTEXT_PROMPT = f"{EXAMPLE_TITLE}\n" \
-#                  f"\n" \
-#                  f"{EXAMPLE_CONVERSATION_1}\n" \
-#                  f"\n" \
-#                  f"{EXAMPLE_CONVERSATION_2}\n" \
-#                  f"\n" \
-#                  f"\n" \
-#                  f"{START_TEMPLATE}"
+CONTEXT_PROMPT = f"{EXAMPLE_TITLE}\n" \
+                 f"\n" \
+                 f"{EXAMPLE_CONVERSATION_1}\n" \
+                 f"\n" \
+                 f"{EXAMPLE_CONVERSATION_2}\n" \
+                 f"\n" \
+                 f"{START_TEMPLATE}"
 
 # CONTEXT_PROMPT = f"{EXAMPLE_CONVERSATION_1}\n" \
 #                  f"\n" \
@@ -84,21 +83,21 @@ EXAMPLE_TITLE = "These are examples of conversations with Coding Guru. Where Gur
 #                  f"\n" \
 #                  f"{START_TEMPLATE}"
 
-CONTEXT_PROMPT = f"Context:\n" \
-                 "{}\n" \
-                 "\n" \
-                 f"{CONVERSATION_DESCRIPTION}\n" \
-                 f"\n" \
-                 f"{EXAMPLE_CONVERSATION_1}\n" \
-                 f"\n" \
-                 f"\n" \
-                 f"{CONVERSATION_DESCRIPTION}\n" \
-                 f"\n" \
-                 f"{EXAMPLE_CONVERSATION_2}\n" \
-                 f"\n" \
-                 f"\n" \
-                 f"{CONVERSATION_DESCRIPTION}\n" \
-                 f"\n"
+# CONTEXT_PROMPT = f"Context:\n" \
+#                  "{}\n" \
+#                  "\n" \
+#                  f"{CONVERSATION_DESCRIPTION}\n" \
+#                  f"\n" \
+#                  f"{EXAMPLE_CONVERSATION_1}\n" \
+#                  f"\n" \
+#                  f"\n" \
+#                  f"{CONVERSATION_DESCRIPTION}\n" \
+#                  f"\n" \
+#                  f"{EXAMPLE_CONVERSATION_2}\n" \
+#                  f"\n" \
+#                  f"\n" \
+#                  f"{CONVERSATION_DESCRIPTION}\n" \
+#                  f"\n"
 # CONTEXT_PROMPT = f"{START_TEMPLATE}"
 
 
