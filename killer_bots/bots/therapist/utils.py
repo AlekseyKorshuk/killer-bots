@@ -1,0 +1,27 @@
+import pandas as pd
+from summarizer import Summarizer
+from transformers import AutoTokenizer
+
+
+def get_chats_from_db():
+    df = pd.read_csv("database/counselchat-data.csv")
+    summarizer = Summarizer()
+    max_tokens = 128
+    tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
+    chats = []
+    for i, row in df.iterrows():
+        answer = row['answerText']
+        num_tokens = len(tokenizer(answer).input_ids)
+        ratio = min(max_tokens / num_tokens, 1)
+        if ratio != 0:
+            answer = summarizer(answer, ratio=ratio)
+        chats.append(
+            f"User: {row['questionTitle'] + row['questionText']}\n"
+            f"Therapist: {answer}"
+        )
+    return chats
+
+
+if __name__ == "__main__":
+    chats = get_chats_from_db()
+    print(len(chats))
