@@ -75,7 +75,7 @@ def get_documents():
 def get_retriever(document_store):
     retriever = EmbeddingRetriever(
         document_store=document_store,
-        embedding_model="entence-transformers/all-MiniLM-L6-v2",
+        embedding_model="sentence-transformers/all-MiniLM-L6-v2",
         model_format="sentence_transformers",
         scale_score=False
     )
