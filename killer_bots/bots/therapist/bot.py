@@ -54,7 +54,7 @@ class TherapistBotGoogleSearch(Bot):
         context = "empty"
         if search_query != "none":
             print("Parsing search query...")
-            search_query = f"site:https://counselchat.com {search_query}"
+            search_query = f"therapist, {search_query}"
             context = self.pipeline(search_query, top_k=self.top_k)
             context = "\n".join(context)
         lines = [prompts.CONTEXT_PROMPT.format(context)]
