@@ -21,9 +21,11 @@ def get_chats_from_db():
             answer = summarizer(answer, ratio=ratio)
         question_title = str(row['questionTitle']) if row['questionTitle'] else ""
         question_text = str(row['questionText']) if row['questionText'] else ""
+        chat = f"User: {question_title + question_text}\n" \
+               f"Therapist: {answer}"
+        print(chat)
         chats.append(
-            f"User: {question_title + question_text}\n"
-            f"Therapist: {answer}"
+            chat
         )
     return chats
 
