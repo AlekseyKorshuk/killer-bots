@@ -4,6 +4,7 @@ import pandas as pd
 import tqdm
 from summarizer import Summarizer
 from transformers import AutoTokenizer
+from bs4 import BeautifulSoup
 
 
 def get_chats_from_db():
@@ -15,6 +16,8 @@ def get_chats_from_db():
     chats = []
     for i, row in tqdm.tqdm(df.iterrows(), total=len(df)):
         answer = row['answerText']
+        soup = BeautifulSoup(answer)
+        answer = soup.get_text()
         num_tokens = len(tokenizer(answer).input_ids)
         ratio = min(max_tokens / num_tokens, 1)
         if ratio != 0:
