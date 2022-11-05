@@ -11,7 +11,7 @@ from killer_bots.bots.code_guru import prompts
 from killer_bots.evaluation.utils import run_score
 from killer_bots.bots.code_guru.bot import CodeGuruBot, CodeGuruBotWithContext, CodeGuruBotLFQA, \
     CodeGuruBotWithDialogue, CodeGuruBotGoogleSearch
-
+from killer_bots.bots.therapist.bot import TherapistBotGoogleSearch
 import time
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     run_score(
         [
-            CodeGuruBotGoogleSearch(
+            TherapistBotGoogleSearch(
                 model=model,
                 tokenizer=tokenizer,
                 description={'model': MODEL, 'reward_model': None},
