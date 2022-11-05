@@ -77,8 +77,9 @@ class TherapistBotGoogleSearch(Bot):
         if search_query != "none":
             print("Parsing search query...")
             search_query = f"therapist, {search_query}"
-            context = self.pipeline(search_query, top_k=self.top_k)
-            context = "\n".join(context)
+            # context = self.pipeline(search_query, top_k=self.top_k)
+            # context = "\n".join(context)
+            context = "empty"
 
         chats = self._generate_sample_chats("\n".join(self._get_cropped_history()), num_samples=2, num_turns=4)
         lines = [prompts.EXAMPLE_TITLE]
