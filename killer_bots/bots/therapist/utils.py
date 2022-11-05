@@ -1,10 +1,13 @@
+import pathlib
+
 import pandas as pd
 from summarizer import Summarizer
 from transformers import AutoTokenizer
 
 
 def get_chats_from_db():
-    df = pd.read_csv("database/counselchat-data.csv")
+    global_path = str(pathlib.Path(__file__).parent.resolve()) + "/database/counselchat-data.csv"
+    df = pd.read_csv(global_path)
     summarizer = Summarizer()
     max_tokens = 128
     tokenizer = AutoTokenizer.from_pretrained("facebook/opt-30b")
