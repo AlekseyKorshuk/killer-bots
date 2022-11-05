@@ -77,7 +77,7 @@ def get_retriever(document_store):
         document_store=document_store,
         embedding_model="sentence-transformers/all-MiniLM-L6-v2",
         model_format="sentence_transformers",
-        scale_score=False
+        scale_score=True
     )
     return retriever
 
