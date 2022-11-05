@@ -70,7 +70,8 @@ class TherapistBotGoogleSearch(Bot):
     def _format_model_inputs(self, text):
         self.search_history = self.search_history[:len(self.chat_history) // 2]
         print("Generating search query...")
-        search_query = self.search_query_generator(self.chat_history, self.search_history, self.model, self.tokenizer)
+        # search_query = self.search_query_generator(self.chat_history, self.search_history, self.model, self.tokenizer)
+        search_query = "none"
         print("Search query generated:", search_query)
         self.search_history.append(search_query)
         context = "empty"
