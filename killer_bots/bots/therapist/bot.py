@@ -48,10 +48,12 @@ class TherapistBotGoogleSearch(Bot):
 
     def _format_model_inputs(self, text):
         self.search_history = self.search_history[:len(self.chat_history) // 2]
+        print("Generating search query...")
         search_query = self.search_query_generator(self.chat_history, self.search_history, self.model, self.tokenizer)
         self.search_history.append(search_query)
         context = "empty"
         if search_query != "none":
+            print("Parsing search query...")
             search_query = f"site:https://counselchat.com {search_query}"
             context = self.pipeline(search_query, top_k=self.top_k)
             context = "\n".join(context)
