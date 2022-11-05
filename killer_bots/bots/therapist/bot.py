@@ -2,7 +2,7 @@ import torch
 from transformers import StoppingCriteria, StoppingCriteriaList
 
 from killer_bots.bots.base import Bot
-from killer_bots.bots.code_guru import prompts
+from killer_bots.bots.therapist import prompts
 from killer_bots.search_engine.custom_pipeline import Pipeline
 from killer_bots.search_engine.search_query import SearchQueryGenerator
 from killer_bots.search_engine.search_summarization import SearchSummarization
