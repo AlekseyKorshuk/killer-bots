@@ -170,7 +170,7 @@ class GoogleSearchEngine:
         docs = [Document(doc, meta={"name": None}) for doc in docs]
         print("From:", len(docs))
         docs = self.preprocessor(docs)
-        docs = [doc for doc in docs if len(doc.content) > 30]
+        docs = [doc for doc in docs if len(doc.content) > 100]
         print("To:", len(docs))
         return docs
 
