@@ -82,11 +82,11 @@ class TherapistBotGoogleSearch(Bot):
             context = "empty"
 
         chats = self._generate_sample_chats("\n".join(self._get_cropped_history()), num_samples=2, num_turns=4)
-        lines = [prompts.EXAMPLE_TITLE]
+        lines = [prompts.EXAMPLE_TITLE, ""]
         for chat in chats:
             lines.append(chat)
-            lines.append("\n")
-        lines += [prompts.START_TEMPLATE.format(context)]
+            lines.append("")
+        # lines += [prompts.START_TEMPLATE.format(context)]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
