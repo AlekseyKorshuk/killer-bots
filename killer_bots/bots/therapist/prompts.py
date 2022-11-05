@@ -66,7 +66,7 @@ Context:
 
 """ + USER_FIRST_MESSAGE
 
-EXAMPLE_TITLE = "These are examples of conversations with Coding Guru. Where Guru is giving advice on being a developer and helping with any questions by answering User's requests in details with good explanations."
+EXAMPLE_TITLE = "These are examples of conversations with Therapist. Where Therapist is giving advice on being a and helping with any questions."
 
 CONTEXT_PROMPT = f"{EXAMPLE_TITLE}\n" \
                  f"\n" \

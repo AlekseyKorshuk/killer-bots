@@ -8,6 +8,7 @@ from killer_bots.search_engine.search_query import SearchQueryGenerator
 from killer_bots.search_engine.search_summarization import SearchSummarization
 from killer_bots.search_engine.lfqa import LFQA
 from killer_bots.search_engine.web_parser import GoogleSearchEngine, GoogleSearchEngine2
+from killer_bots.bots.therapist.utils import get_search_pipeline
 
 class StoppingCriteriaSub(StoppingCriteria):
 
@@ -45,6 +46,26 @@ class TherapistBotGoogleSearch(Bot):
         self.top_k = 1
         self.search_history = ["none"]
         self.search_query_generator = SearchQueryGenerator()
+        self.chat_search_pipeline = get_search_pipeline()
+
+    def _generate_sample_chats(self, query, num_samples=2, num_turns=4):
+        total_num_docs = num_samples * num_turns
+        documents = self.chat_search_pipeline.run(
+            query=query,
+            params={
+                "Retriever": {
+                    "top_k": total_num_docs
+                }
+            }
+        )["documents"]
+        documents.reverse()
+        chats = []
+        for i in range(num_samples):
+            chat = []
+            for j in range(num_turns):
+                chat.append(documents[i * num_turns + j].content)
+            chats.append("\n".join(chat))
+        return chats
 
     def _format_model_inputs(self, text):
         self.search_history = self.search_history[:len(self.chat_history) // 2]
@@ -58,7 +79,13 @@ class TherapistBotGoogleSearch(Bot):
             search_query = f"therapist, {search_query}"
             context = self.pipeline(search_query, top_k=self.top_k)
             context = "\n".join(context)
-        lines = [prompts.CONTEXT_PROMPT.format(context)]
+
+        chats = self._generate_sample_chats("\n".join(self._get_cropped_history()), num_samples=2, num_turns=4)
+        lines = [prompts.EXAMPLE_TITLE, "\n"]
+        for chat in chats:
+            lines.append(chat)
+            lines.append("\n")
+        lines += [prompts.START_TEMPLATE.format(context)]
         lines += self._get_cropped_history()
         lines += [f"{self.bot_name}:"]
         lines = "\n".join(lines)
@@ -66,7 +93,4 @@ class TherapistBotGoogleSearch(Bot):
         print(lines)
         print("END PROMPT")
         print("SEARCH QUERY:", search_query)
-        # print("CHAT HISTORY:")
-        # print(self.chat_history)
-        # print("END CHAT HISTORY")
         return lines
