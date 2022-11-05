@@ -24,15 +24,20 @@ def prepare_chats_from_db():
         answer = row['answerText']
         soup = BeautifulSoup(answer, features="lxml")
         answer = soup.get_text()
+        answer = answer.strip().replace("\n", " ")
+
         num_tokens = len(tokenizer(answer).input_ids)
         ratio = min(max_tokens / num_tokens, 1)
         if ratio != 0:
             answer = summarizer(answer, ratio=ratio)
+
         question_title = str(row['questionTitle']) if row['questionTitle'] else ""
         if question_title != "" and question_title[-1] not in [".", "!", "?"]:
             question_title = question_title + "."
         question_text = str(row['questionText']) if row['questionText'] else ""
         question = question_title + " " + question_text
+        question = question.strip().replace("\n", " ")
+
         num_tokens = len(tokenizer(question).input_ids)
         ratio = min(max_tokens / num_tokens, 1)
         if ratio != 1:
