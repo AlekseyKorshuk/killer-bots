@@ -1,3 +1,4 @@
+import json
 import pathlib
 
 import pandas as pd
@@ -26,15 +27,22 @@ def get_chats_from_db():
         if question_title != "" and question_title[-1] not in [".", "!", "?"]:
             question_title = question_title + "."
         question_text = str(row['questionText']) if row['questionText'] else ""
-        chat = f"User: {question_title} {question_text}\n" \
+        question = question_title + " " + question_text
+        num_tokens = len(tokenizer(question).input_ids)
+        ratio = min(max_tokens / num_tokens, 1)
+        if ratio != 0:
+            question = summarizer(question, ratio=ratio)
+        chat = f"User: {question}\n" \
                f"Therapist: {answer}"
-        print(chat)
         chats.append(
-            chat
+            {"text": chat, "votes": row["upvotes"], "url": row["questionUrl"], "topics": row["topics"]}
         )
     return chats
 
 
 if __name__ == "__main__":
     chats = get_chats_from_db()
+    global_path = str(pathlib.Path(__file__).parent.resolve()) + "/database/prepared_chats.txt"
+    with open(global_path, 'w') as f:
+        json.dump(chats, f)
     print(len(chats))
