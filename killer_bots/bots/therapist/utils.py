@@ -35,8 +35,10 @@ def prepare_chats_from_db():
         question = question_title + " " + question_text
         num_tokens = len(tokenizer(question).input_ids)
         ratio = min(max_tokens / num_tokens, 1)
-        if ratio != 0:
+        if ratio != 1:
             question = summarizer(question, ratio=ratio)
+        if question.strip() == "" or answer.strip() == "":
+            continue
         chat = f"User: {question}\n" \
                f"Therapist: {answer}"
         chats.append(
@@ -93,12 +95,12 @@ def get_search_pipeline():
 
 
 if __name__ == "__main__":
-    # chats = prepare_chats_from_db()
-    # global_path = str(pathlib.Path(__file__).parent.resolve()) + "/database/prepared_chats.txt"
-    # with open(global_path, 'w') as f:
-    #     json.dump(chats, f)
-    # print(len(chats))
-
-    chats = get_chats()
-    chats = [chat["text"] for chat in chats]
+    chats = prepare_chats_from_db()
+    global_path = str(pathlib.Path(__file__).parent.resolve()) + "/database/prepared_chats.txt"
+    with open(global_path, 'w') as f:
+        json.dump(chats, f)
     print(len(chats))
+
+    # chats = get_chats()
+    # chats = [chat["text"] for chat in chats]
+    # print(len(chats))

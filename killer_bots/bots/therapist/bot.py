@@ -81,7 +81,7 @@ class TherapistBotGoogleSearch(Bot):
             context = "\n".join(context)
 
         chats = self._generate_sample_chats("\n".join(self._get_cropped_history()), num_samples=2, num_turns=4)
-        lines = [prompts.EXAMPLE_TITLE, "\n"]
+        lines = [prompts.EXAMPLE_TITLE]
         for chat in chats:
             lines.append(chat)
             lines.append("\n")
