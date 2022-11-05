@@ -9,6 +9,19 @@ from killer_bots.search_engine.search_summarization import SearchSummarization
 from killer_bots.search_engine.lfqa import LFQA
 from killer_bots.search_engine.web_parser import GoogleSearchEngine, GoogleSearchEngine2
 
+class StoppingCriteriaSub(StoppingCriteria):
+
+    def __init__(self, stops=[]):
+        StoppingCriteria.__init__(self)
+        self.stops = stops
+
+    def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor, stops=[]):
+        input_ids = input_ids.cpu()[0][-len(self.stops):]
+        for a, b in zip(input_ids, self.stops):
+            if a != b:
+                return False
+        return True
+
 
 class TherapistBotGoogleSearch(Bot):
     def __init__(self, model, tokenizer, description, **params):
