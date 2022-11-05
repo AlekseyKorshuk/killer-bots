@@ -8,7 +8,7 @@ from transformers import AutoTokenizer
 from bs4 import BeautifulSoup
 
 
-def get_chats_from_db():
+def prepare_chats_from_db():
     global_path = str(pathlib.Path(__file__).parent.resolve()) + "/database/counselchat-data.csv"
     df = pd.read_csv(global_path)
     summarizer = Summarizer()
@@ -40,9 +40,19 @@ def get_chats_from_db():
     return chats
 
 
-if __name__ == "__main__":
-    chats = get_chats_from_db()
+def get_chats():
     global_path = str(pathlib.Path(__file__).parent.resolve()) + "/database/prepared_chats.txt"
-    with open(global_path, 'w') as f:
-        json.dump(chats, f)
+    with open(global_path, "r") as f:
+        chats = json.load(f)
+    return chats
+
+
+if __name__ == "__main__":
+    # chats = prepare_chats_from_db()
+    # global_path = str(pathlib.Path(__file__).parent.resolve()) + "/database/prepared_chats.txt"
+    # with open(global_path, 'w') as f:
+    #     json.dump(chats, f)
+    # print(len(chats))
+
+    chats = get_chats()
     print(len(chats))
