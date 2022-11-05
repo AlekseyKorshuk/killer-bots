@@ -18,8 +18,10 @@ def get_chats_from_db():
         ratio = min(max_tokens / num_tokens, 1)
         if ratio != 0:
             answer = summarizer(answer, ratio=ratio)
+        question_title = row['questionTitle'] if row['questionTitle'] else ""
+        question_text = row['questionText'] if row['questionText'] else ""
         chats.append(
-            f"User: {row['questionTitle'] + row['questionText']}\n"
+            f"User: {question_title + question_text}\n"
             f"Therapist: {answer}"
         )
     return chats
