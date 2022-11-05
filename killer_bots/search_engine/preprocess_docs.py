@@ -163,6 +163,7 @@ class PreprocessDocsFast:
         if len(current_docs) > 0 and not self.is_all_title(current_docs):
             prepared_docs.append(join_docs(current_docs))
 
+        prepared_docs = [doc for doc in prepared_docs if str(doc.content).count("\n") < 5]
         return prepared_docs
 
 
